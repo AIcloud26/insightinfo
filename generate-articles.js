@@ -90,7 +90,7 @@ const CATEGORIES = [
   }
 ];
 
-// Unsplash 图片 ID（真实可用的图片）
+// Unsplash 图片 ID
 const IMAGE_IDS = {
   'technology': [
     'photo-1518770660439-4636190af475',
@@ -98,8 +98,7 @@ const IMAGE_IDS = {
     'photo-1531297484001-80022131f5a1',
     'photo-1550751827-4bd374c3f58b',
     'photo-1485827404703-89b55fcc595e',
-    'photo-1451187580459-43490279c0fa',
-    'photo-1518770660439-4636190af475'
+    'photo-1451187580459-43490279c0fa'
   ],
   'finance': [
     'photo-1611974789855-9c2a0a7236a3',
@@ -126,45 +125,33 @@ const IMAGE_IDS = {
   ]
 };
 
-// 作者名列表
-const AUTHORS = [
-  'Sarah Chen', 'Michael Torres', 'Emily Watson', 'James Liu',
-  'Lisa Park', 'David Wang', 'Anna Smith', 'Chris Johnson',
-  'Rachel Kim', 'Tom Bradley', 'Maria Santos', 'Alex Brown',
-  'Jennifer Lee', 'Robert Davis', 'Sophie Zhang', 'Daniel Wilson'
-];
-
 // ============================================
 // 工具函数
 // ============================================
 
-// 随机选择
 function randomChoice(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
-// 随机整数
 function randomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-// 生成阅读时间
 function generateReadTime() {
-  return `${randomInt(3, 12)} min read`;
+  return randomInt(3, 12) + ' min read';
 }
 
-// 获取图片 URL
 function getImageUrl(category) {
-  const ids = IMAGE_IDS[category] || IMAGE_IDS['technology'];
-  const imageId = randomChoice(ids);
-  return `https://images.unsplash.com/${imageId}?w=600&h=400&fit=crop`;
+  var ids = IMAGE_IDS[category] || IMAGE_IDS['technology'];
+  var imageId = randomChoice(ids);
+  return 'https://images.unsplash.com/' + imageId + '?w=600&h=400&fit=crop';
 }
 
 // ============================================
-// 模板生成（免费模式）
+// 模板生成
 // ============================================
 
-const TITLE_TEMPLATES = {
+var TITLE_TEMPLATES = {
   'technology': [
     'Breaking: {topic} Is Reshaping the Tech Industry',
     'The Future of {topic}: What to Expect in 2025',
@@ -207,7 +194,7 @@ const TITLE_TEMPLATES = {
   ]
 };
 
-const EXCERPT_TEMPLATES = [
+var EXCERPT_TEMPLATES = [
   'Discover how {topic} is revolutionizing the industry and what it means for you.',
   'Expert analysis on the latest {topic} trends and their impact on everyday life.',
   'A comprehensive look at {topic} and why it matters in today\'s world.',
@@ -219,19 +206,19 @@ const EXCERPT_TEMPLATES = [
 ];
 
 function generateFromTemplate(category) {
-  const categoryInfo = CATEGORIES.find(c => c.id === category);
-  const topic = randomChoice(categoryInfo.topics);
+  var categoryInfo = CATEGORIES.find(function(c) { return c.id === category; });
+  var topic = randomChoice(categoryInfo.topics);
   
-  const titleTemplates = TITLE_TEMPLATES[category] || TITLE_TEMPLATES['technology'];
-  const title = randomChoice(titleTemplates).replace('{topic}', topic);
+  var titleTemplates = TITLE_TEMPLATES[category] || TITLE_TEMPLATES['technology'];
+  var title = randomChoice(titleTemplates).replace('{topic}', topic);
   
-  const excerpt = randomChoice(EXCERPT_TEMPLATES).replace('{topic}', topic.toLowerCase());
+  var excerpt = randomChoice(EXCERPT_TEMPLATES).replace('{topic}', topic.toLowerCase());
   
-  return { title, excerpt };
+  return { title: title, excerpt: excerpt };
 }
 
 // ============================================
-// AI 生成（需要 OpenAI API）
+// AI 生成
 // ============================================
 
 async function generateWithAI(category) {
@@ -239,23 +226,13 @@ async function generateWithAI(category) {
     return generateFromTemplate(category);
   }
 
-  const categoryInfo = CATEGORIES.find(c => c.id === category);
-  const topic = randomChoice(categoryInfo.topics);
+  var categoryInfo = CATEGORIES.find(function(c) { return c.id === category; });
+  var topic = randomChoice(categoryInfo.topics);
 
-  const prompt = `Generate a blog article title and short excerpt for a ${categoryInfo.name} website.
+  var prompt = 'Generate a blog article title and short excerpt for a ' + categoryInfo.name + ' website.\n\nTopic: ' + topic + '\n\nRequirements:\n- Title: catchy, professional, under 80 characters\n- Excerpt: engaging summary, under 180 characters\n- Sound like 2025 news/insights\n\nReturn ONLY valid JSON (no markdown):\n{"title": "...", "excerpt": "..."}';
 
-Topic: ${topic}
-
-Requirements:
-- Title: catchy, professional, under 80 characters
-- Excerpt: engaging summary, under 180 characters
-- Sound like 2025 news/insights
-
-Return ONLY valid JSON (no markdown):
-{"title": "...", "excerpt": "..."}`;
-
-  return new Promise((resolve) => {
-    const data = JSON.stringify({
+  return new Promise(function(resolve) {
+    var data = JSON.stringify({
       model: CONFIG.openaiModel,
       messages: [
         { role: 'system', content: 'You are a professional tech/finance news writer. Always return valid JSON only, no markdown formatting.' },
@@ -265,29 +242,26 @@ Return ONLY valid JSON (no markdown):
       max_tokens: 150
     });
 
-    const options = {
+    var options = {
       hostname: 'api.openai.com',
       path: '/v1/chat/completions',
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${CONFIG.openaiApiKey}`
+        'Authorization': 'Bearer ' + CONFIG.openaiApiKey
       }
     };
 
-    const req = https.request(options, (res) => {
-      let body = '';
-      res.on('data', (chunk) => body += chunk);
-      res.on('end', () => {
+    var req = https.request(options, function(res) {
+      var body = '';
+      res.on('data', function(chunk) { body += chunk; });
+      res.on('end', function() {
         try {
-          const response = JSON.parse(body);
-          let content = response.choices[0].message.content.trim();
-          
-          // 移除可能的 markdown 代码块
+          var response = JSON.parse(body);
+          var content = response.choices[0].message.content.trim();
           content = content.replace(/^```json\s*/i, '').replace(/\s*```$/i, '');
           content = content.replace(/^```\s*/i, '').replace(/\s*```$/i, '');
-          
-          const parsed = JSON.parse(content);
+          var parsed = JSON.parse(content);
           resolve({
             title: parsed.title.substring(0, 100),
             excerpt: parsed.excerpt.substring(0, 200)
@@ -299,12 +273,12 @@ Return ONLY valid JSON (no markdown):
       });
     });
 
-    req.on('error', (error) => {
+    req.on('error', function(error) {
       console.log('⚠️ AI request failed:', error.message);
       resolve(generateFromTemplate(category));
     });
 
-    req.setTimeout(30000, () => {
+    req.setTimeout(30000, function() {
       req.destroy();
       console.log('⚠️ AI request timeout');
       resolve(generateFromTemplate(category));
@@ -320,22 +294,20 @@ Return ONLY valid JSON (no markdown):
 // ============================================
 
 async function generateArticle(existingIds) {
-  const category = randomChoice(CATEGORIES);
+  var category = randomChoice(CATEGORIES);
   
-  // 生成唯一 ID
-  let id;
+  var id;
   do {
     id = randomInt(100, 99999);
-  } while (existingIds.includes(id));
+  } while (existingIds.indexOf(id) !== -1);
 
-  // 生成标题和摘要
-  let title, excerpt;
+  var title, excerpt;
   if (CONFIG.useAI && CONFIG.openaiApiKey) {
-    const generated = await generateWithAI(category.id);
+    var generated = await generateWithAI(category.id);
     title = generated.title;
     excerpt = generated.excerpt;
   } else {
-    const generated = generateFromTemplate(category.id);
+    var generated = generateFromTemplate(category.id);
     title = generated.title;
     excerpt = generated.excerpt;
   }
@@ -346,7 +318,6 @@ async function generateArticle(existingIds) {
     title: title,
     excerpt: excerpt,
     image: getImageUrl(category.id),
-    author: randomChoice(AUTHORS),
     readTime: generateReadTime()
   };
 }
@@ -359,45 +330,39 @@ async function main() {
   console.log('');
   console.log('🚀 Insightinfo Article Generator');
   console.log('================================');
-  console.log(`📝 Mode: ${CONFIG.useAI ? 'AI-powered' : 'Template-based'}`);
-  console.log(`📊 Generating ${CONFIG.articlesPerDay} new articles`);
+  console.log('📝 Mode: ' + (CONFIG.useAI ? 'AI-powered' : 'Template-based'));
+  console.log('📊 Generating ' + CONFIG.articlesPerDay + ' new articles');
   console.log('');
 
-  // 读取现有文章
-  let existingArticles = [];
-  let existingIds = [];
+  var existingArticles = [];
+  var existingIds = [];
 
   try {
-    const data = fs.readFileSync('articles.json', 'utf8');
-    const json = JSON.parse(data);
+    var data = fs.readFileSync('articles.json', 'utf8');
+    var json = JSON.parse(data);
     existingArticles = json.articles || [];
-    existingIds = existingArticles.map(a => a.id);
-    console.log(`📚 Found ${existingArticles.length} existing articles`);
+    existingIds = existingArticles.map(function(a) { return a.id; });
+    console.log('📚 Found ' + existingArticles.length + ' existing articles');
   } catch (error) {
     console.log('📝 No existing articles, starting fresh');
   }
 
-  // 生成新文章
   console.log('');
   console.log('✨ Generating new articles...');
   console.log('');
   
-  const newArticles = [];
-  for (let i = 0; i < CONFIG.articlesPerDay; i++) {
-    const article = await generateArticle(existingIds);
+  var newArticles = [];
+  for (var i = 0; i < CONFIG.articlesPerDay; i++) {
+    var article = await generateArticle(existingIds);
     newArticles.push(article);
     existingIds.push(article.id);
-    console.log(`   ${i + 1}. [${article.category}] ${article.title}`);
+    console.log('   ' + (i + 1) + '. [' + article.category + '] ' + article.title);
   }
 
-  // 合并（新文章在前）
-  const allArticles = [...newArticles, ...existingArticles];
-  
-  // 限制最大数量
-  const finalArticles = allArticles.slice(0, CONFIG.maxArticles);
+  var allArticles = newArticles.concat(existingArticles);
+  var finalArticles = allArticles.slice(0, CONFIG.maxArticles);
 
-  // 保存
-  const output = {
+  var output = {
     articles: finalArticles,
     metadata: {
       lastUpdated: new Date().toISOString(),
@@ -411,12 +376,12 @@ async function main() {
 
   console.log('');
   console.log('✅ Done!');
-  console.log(`   New: ${newArticles.length} articles`);
-  console.log(`   Total: ${finalArticles.length} articles`);
+  console.log('   New: ' + newArticles.length + ' articles');
+  console.log('   Total: ' + finalArticles.length + ' articles');
   console.log('');
 }
 
-main().catch(error => {
+main().catch(function(error) {
   console.error('❌ Error:', error.message);
   process.exit(1);
 });
