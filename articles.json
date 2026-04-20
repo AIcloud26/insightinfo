@@ -1,220 +1,249 @@
-{
-  "articles": [
-    {
-      "id": 1,
-      "category": "technology",
-      "title": "Quantum Computing Breakthrough: IBM Achieves 1000-Qubit Processor Milestone",
-      "excerpt": "IBM's latest quantum processor marks a significant leap forward in computational capabilities, promising to revolutionize drug discovery and climate modeling.",
-      "image": "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=400&fit=crop",
-      "author": "Sarah Chen",
-      "readTime": "8 min read"
-    },
-    {
-      "id": 2,
-      "category": "finance",
-      "title": "2025 Market Outlook: Top 5 Investment Strategies for Uncertain Times",
-      "excerpt": "Expert analysts share their insights on navigating volatile markets, with a focus on diversification, AI-driven investments, and emerging market opportunities.",
-      "image": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=600&h=400&fit=crop",
-      "author": "Michael Torres",
-      "readTime": "6 min read"
-    },
-    {
-      "id": 3,
-      "category": "ai-tools",
-      "title": "ChatGPT-5 Released: What New Features Mean for Content Creators",
-      "excerpt": "OpenAI's latest model introduces advanced reasoning capabilities and multimodal features that could transform how we create and consume digital content.",
-      "image": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=400&fit=crop",
-      "author": "Emily Watson",
-      "readTime": "7 min read"
-    },
-    {
-      "id": 4,
-      "category": "health-lifestyle",
-      "title": "The Mediterranean Diet: Why 2025 Is the Year to Make the Switch",
-      "excerpt": "New research confirms the long-term benefits of Mediterranean eating patterns for heart health, cognitive function, and longevity. Here's how to get started.",
-      "image": "https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=600&h=400&fit=crop",
-      "author": "Dr. Lisa Park",
-      "readTime": "5 min read"
-    },
-    {
-      "id": 5,
-      "category": "technology",
-      "title": "Zero-Trust Security: The New Standard for Enterprise Protection",
-      "excerpt": "As cyber threats evolve, major corporations are abandoning traditional perimeter-based security for zero-trust architectures. Learn what this means for you.",
-      "image": "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=600&h=400&fit=crop",
-      "author": "James Liu",
-      "readTime": "6 min read"
-    },
-    {
-      "id": 6,
-      "category": "finance",
-      "title": "Retirement in Your 30s: The FIRE Movement Gains Mainstream Traction",
-      "excerpt": "Financial Independence, Retire Early strategies are no longer just for extreme savers. Here's how millennials are reimagining retirement planning.",
-      "image": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&h=400&fit=crop",
-      "author": "Rachel Kim",
-      "readTime": "9 min read"
-    },
-    {
-      "id": 7,
-      "category": "technology",
-      "title": "Web 3.0 and the Decentralized Internet: Separating Hype from Reality",
-      "excerpt": "A deep dive into blockchain-based internet infrastructure and what it means for developers, businesses, and everyday users.",
-      "image": "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=600&h=400&fit=crop",
-      "author": "Alex Chen",
-      "readTime": "10 min read"
-    },
-    {
-      "id": 8,
-      "category": "technology",
-      "title": "5G vs 6G: How Next-Gen Networks Will Transform Connectivity",
-      "excerpt": "While 5G rolls out globally, researchers are already working on 6G. Here's what the future of wireless connectivity looks like.",
-      "image": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&h=400&fit=crop",
-      "author": "David Wang",
-      "readTime": "5 min read"
-    },
-    {
-      "id": 9,
-      "category": "technology",
-      "title": "Humanoid Robots: Boston Dynamics' Atlas Goes Commercial",
-      "excerpt": "The latest generation of humanoid robots is finding its way into warehouses and factories. We explore the implications for workers.",
-      "image": "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=600&h=400&fit=crop",
-      "author": "Maria Santos",
-      "readTime": "7 min read"
-    },
-    {
-      "id": 10,
-      "category": "technology",
-      "title": "SpaceX Starship: The Vehicle That Could Take Humanity to Mars",
-      "excerpt": "With successful test flights completed, SpaceX's Starship is closer than ever to making interplanetary travel a reality.",
-      "image": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&h=400&fit=crop",
-      "author": "Neil Armstrong Jr.",
-      "readTime": "8 min read"
-    },
-    {
-      "id": 11,
-      "category": "finance",
-      "title": "Bitcoin ETFs Approved: What Institutional Adoption Means for Crypto",
-      "excerpt": "Spot Bitcoin ETFs are now trading on major exchanges. We analyze what this means for the future of cryptocurrency investment.",
-      "image": "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=600&h=400&fit=crop",
-      "author": "Chris Morgan",
-      "readTime": "6 min read"
-    },
-    {
-      "id": 12,
-      "category": "finance",
-      "title": "Real Estate 2025: Why Smart Money Is Moving to Secondary Cities",
-      "excerpt": "With remote work reshaping priorities, investors are turning away from expensive coastal metros to emerging markets.",
-      "image": "https://images.unsplash.com/photo-1553729459-efe14ef6055d?w=600&h=400&fit=crop",
-      "author": "Jennifer Lee",
-      "readTime": "7 min read"
-    },
-    {
-      "id": 13,
-      "category": "ai-tools",
-      "title": "Midjourney V7: The AI Art Generator That Stuns Professional Designers",
-      "excerpt": "The latest version of Midjourney produces photorealistic images that are indistinguishable from real photographs.",
-      "image": "https://images.unsplash.com/photo-1547891654-e66ed7ebb968?w=600&h=400&fit=crop",
-      "author": "Sophie Zhang",
-      "readTime": "5 min read"
-    },
-    {
-      "id": 14,
-      "category": "ai-tools",
-      "title": "The Best AI Productivity Tools for Remote Workers in 2025",
-      "excerpt": "From AI schedulers to smart email assistants, these tools can save remote workers 10+ hours per week.",
-      "image": "https://images.unsplash.com/photo-1488229297570-58520851e68c?w=600&h=400&fit=crop",
-      "author": "Tom Bradley",
-      "readTime": "8 min read"
-    },
-    {
-      "id": 15,
-      "category": "health-lifestyle",
-      "title": "HIIT vs Steady-State Cardio: Science-Backed Guide to Fat Loss",
-      "excerpt": "A comprehensive analysis of the latest research comparing high-intensity interval training with traditional cardio.",
-      "image": "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&h=400&fit=crop",
-      "author": "Coach Mike",
-      "readTime": "6 min read"
-    },
-    {
-      "id": 16,
-      "category": "health-lifestyle",
-      "title": "Mindfulness at Work: How 10 Minutes Daily Can Transform Your Career",
-      "excerpt": "Companies like Google and Aetna are investing in workplace mindfulness. Here's the science behind its benefits.",
-      "image": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=600&h=400&fit=crop",
-      "author": "Dr. Anna White",
-      "readTime": "5 min read"
-    },
-    {
-      "id": 17,
-      "category": "health-lifestyle",
-      "title": "Sleep Optimization: The Ultimate Guide to Better Rest in 2025",
-      "excerpt": "From smart mattresses to sleep-tracking apps, technology is revolutionizing how we approach rest and recovery.",
-      "image": "https://images.unsplash.com/photo-1512438248247-f0f2a5a8b7f0?w=600&h=400&fit=crop",
-      "author": "Dr. Robert Chen",
-      "readTime": "9 min read"
-    },
-    {
-      "id": 18,
-      "category": "health-lifestyle",
-      "title": "Meal Prep Made Easy: 30 Healthy Recipes Under 30 Minutes",
-      "excerpt": "Save time and money while eating healthier with these proven meal prep strategies from professional nutritionists.",
-      "image": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&h=400&fit=crop",
-      "author": "Chef Maria",
-      "readTime": "7 min read"
-    },
-    {
-      "id": 19,
-      "category": "ai-tools",
-      "title": "Claude 4 vs GPT-5: Which AI Assistant Should You Choose?",
-      "excerpt": "A detailed comparison of the two leading AI assistants, covering reasoning, creativity, coding, and real-world performance.",
-      "image": "https://images.unsplash.com/photo-1676299081847-824916de030a?w=600&h=400&fit=crop",
-      "author": "Tech Review Team",
-      "readTime": "12 min read"
-    },
-    {
-      "id": 20,
-      "category": "ai-tools",
-      "title": "Building Your First AI App: A Beginner's Guide with No Code",
-      "excerpt": "You don't need to be a programmer to create AI-powered applications. Here's how to get started with no-code tools.",
-      "image": "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=600&h=400&fit=crop",
-      "author": "No-Code Ninja",
-      "readTime": "10 min read"
-    },
-    {
-      "id": 21,
-      "category": "finance",
-      "title": "Passive Income Streams: 10 Ideas That Actually Work in 2025",
-      "excerpt": "Forget get-rich-quick schemes. These proven passive income strategies can help you build wealth over time.",
-      "image": "https://images.unsplash.com/photo-1579621970795-6f224c840a2e?w=600&h=400&fit=crop",
-      "author": "Wealth Builder",
-      "readTime": "8 min read"
-    },
-    {
-      "id": 22,
-      "category": "finance",
-      "title": "Understanding DeFi: A Complete Guide for Beginners",
-      "excerpt": "Decentralized finance is reshaping how we think about money. Learn the basics and how to get started safely.",
-      "image": "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=600&h=400&fit=crop",
-      "author": "Crypto Expert",
-      "readTime": "11 min read"
-    },
-    {
-      "id": 23,
-      "category": "technology",
-      "title": "Apple Vision Pro 2: Everything We Know So Far",
-      "excerpt": "Apple's next-generation spatial computing device promises major improvements. Here's what to expect.",
-      "image": "https://images.unsplash.com/photo-1617802690992-15d93263d3a9?w=600&h=400&fit=crop",
-      "author": "Apple Insider",
-      "readTime": "6 min read"
-    },
-    {
-      "id": 24,
-      "category": "health-lifestyle",
-      "title": "The Science of Habit Formation: How to Build Habits That Stick",
-      "excerpt": "Research-backed strategies for creating lasting positive changes in your life, from exercise to productivity.",
-      "image": "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=600&h=400&fit=crop",
-      "author": "Habit Coach",
-      "readTime": "7 min read"
-    }
-  ]
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Read the full article on Insightinfo">
+    <title>Article - Insightinfo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">I</div>
+                Insight<span>info</span>
+            </a>
+            
+            <div class="menu-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            
+            <div class="nav-container" id="navContainer">
+                <nav>
+                    <ul class="nav">
+                        <li><a href="index.html">All</a></li>
+                        <li><a href="category.html?cat=technology">Technology</a></li>
+                        <li><a href="category.html?cat=finance">Finance</a></li>
+                        <li><a href="category.html?cat=ai-tools">AI Tools</a></li>
+                        <li><a href="category.html?cat=health-lifestyle">Health & Lifestyle</a></li>
+                    </ul>
+                </nav>
+                
+                <div class="search-box">
+                    <input type="text" placeholder="Search articles...">
+                    <button type="submit">🔍</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <article class="article-detail" id="articleDetail">
+            <div class="loading" id="loading"></div>
+        </article>
+
+        <!-- Related Articles -->
+        <section class="mb-4" style="margin-top: 3rem;" id="relatedSection">
+            <h2 class="mb-2">Related Articles</h2>
+            <div class="article-grid" id="relatedGrid"></div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>About Insightinfo</h4>
+                <p>Your trusted source for the latest insights in Technology, Finance, AI Tools, and Health & Lifestyle.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="category.html?cat=technology">Technology</a></li>
+                    <li><a href="category.html?cat=finance">Finance</a></li>
+                    <li><a href="category.html?cat=ai-tools">AI Tools</a></li>
+                    <li><a href="category.html?cat=health-lifestyle">Health & Lifestyle</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 Insightinfo. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()">↑</button>
+
+    <script>
+        var categoryNames = {
+            'technology': 'Technology',
+            'finance': 'Finance',
+            'ai-tools': 'AI Tools',
+            'health-lifestyle': 'Health & Lifestyle'
+        };
+
+        function generateViews() {
+            var views = Math.floor(Math.random() * 25000) + 5000;
+            return views.toLocaleString();
+        }
+
+        function generateDate() {
+            var today = new Date();
+            var daysAgo = Math.floor(Math.random() * 30);
+            var date = new Date(today);
+            date.setDate(date.getDate() - daysAgo);
+            return date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+        }
+
+        function generateContent(article) {
+            var catName = categoryNames[article.category];
+            return '<p>In this comprehensive guide, we explore everything you need to know about this topic.</p>' +
+                '<h2>Introduction</h2>' +
+                '<p>The landscape of ' + catName.toLowerCase() + ' is rapidly evolving, and understanding the key concepts has never been more important. This article dives deep into the subject matter, providing you with actionable insights and expert analysis.</p>' +
+                '<h2>Key Points</h2>' +
+                '<ul>' +
+                '<li><strong>Understanding the Basics:</strong> We\'ll start with foundational concepts that everyone should know.</li>' +
+                '<li><strong>Current Trends:</strong> Learn about the latest developments shaping the industry.</li>' +
+                '<li><strong>Practical Applications:</strong> Discover how to apply these insights in real-world scenarios.</li>' +
+                '<li><strong>Future Outlook:</strong> Get a glimpse of what\'s coming next in this space.</li>' +
+                '</ul>' +
+                '<h2>Why This Matters</h2>' +
+                '<p>' + article.excerpt + '</p>' +
+                '<blockquote>"The key to success in ' + catName.toLowerCase() + ' is staying informed and adaptable. Those who embrace change will thrive."</blockquote>' +
+                '<h2>Actionable Takeaways</h2>' +
+                '<ol>' +
+                '<li>Stay updated with the latest trends and developments</li>' +
+                '<li>Apply these insights to your own projects or investments</li>' +
+                '<li>Share your knowledge with others in your network</li>' +
+                '<li>Continue learning through our recommended resources</li>' +
+                '</ol>' +
+                '<h2>Conclusion</h2>' +
+                '<p>We hope this article has provided valuable insights. The world of ' + catName.toLowerCase() + ' continues to evolve, and staying informed is the key to success.</p>';
+        }
+
+        function renderArticle(article) {
+            var container = document.getElementById('articleDetail');
+            var loading = document.getElementById('loading');
+            if (loading) loading.remove();
+            
+            var views = generateViews();
+            var date = generateDate();
+            var catName = categoryNames[article.category];
+            
+            container.innerHTML = 
+                '<div class="article-hero">' +
+                '<img src="' + article.image.replace('w=600&h=400', 'w=1200&h=600') + '" alt="' + article.title + '">' +
+                '</div>' +
+                '<div class="article-body">' +
+                '<header class="article-header">' +
+                '<span class="card-category">' + catName + '</span>' +
+                '<h1>' + article.title + '</h1>' +
+                '<div class="article-meta">' +
+                '<span>📅 ' + date + '</span>' +
+                '<span>👁 ' + views + ' views</span>' +
+                '<span>⏱️ ' + article.readTime + '</span>' +
+                '</div>' +
+                '</header>' +
+                '<div class="article-content">' +
+                generateContent(article) +
+                '</div>' +
+                '<div class="article-tags">' +
+                '<a href="category.html?cat=' + article.category + '" class="tag">' + catName + '</a>' +
+                '<a href="#" class="tag">Trending</a>' +
+                '<a href="#" class="tag">2025</a>' +
+                '</div>' +
+                '</div>';
+            
+            document.title = article.title + ' - Insightinfo';
+        }
+
+        function renderRelated(currentArticle, allArticles) {
+            var related = allArticles.filter(function(a) { 
+                return a.category === currentArticle.category && a.id !== currentArticle.id; 
+            }).slice(0, 3);
+            
+            if (related.length === 0) {
+                document.getElementById('relatedSection').style.display = 'none';
+                return;
+            }
+            
+            var grid = document.getElementById('relatedGrid');
+            var html = '';
+            
+            for (var i = 0; i < related.length; i++) {
+                var article = related[i];
+                html += '<article class="article-card">' +
+                    '<div class="card-image">' +
+                    '<img src="' + article.image + '" alt="' + article.title + '" loading="lazy">' +
+                    '</div>' +
+                    '<div class="card-content">' +
+                    '<span class="card-category">' + categoryNames[article.category] + '</span>' +
+                    '<h3 class="card-title">' +
+                    '<a href="article.html?id=' + article.id + '">' + article.title + '</a>' +
+                    '</h3>' +
+                    '<p class="card-excerpt">' + article.excerpt + '</p>' +
+                    '<div class="card-meta">' +
+                    '<span>📅 ' + generateDate() + '</span>' +
+                    '<span>👁 ' + Math.floor(Math.random() * 15 + 5) + 'K views</span>' +
+                    '</div>' +
+                    '<a href="article.html?id=' + article.id + '" class="read-more-btn">Read More...</a>' +
+                    '</div>' +
+                    '</article>';
+            }
+            
+            grid.innerHTML = html;
+        }
+
+        function toggleMenu() {
+            var nav = document.getElementById('navContainer');
+            if (nav) nav.classList.toggle('active');
+        }
+
+        window.addEventListener('scroll', function() {
+            var btn = document.getElementById('backToTop');
+            if (btn) btn.classList.toggle('visible', window.pageYOffset > 300);
+        });
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        async function loadArticle() {
+            try {
+                var response = await fetch('articles.json');
+                var data = await response.json();
+                var articles = data.articles;
+                
+                var urlParams = new URLSearchParams(window.location.search);
+                var articleId = parseInt(urlParams.get('id')) || 1;
+                
+                var article = articles.find(function(a) { return a.id === articleId; }) || articles[0];
+                
+                renderArticle(article);
+                renderRelated(article, articles);
+            } catch (error) {
+                console.error('Error:', error);
+                var container = document.getElementById('articleDetail');
+                if (container) {
+                    container.innerHTML = '<p style="text-align: center; padding: 3rem;">Unable to load article. <a href="index.html">Return to homepage</a></p>';
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadArticle);
+    </script>
+</body>
+</html>
