@@ -36,7 +36,7 @@
                 
                 <div class="search-box">
                     <input type="text" placeholder="Search articles..." id="searchInput">
-                    <button type="button" onclick="handleSearch()">🔍</button>
+                    <button type="button" id="searchBtn">🔍</button>
                 </div>
             </div>
         </div>
@@ -48,6 +48,12 @@
             <h1>Latest Articles</h1>
             <p>Discover insights across Technology, Finance, AI Tools, and Health & Lifestyle</p>
             <p class="last-updated" id="lastUpdated"></p>
+        </div>
+
+        <!-- Search Results Info -->
+        <div id="searchInfo" style="display: none; margin-bottom: 1rem; padding: 0.5rem 1rem; background: #fff3cd; border-radius: 8px;">
+            <span id="searchText"></span>
+            <button onclick="clearSearch()" style="margin-left: 10px; background: #ff6b35; color: white; border: none; padding: 2px 10px; border-radius: 4px; cursor: pointer;">Clear</button>
         </div>
 
         <!-- Article Grid -->
@@ -93,12 +99,15 @@
     <button class="back-to-top" id="backToTop" onclick="scrollToTop()">↑</button>
 
     <script>
-        const ARTICLES_PER_PAGE = 6;
-        let allArticles = [];
-        let currentPage = 1;
-        let filteredArticles = [];
+        // 全局变量 - 必须在最前面定义
+        var ARTICLES_PER_PAGE = 6;
+        var allArticles = [];
+        var currentPage = 1;
+        var filteredArticles = [];
+        var isSearching = false;
+        var searchQuery = '';
 
-        const categoryNames = {
+        var categoryNames = {
             'technology': 'Technology',
             'finance': 'Finance',
             'ai-tools': 'AI Tools',
@@ -106,30 +115,30 @@
         };
 
         function generateViews() {
-            const views = Math.floor(Math.random() * 25000) + 1000;
+            var views = Math.floor(Math.random() * 25000) + 1000;
             return views >= 1000 ? (views / 1000).toFixed(1) + 'K' : views.toString();
         }
 
         function generateDate(index) {
-            const today = new Date();
-            const daysAgo = Math.floor(Math.random() * 30) + index;
-            const date = new Date(today);
+            var today = new Date();
+            var daysAgo = Math.floor(Math.random() * 30) + index;
+            var date = new Date(today);
             date.setDate(date.getDate() - daysAgo);
             return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
         }
 
         function updateLastUpdated() {
-            const now = new Date();
-            const options = { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' };
-            const el = document.getElementById('lastUpdated');
+            var now = new Date();
+            var options = { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' };
+            var el = document.getElementById('lastUpdated');
             if (el) {
                 el.innerHTML = '<small>Last updated: ' + now.toLocaleDateString('en-US', options) + '</small>';
             }
         }
 
         function createArticleCard(article, index) {
-            const views = generateViews();
-            const date = generateDate(index);
+            var views = generateViews();
+            var date = generateDate(index);
             
             return '<article class="article-card">' +
                 '<div class="card-image">' +
@@ -151,24 +160,29 @@
         }
 
         function renderArticles(articles) {
-            const grid = document.getElementById('articleGrid');
-            const loading = document.getElementById('loading');
+            var grid = document.getElementById('articleGrid');
+            var loading = document.getElementById('loading');
             
             if (loading) loading.remove();
             
             if (!grid) return;
             
             if (articles.length === 0) {
-                grid.innerHTML = '<p style="text-align: center; grid-column: 1/-1; padding: 3rem;">No articles found.</p>';
+                if (isSearching) {
+                    grid.innerHTML = '<p style="text-align: center; grid-column: 1/-1; padding: 3rem; color: #666;">No articles found for "' + searchQuery + '". Try different keywords.</p>';
+                } else {
+                    grid.innerHTML = '<p style="text-align: center; grid-column: 1/-1; padding: 3rem;">No articles found.</p>';
+                }
+                document.getElementById('pagination').innerHTML = '';
                 return;
             }
             
-            const startIndex = (currentPage - 1) * ARTICLES_PER_PAGE;
-            const endIndex = startIndex + ARTICLES_PER_PAGE;
-            const pageArticles = articles.slice(startIndex, endIndex);
+            var startIndex = (currentPage - 1) * ARTICLES_PER_PAGE;
+            var endIndex = startIndex + ARTICLES_PER_PAGE;
+            var pageArticles = articles.slice(startIndex, endIndex);
             
-            let html = '';
-            for (let i = 0; i < pageArticles.length; i++) {
+            var html = '';
+            for (var i = 0; i < pageArticles.length; i++) {
                 html += createArticleCard(pageArticles[i], startIndex + i);
             }
             grid.innerHTML = html;
@@ -177,8 +191,8 @@
         }
 
         function renderPagination(totalArticles) {
-            const totalPages = Math.ceil(totalArticles / ARTICLES_PER_PAGE);
-            const pagination = document.getElementById('pagination');
+            var totalPages = Math.ceil(totalArticles / ARTICLES_PER_PAGE);
+            var pagination = document.getElementById('pagination');
             
             if (!pagination) return;
             
@@ -187,10 +201,10 @@
                 return;
             }
             
-            let html = '';
+            var html = '';
             html += '<a href="#" class="' + (currentPage === 1 ? 'disabled' : '') + '" onclick="changePage(' + (currentPage - 1) + '); return false;">«</a>';
             
-            for (let i = 1; i <= totalPages; i++) {
+            for (var i = 1; i <= totalPages; i++) {
                 if (i === currentPage) {
                     html += '<a href="#" class="active">' + i + '</a>';
                 } else if (i === 1 || i === totalPages || Math.abs(i - currentPage) <= 1) {
@@ -206,7 +220,7 @@
         }
 
         function changePage(page) {
-            const totalPages = Math.ceil(filteredArticles.length / ARTICLES_PER_PAGE);
+            var totalPages = Math.ceil(filteredArticles.length / ARTICLES_PER_PAGE);
             if (page < 1 || page > totalPages) return;
             
             currentPage = page;
@@ -215,44 +229,110 @@
         }
 
         function handleSearch() {
-            const input = document.getElementById('searchInput');
+            var input = document.getElementById('searchInput');
+            var searchInfo = document.getElementById('searchInfo');
+            var searchText = document.getElementById('searchText');
+            
             if (!input) return;
             
-            const query = input.value.toLowerCase().trim();
+            var query = input.value.trim();
+            searchQuery = query;
             
             if (query === '') {
-                filteredArticles = allArticles.slice();
-            } else {
-                filteredArticles = allArticles.filter(function(article) {
-                    return article.title.toLowerCase().indexOf(query) !== -1 ||
-                           article.excerpt.toLowerCase().indexOf(query) !== -1 ||
-                           article.category.toLowerCase().indexOf(query) !== -1;
-                });
+                clearSearch();
+                return;
             }
             
+            isSearching = true;
             currentPage = 1;
+            
+            var lowerQuery = query.toLowerCase();
+            filteredArticles = allArticles.filter(function(article) {
+                var titleMatch = article.title.toLowerCase().indexOf(lowerQuery) !== -1;
+                var excerptMatch = article.excerpt.toLowerCase().indexOf(lowerQuery) !== -1;
+                var categoryMatch = article.category.toLowerCase().indexOf(lowerQuery) !== -1;
+                return titleMatch || excerptMatch || categoryMatch;
+            });
+            
+            // 显示搜索信息
+            if (searchInfo && searchText) {
+                searchInfo.style.display = 'block';
+                searchText.textContent = 'Found ' + filteredArticles.length + ' results for "' + query + '"';
+            }
+            
             renderArticles(filteredArticles);
         }
 
-        // 回车键搜索
-        document.addEventListener('DOMContentLoaded', function() {
-            const searchInput = document.getElementById('searchInput');
+        function clearSearch() {
+            var input = document.getElementById('searchInput');
+            var searchInfo = document.getElementById('searchInfo');
+            
+            isSearching = false;
+            searchQuery = '';
+            currentPage = 1;
+            
+            if (input) input.value = '';
+            if (searchInfo) searchInfo.style.display = 'none';
+            
+            filteredArticles = allArticles.slice();
+            renderArticles(filteredArticles);
+        }
+
+        function toggleMenu() {
+            var nav = document.getElementById('navContainer');
+            if (nav) nav.classList.toggle('active');
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // 初始化搜索事件
+        function initSearch() {
+            var searchInput = document.getElementById('searchInput');
+            var searchBtn = document.getElementById('searchBtn');
+            
             if (searchInput) {
                 searchInput.addEventListener('keypress', function(e) {
-                    if (e.key === 'Enter') {
+                    if (e.key === 'Enter' || e.keyCode === 13) {
+                        e.preventDefault();
                         handleSearch();
                     }
                 });
             }
-        });
+            
+            if (searchBtn) {
+                searchBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    handleSearch();
+                });
+            }
+        }
 
-        function toggleMenu() {
-            const nav = document.getElementById('navContainer');
-            if (nav) nav.classList.toggle('active');
+        // 加载文章
+        async function loadArticles() {
+            try {
+                var response = await fetch('articles.json');
+                var data = await response.json();
+                allArticles = data.articles || [];
+                filteredArticles = allArticles.slice();
+                
+                filteredArticles.sort(function() { return Math.random() - 0.5; });
+                
+                renderArticles(filteredArticles);
+                updateLastUpdated();
+                initSearch();
+            } catch (error) {
+                console.error('Error loading articles:', error);
+                var grid = document.getElementById('articleGrid');
+                if (grid) {
+                    grid.innerHTML = '<p style="text-align: center; grid-column: 1/-1; padding: 3rem; color: #999;">Unable to load articles. Please try again later.</p>';
+                }
+            }
         }
 
         window.addEventListener('scroll', function() {
-            const btn = document.getElementById('backToTop');
+            var btn = document.getElementById('backToTop');
             if (btn) {
                 if (window.pageYOffset > 300) {
                     btn.classList.add('visible');
@@ -261,31 +341,6 @@
                 }
             }
         });
-
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        async function loadArticles() {
-            try {
-                const response = await fetch('articles.json');
-                const data = await response.json();
-                allArticles = data.articles;
-                filteredArticles = allArticles.slice();
-                
-                // 随机排序
-                filteredArticles.sort(function() { return Math.random() - 0.5; });
-                
-                renderArticles(filteredArticles);
-                updateLastUpdated();
-            } catch (error) {
-                console.error('Error loading articles:', error);
-                const grid = document.getElementById('articleGrid');
-                if (grid) {
-                    grid.innerHTML = '<p style="text-align: center; grid-column: 1/-1; padding: 3rem; color: #999;">Unable to load articles. Please try again later.</p>';
-                }
-            }
-        }
 
         document.addEventListener('DOMContentLoaded', loadArticles);
     </script>
