@@ -48,7 +48,7 @@
         </article>
 
         <!-- Related Articles -->
-        <section class="mb-4" style="margin-top: 3rem;" id="relatedSection" style="display: none;">
+        <section class="mb-4" style="margin-top: 3rem;" id="relatedSection">
             <h2 class="mb-2">Related Articles</h2>
             <div class="article-grid" id="relatedGrid"></div>
         </section>
@@ -88,181 +88,158 @@
     <button class="back-to-top" id="backToTop" onclick="scrollToTop()">↑</button>
 
     <script>
-        const categoryNames = {
+        var categoryNames = {
             'technology': 'Technology',
             'finance': 'Finance',
             'ai-tools': 'AI Tools',
             'health-lifestyle': 'Health & Lifestyle'
         };
 
-        // Generate view count
         function generateViews() {
-            const views = Math.floor(Math.random() * 25000) + 5000;
+            var views = Math.floor(Math.random() * 25000) + 5000;
             return views.toLocaleString();
         }
 
-        // Generate date
         function generateDate() {
-            const today = new Date();
-            const daysAgo = Math.floor(Math.random() * 30);
-            const date = new Date(today);
+            var today = new Date();
+            var daysAgo = Math.floor(Math.random() * 30);
+            var date = new Date(today);
             date.setDate(date.getDate() - daysAgo);
             return date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
         }
 
-        // Generate article content (placeholder)
         function generateContent(article) {
-            return `
-                <p>In this comprehensive guide, we explore everything you need to know about ${article.title.toLowerCase()}.</p>
-                
-                <h2>Introduction</h2>
-                <p>The landscape of ${categoryNames[article.category].toLowerCase()} is rapidly evolving, and understanding the key concepts has never been more important. This article dives deep into the subject matter, providing you with actionable insights and expert analysis.</p>
-                
-                <h2>Key Points</h2>
-                <ul>
-                    <li><strong>Understanding the Basics:</strong> We'll start with foundational concepts that everyone should know.</li>
-                    <li><strong>Current Trends:</strong> Learn about the latest developments shaping the industry.</li>
-                    <li><strong>Practical Applications:</strong> Discover how to apply these insights in real-world scenarios.</li>
-                    <li><strong>Future Outlook:</strong> Get a glimpse of what's coming next in this space.</li>
-                </ul>
-                
-                <h2>Why This Matters</h2>
-                <p>${article.excerpt}</p>
-                
-                <blockquote>"The key to success in ${categoryNames[article.category].toLowerCase()} is staying informed and adaptable. Those who embrace change will thrive."</blockquote>
-                
-                <h2>Actionable Takeaways</h2>
-                <ol>
-                    <li>Stay updated with the latest trends and developments</li>
-                    <li>Apply these insights to your own projects or investments</li>
-                    <li>Share your knowledge with others in your network</li>
-                    <li>Continue learning through our recommended resources</li>
-                </ol>
-                
-                <h2>Conclusion</h2>
-                <p>We hope this article has provided valuable insights into ${article.title.toLowerCase()}. The world of ${categoryNames[article.category].toLowerCase()} continues to evolve, and staying informed is the key to success.</p>
-                <p>What are your thoughts on this topic? Share your experiences in the comments below!</p>
-            `;
+            var catName = categoryNames[article.category];
+            return '<p>In this comprehensive guide, we explore everything you need to know about this topic.</p>' +
+                '<h2>Introduction</h2>' +
+                '<p>The landscape of ' + catName.toLowerCase() + ' is rapidly evolving, and understanding the key concepts has never been more important. This article dives deep into the subject matter, providing you with actionable insights and expert analysis.</p>' +
+                '<h2>Key Points</h2>' +
+                '<ul>' +
+                '<li><strong>Understanding the Basics:</strong> We\'ll start with foundational concepts that everyone should know.</li>' +
+                '<li><strong>Current Trends:</strong> Learn about the latest developments shaping the industry.</li>' +
+                '<li><strong>Practical Applications:</strong> Discover how to apply these insights in real-world scenarios.</li>' +
+                '<li><strong>Future Outlook:</strong> Get a glimpse of what\'s coming next in this space.</li>' +
+                '</ul>' +
+                '<h2>Why This Matters</h2>' +
+                '<p>' + article.excerpt + '</p>' +
+                '<blockquote>"The key to success in ' + catName.toLowerCase() + ' is staying informed and adaptable. Those who embrace change will thrive."</blockquote>' +
+                '<h2>Actionable Takeaways</h2>' +
+                '<ol>' +
+                '<li>Stay updated with the latest trends and developments</li>' +
+                '<li>Apply these insights to your own projects or investments</li>' +
+                '<li>Share your knowledge with others in your network</li>' +
+                '<li>Continue learning through our recommended resources</li>' +
+                '</ol>' +
+                '<h2>Conclusion</h2>' +
+                '<p>We hope this article has provided valuable insights. The world of ' + catName.toLowerCase() + ' continues to evolve, and staying informed is the key to success.</p>';
         }
 
-        // Render article
         function renderArticle(article) {
-            const container = document.getElementById('articleDetail');
-            const loading = document.getElementById('loading');
+            var container = document.getElementById('articleDetail');
+            var loading = document.getElementById('loading');
             if (loading) loading.remove();
             
-            const views = generateViews();
-            const date = generateDate();
+            var views = generateViews();
+            var date = generateDate();
+            var catName = categoryNames[article.category];
             
-            container.innerHTML = `
-                <div class="article-hero">
-                    <img src="${article.image.replace('w=600&h=400', 'w=1200&h=600')}" alt="${article.title}">
-                </div>
-                
-                <div class="article-body">
-                    <header class="article-header">
-                        <span class="card-category">${categoryNames[article.category]}</span>
-                        <h1>${article.title}</h1>
-                        <div class="article-meta">
-                            <span>📅 ${date}</span>
-                            <span>✍️ ${article.author}</span>
-                            <span>👁 ${views} views</span>
-                            <span>⏱️ ${article.readTime}</span>
-                        </div>
-                    </header>
-
-                    <div class="article-content">
-                        ${generateContent(article)}
-                    </div>
-
-                    <div class="article-tags">
-                        <a href="category.html?cat=${article.category}" class="tag">${categoryNames[article.category]}</a>
-                        <a href="#" class="tag">Trending</a>
-                        <a href="#" class="tag">2025</a>
-                    </div>
-
-                    <div class="share-section">
-                        <h4>Share this article:</h4>
-                        <div class="share-buttons">
-                            <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent(article.title)}&url=${encodeURIComponent(window.location.href)}" 
-                               class="share-btn twitter" target="_blank">Twitter</a>
-                            <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}" 
-                               class="share-btn facebook" target="_blank">Facebook</a>
-                            <a href="https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(window.location.href)}&title=${encodeURIComponent(article.title)}" 
-                               class="share-btn linkedin" target="_blank">LinkedIn</a>
-                        </div>
-                    </div>
-                </div>
-            `;
+            container.innerHTML = 
+                '<div class="article-hero">' +
+                '<img src="' + article.image.replace('w=600&h=400', 'w=1200&h=600') + '" alt="' + article.title + '">' +
+                '</div>' +
+                '<div class="article-body">' +
+                '<header class="article-header">' +
+                '<span class="card-category">' + catName + '</span>' +
+                '<h1>' + article.title + '</h1>' +
+                '<div class="article-meta">' +
+                '<span>📅 ' + date + '</span>' +
+                '<span>👁 ' + views + ' views</span>' +
+                '<span>⏱️ ' + article.readTime + '</span>' +
+                '</div>' +
+                '</header>' +
+                '<div class="article-content">' +
+                generateContent(article) +
+                '</div>' +
+                '<div class="article-tags">' +
+                '<a href="category.html?cat=' + article.category + '" class="tag">' + catName + '</a>' +
+                '<a href="#" class="tag">Trending</a>' +
+                '<a href="#" class="tag">2025</a>' +
+                '</div>' +
+                '</div>';
             
             document.title = article.title + ' - Insightinfo';
         }
 
-        // Render related articles
         function renderRelated(currentArticle, allArticles) {
-            const related = allArticles
-                .filter(a => a.category === currentArticle.category && a.id !== currentArticle.id)
-                .slice(0, 3);
+            var related = allArticles.filter(function(a) { 
+                return a.category === currentArticle.category && a.id !== currentArticle.id; 
+            }).slice(0, 3);
             
-            if (related.length === 0) return;
+            if (related.length === 0) {
+                document.getElementById('relatedSection').style.display = 'none';
+                return;
+            }
             
-            document.getElementById('relatedSection').style.display = 'block';
-            const grid = document.getElementById('relatedGrid');
+            var grid = document.getElementById('relatedGrid');
+            var html = '';
             
-            grid.innerHTML = related.map((article, i) => `
-                <article class="article-card">
-                    <div class="card-image">
-                        <img src="${article.image}" alt="${article.title}" loading="lazy">
-                    </div>
-                    <div class="card-content">
-                        <span class="card-category">${categoryNames[article.category]}</span>
-                        <h3 class="card-title">
-                            <a href="article.html?id=${article.id}">${article.title}</a>
-                        </h3>
-                        <p class="card-excerpt">${article.excerpt}</p>
-                        <div class="card-meta">
-                            <span>📅 ${generateDate()}</span>
-                            <span>👁 ${Math.floor(Math.random() * 15 + 5)}K views</span>
-                        </div>
-                        <a href="article.html?id=${article.id}" class="read-more-btn">Read More...</a>
-                    </div>
-                </article>
-            `).join('');
+            for (var i = 0; i < related.length; i++) {
+                var article = related[i];
+                html += '<article class="article-card">' +
+                    '<div class="card-image">' +
+                    '<img src="' + article.image + '" alt="' + article.title + '" loading="lazy">' +
+                    '</div>' +
+                    '<div class="card-content">' +
+                    '<span class="card-category">' + categoryNames[article.category] + '</span>' +
+                    '<h3 class="card-title">' +
+                    '<a href="article.html?id=' + article.id + '">' + article.title + '</a>' +
+                    '</h3>' +
+                    '<p class="card-excerpt">' + article.excerpt + '</p>' +
+                    '<div class="card-meta">' +
+                    '<span>📅 ' + generateDate() + '</span>' +
+                    '<span>👁 ' + Math.floor(Math.random() * 15 + 5) + 'K views</span>' +
+                    '</div>' +
+                    '<a href="article.html?id=' + article.id + '" class="read-more-btn">Read More...</a>' +
+                    '</div>' +
+                    '</article>';
+            }
+            
+            grid.innerHTML = html;
         }
 
-        // Mobile menu
         function toggleMenu() {
-            document.getElementById('navContainer').classList.toggle('active');
+            var nav = document.getElementById('navContainer');
+            if (nav) nav.classList.toggle('active');
         }
 
-        // Back to top
         window.addEventListener('scroll', function() {
-            const btn = document.getElementById('backToTop');
-            btn.classList.toggle('visible', window.pageYOffset > 300);
+            var btn = document.getElementById('backToTop');
+            if (btn) btn.classList.toggle('visible', window.pageYOffset > 300);
         });
 
         function scrollToTop() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Load article
         async function loadArticle() {
             try {
-                const response = await fetch('articles.json');
-                const data = await response.json();
-                const articles = data.articles;
+                var response = await fetch('articles.json');
+                var data = await response.json();
+                var articles = data.articles;
                 
-                const urlParams = new URLSearchParams(window.location.search);
-                const articleId = parseInt(urlParams.get('id')) || 1;
+                var urlParams = new URLSearchParams(window.location.search);
+                var articleId = parseInt(urlParams.get('id')) || 1;
                 
-                const article = articles.find(a => a.id === articleId) || articles[0];
+                var article = articles.find(function(a) { return a.id === articleId; }) || articles[0];
                 
                 renderArticle(article);
                 renderRelated(article, articles);
             } catch (error) {
                 console.error('Error:', error);
-                document.getElementById('articleDetail').innerHTML = 
-                    '<p style="text-align: center; padding: 3rem;">Unable to load article. <a href="index.html">Return to homepage</a></p>';
+                var container = document.getElementById('articleDetail');
+                if (container) {
+                    container.innerHTML = '<p style="text-align: center; padding: 3rem;">Unable to load article. <a href="index.html">Return to homepage</a></p>';
+                }
             }
         }
 
