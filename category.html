@@ -24,9 +24,9 @@
             
             <div class="nav-container" id="navContainer">
                 <nav>
-                    <ul class="nav">
+                    <ul class="nav" id="navMenu">
                         <li><a href="index.html">All</a></li>
-                        <li><a href="category.html?cat=technology" class="active">Technology</a></li>
+                        <li><a href="category.html?cat=technology">Technology</a></li>
                         <li><a href="category.html?cat=finance">Finance</a></li>
                         <li><a href="category.html?cat=ai-tools">AI Tools</a></li>
                         <li><a href="category.html?cat=health-lifestyle">Health & Lifestyle</a></li>
@@ -34,8 +34,8 @@
                 </nav>
                 
                 <div class="search-box">
-                    <input type="text" placeholder="Search articles...">
-                    <button type="submit">🔍</button>
+                    <input type="text" placeholder="Search articles..." id="searchInput" onkeyup="searchArticles()">
+                    <button type="submit" onclick="searchArticles()">🔍</button>
                 </div>
             </div>
         </div>
@@ -44,51 +44,26 @@
     <!-- Main Content -->
     <main class="container">
         <div class="page-header">
-            <h1 id="categoryTitle">Technology</h1>
-            <p id="categoryDesc">The latest in tech innovation, digital trends, and cutting-edge research</p>
+            <h1 id="categoryTitle">All Articles</h1>
+            <p id="categoryDesc">Browse all articles across different categories</p>
         </div>
 
         <!-- Category Filter -->
         <div class="category-filter">
-            <button class="filter-btn active" onclick="filterCategory('all', this)">All</button>
-            <button class="filter-btn" onclick="filterCategory('technology', this)">Technology</button>
-            <button class="filter-btn" onclick="filterCategory('finance', this)">Finance</button>
-            <button class="filter-btn" onclick="filterCategory('ai-tools', this)">AI Tools</button>
-            <button class="filter-btn" onclick="filterCategory('health-lifestyle', this)">Health & Lifestyle</button>
+            <button class="filter-btn" id="filter-all" onclick="filterCategory('all')">All</button>
+            <button class="filter-btn" id="filter-technology" onclick="filterCategory('technology')">Technology</button>
+            <button class="filter-btn" id="filter-finance" onclick="filterCategory('finance')">Finance</button>
+            <button class="filter-btn" id="filter-ai-tools" onclick="filterCategory('ai-tools')">AI Tools</button>
+            <button class="filter-btn" id="filter-health-lifestyle" onclick="filterCategory('health-lifestyle')">Health & Lifestyle</button>
         </div>
 
         <!-- Article Grid -->
         <div class="article-grid" id="articleGrid">
-            <!-- Technology Articles -->
-            <article class="article-card" data-category="technology">
-                <div class="card-image">
-                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=400&fit=crop" alt="Quantum Computing">
-                </div>
-                <div class="card-content">
-                    <span class="card-category">Technology</span>
-                    <h3 class="card-title">
-                        <a href="article.html?id=1">Quantum Computing Breakthrough: IBM Achieves 1000-Qubit Processor Milestone</a>
-                    </h3>
-                    <p class="card-excerpt">IBM's latest quantum processor marks a significant leap forward in computational capabilities.</p>
-                    <div class="card-meta">
-                        <span>📅 Jan 15, 2025</span>
-                        <span>👁 12.5K views</span>
-                    </div>
-                    <a href="article.html?id=1" class="read-more-btn">Read More...</a>
-                </div>
-            </article>
-
-            <!-- More articles... (truncated for brevity - full file has all 10 articles per category) -->
+            <div class="loading" id="loading"></div>
         </div>
 
         <!-- Pagination -->
-        <div class="pagination">
-            <a href="#" class="disabled">«</a>
-            <a href="#" class="active">1</a>
-            <a href="#">2</a>
-            <a href="#">3</a>
-            <a href="#">»</a>
-        </div>
+        <div class="pagination" id="pagination"></div>
     </main>
 
     <!-- Footer -->
@@ -125,55 +100,204 @@
     <button class="back-to-top" id="backToTop" onclick="scrollToTop()">↑</button>
 
     <script>
+        // Configuration
+        const ARTICLES_PER_PAGE = 9;
+        let allArticles = [];
+        let currentPage = 1;
+        let currentCategory = 'all';
+        let filteredArticles = [];
+
+        // Category info
+        const categoryInfo = {
+            'all': { title: 'All Articles', desc: 'Browse all articles across different categories' },
+            'technology': { title: 'Technology', desc: 'The latest in tech innovation, digital trends, and cutting-edge research' },
+            'finance': { title: 'Finance', desc: 'Investment strategies, market insights, and personal finance tips' },
+            'ai-tools': { title: 'AI Tools', desc: 'Discover the latest artificial intelligence tools and how to use them' },
+            'health-lifestyle': { title: 'Health & Lifestyle', desc: 'Wellness tips, healthy recipes, and lifestyle improvements' }
+        };
+
+        const categoryNames = {
+            'technology': 'Technology',
+            'finance': 'Finance',
+            'ai-tools': 'AI Tools',
+            'health-lifestyle': 'Health & Lifestyle'
+        };
+
+        // Generate random view count
+        function generateViews() {
+            const views = Math.floor(Math.random() * 25000) + 1000;
+            return views >= 1000 ? (views / 1000).toFixed(1) + 'K' : views.toString();
+        }
+
+        // Generate date
+        function generateDate(index) {
+            const today = new Date();
+            const daysAgo = Math.floor(Math.random() * 30) + index;
+            const date = new Date(today);
+            date.setDate(date.getDate() - daysAgo);
+            return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        }
+
+        // Create article card
+        function createArticleCard(article, index) {
+            return `
+                <article class="article-card">
+                    <div class="card-image">
+                        <img src="${article.image}" alt="${article.title}" loading="lazy">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-category">${categoryNames[article.category]}</span>
+                        <h3 class="card-title">
+                            <a href="article.html?id=${article.id}">${article.title}</a>
+                        </h3>
+                        <p class="card-excerpt">${article.excerpt}</p>
+                        <div class="card-meta">
+                            <span>📅 ${generateDate(index)}</span>
+                            <span>👁 ${generateViews()} views</span>
+                        </div>
+                        <a href="article.html?id=${article.id}" class="read-more-btn">Read More...</a>
+                    </div>
+                </article>
+            `;
+        }
+
+        // Render articles
+        function renderArticles(articles) {
+            const grid = document.getElementById('articleGrid');
+            const loading = document.getElementById('loading');
+            if (loading) loading.remove();
+            
+            if (articles.length === 0) {
+                grid.innerHTML = '<p style="text-align: center; grid-column: 1/-1; padding: 3rem;">No articles found in this category.</p>';
+                return;
+            }
+            
+            const startIndex = (currentPage - 1) * ARTICLES_PER_PAGE;
+            const pageArticles = articles.slice(startIndex, startIndex + ARTICLES_PER_PAGE);
+            
+            grid.innerHTML = pageArticles.map((article, i) => 
+                createArticleCard(article, startIndex + i)
+            ).join('');
+            
+            renderPagination(articles.length);
+        }
+
+        // Render pagination
+        function renderPagination(total) {
+            const totalPages = Math.ceil(total / ARTICLES_PER_PAGE);
+            const pagination = document.getElementById('pagination');
+            
+            if (totalPages <= 1) {
+                pagination.innerHTML = '';
+                return;
+            }
+            
+            let html = `<a href="#" class="${currentPage === 1 ? 'disabled' : ''}" 
+                          onclick="changePage(${currentPage - 1}); return false;">«</a>`;
+            
+            for (let i = 1; i <= totalPages; i++) {
+                html += i === currentPage 
+                    ? `<a href="#" class="active">${i}</a>`
+                    : `<a href="#" onclick="changePage(${i}); return false;">${i}</a>`;
+            }
+            
+            html += `<a href="#" class="${currentPage === totalPages ? 'disabled' : ''}" 
+                          onclick="changePage(${currentPage + 1}); return false;">»</a>`;
+            
+            pagination.innerHTML = html;
+        }
+
+        // Change page
+        function changePage(page) {
+            const totalPages = Math.ceil(filteredArticles.length / ARTICLES_PER_PAGE);
+            if (page < 1 || page > totalPages) return;
+            currentPage = page;
+            renderArticles(filteredArticles);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Filter by category
+        function filterCategory(category) {
+            currentCategory = category;
+            currentPage = 1;
+            
+            // Update UI
+            document.getElementById('categoryTitle').textContent = categoryInfo[category].title;
+            document.getElementById('categoryDesc').textContent = categoryInfo[category].desc;
+            
+            // Update filter buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('filter-' + category).classList.add('active');
+            
+            // Filter articles
+            filteredArticles = category === 'all' 
+                ? [...allArticles] 
+                : allArticles.filter(a => a.category === category);
+            
+            renderArticles(filteredArticles);
+            
+            // Update URL
+            const url = new URL(window.location);
+            if (category === 'all') {
+                url.searchParams.delete('cat');
+            } else {
+                url.searchParams.set('cat', category);
+            }
+            history.pushState({}, '', url);
+        }
+
+        // Search articles
+        function searchArticles() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            if (!query) {
+                filteredArticles = currentCategory === 'all' 
+                    ? [...allArticles] 
+                    : allArticles.filter(a => a.category === currentCategory);
+            } else {
+                filteredArticles = allArticles.filter(a => 
+                    (currentCategory === 'all' || a.category === currentCategory) &&
+                    (a.title.toLowerCase().includes(query) || a.excerpt.toLowerCase().includes(query))
+                );
+            }
+            currentPage = 1;
+            renderArticles(filteredArticles);
+        }
+
+        // Mobile menu
         function toggleMenu() {
             document.getElementById('navContainer').classList.toggle('active');
         }
 
+        // Back to top
         window.addEventListener('scroll', function() {
             const btn = document.getElementById('backToTop');
-            if (window.pageYOffset > 300) {
-                btn.classList.add('visible');
-            } else {
-                btn.classList.remove('visible');
-            }
+            btn.classList.toggle('visible', window.pageYOffset > 300);
         });
 
         function scrollToTop() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        function filterCategory(category, btn) {
-            const cards = document.querySelectorAll('.article-card');
-            const filterBtns = document.querySelectorAll('.filter-btn');
-            
-            filterBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            
-            cards.forEach(card => {
-                if (category === 'all' || card.dataset.category === category) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        }
-
-        // Initialize from URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const cat = urlParams.get('cat');
-        if (cat) {
-            const categoryNames = {
-                'technology': { title: 'Technology', desc: 'The latest in tech innovation, digital trends, and cutting-edge research' },
-                'finance': { title: 'Finance', desc: 'Investment strategies, market insights, and personal finance tips' },
-                'ai-tools': { title: 'AI Tools', desc: 'Discover the latest artificial intelligence tools and how to use them' },
-                'health-lifestyle': { title: 'Health & Lifestyle', desc: 'Wellness tips, healthy recipes, and lifestyle improvements' }
-            };
-            
-            if (categoryNames[cat]) {
-                document.getElementById('categoryTitle').textContent = categoryNames[cat].title;
-                document.getElementById('categoryDesc').textContent = categoryNames[cat].desc;
+        // Load articles
+        async function loadArticles() {
+            try {
+                const response = await fetch('articles.json');
+                const data = await response.json();
+                allArticles = data.articles;
+                
+                // Get category from URL
+                const urlParams = new URLSearchParams(window.location.search);
+                const cat = urlParams.get('cat') || 'all';
+                
+                filterCategory(cat);
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('articleGrid').innerHTML = 
+                    '<p style="text-align: center; grid-column: 1/-1; padding: 3rem;">Unable to load articles.</p>';
             }
         }
+
+        document.addEventListener('DOMContentLoaded', loadArticles);
     </script>
 </body>
 </html>
