@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Insightinfo - Your trusted source for Technology, Finance, AI Tools, and Health & Lifestyle news and insights.">
+    <meta name="keywords" content="technology news, finance tips, AI tools, health lifestyle, insights, articles">
+    <meta name="author" content="Insightinfo">
+    <meta property="og:title" content="Insightinfo - Latest Articles & Insights">
+    <meta property="og:description" content="Discover the latest articles on Technology, Finance, AI Tools, and Health & Lifestyle.">
+    <meta property="og:type" content="website">
+    <title>Insightinfo - Latest Articles & Insights</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">I</div>
+                Insight<span>info</span>
+            </a>
+            
+            <div class="menu-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            
+            <div class="nav-container" id="navContainer">
+                <nav>
+                    <ul class="nav">
+                        <li><a href="index.html" class="active">All</a></li>
+                        <li><a href="category.html?cat=technology">Technology</a></li>
+                        <li><a href="category.html?cat=finance">Finance</a></li>
+                        <li><a href="category.html?cat=ai-tools">AI Tools</a></li>
+                        <li><a href="category.html?cat=health-lifestyle">Health & Lifestyle</a></li>
+                    </ul>
+                </nav>
+                
+                <div class="search-box">
+                    <input type="text" placeholder="Search articles...">
+                    <button type="submit">🔍</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <div class="page-header">
+            <h1>Latest Articles</h1>
+            <p>Discover insights across Technology, Finance, AI Tools, and Health & Lifestyle</p>
+        </div>
+
+        <!-- Article Grid - 2 rows x 3 columns = 6 cards -->
+        <div class="article-grid">
+            <!-- Article 1 -->
+            <article class="article-card">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=400&fit=crop" alt="Quantum Computing">
+                </div>
+                <div class="card-content">
+                    <span class="card-category">Technology</span>
+                    <h3 class="card-title">
+                        <a href="article.html?id=1">Quantum Computing Breakthrough: IBM Achieves 1000-Qubit Processor Milestone</a>
+                    </h3>
+                    <p class="card-excerpt">IBM's latest quantum processor marks a significant leap forward in computational capabilities, promising to revolutionize drug discovery and climate modeling.</p>
+                    <div class="card-meta">
+                        <span>📅 Jan 15, 2025</span>
+                        <span>👁 12.5K views</span>
+                    </div>
+                    <a href="article.html?id=1" class="read-more-btn">Read More...</a>
+                </div>
+            </article>
+
+            <!-- Article 2 -->
+            <article class="article-card">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=600&h=400&fit=crop" alt="Stock Market">
+                </div>
+                <div class="card-content">
+                    <span class="card-category">Finance</span>
+                    <h3 class="card-title">
+                        <a href="article.html?id=2">2025 Market Outlook: Top 5 Investment Strategies for Uncertain Times</a>
+                    </h3>
+                    <p class="card-excerpt">Expert analysts share their insights on navigating volatile markets, with a focus on diversification, AI-driven investments, and emerging market opportunities.</p>
+                    <div class="card-meta">
+                        <span>📅 Jan 14, 2025</span>
+                        <span>👁 8.3K views</span>
+                    </div>
+                    <a href="article.html?id=2" class="read-more-btn">Read More...</a>
+                </div>
+            </article>
+
+            <!-- Article 3 -->
+            <article class="article-card">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=400&fit=crop" alt="AI Tools">
+                </div>
+                <div class="card-content">
+                    <span class="card-category">AI Tools</span>
+                    <h3 class="card-title">
+                        <a href="article.html?id=3">ChatGPT-5 Released: What New Features Mean for Content Creators</a>
+                    </h3>
+                    <p class="card-excerpt">OpenAI's latest model introduces advanced reasoning capabilities and multimodal features that could transform how we create and consume digital content.</p>
+                    <div class="card-meta">
+                        <span>📅 Jan 13, 2025</span>
+                        <span>👁 25.7K views</span>
+                    </div>
+                    <a href="article.html?id=3" class="read-more-btn">Read More...</a>
+                </div>
+            </article>
+
+            <!-- Article 4 -->
+            <article class="article-card">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=600&h=400&fit=crop" alt="Healthy Food">
+                </div>
+                <div class="card-content">
+                    <span class="card-category">Health & Lifestyle</span>
+                    <h3 class="card-title">
+                        <a href="article.html?id=4">The Mediterranean Diet: Why 2025 Is the Year to Make the Switch</a>
+                    </h3>
+                    <p class="card-excerpt">New research confirms the long-term benefits of Mediterranean eating patterns for heart health, cognitive function, and longevity. Here's how to get started.</p>
+                    <div class="card-meta">
+                        <span>📅 Jan 12, 2025</span>
+                        <span>👁 15.2K views</span>
+                    </div>
+                    <a href="article.html?id=4" class="read-more-btn">Read More...</a>
+                </div>
+            </article>
+
+            <!-- Article 5 -->
+            <article class="article-card">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=600&h=400&fit=crop" alt="Cybersecurity">
+                </div>
+                <div class="card-content">
+                    <span class="card-category">Technology</span>
+                    <h3 class="card-title">
+                        <a href="article.html?id=5">Zero-Trust Security: The New Standard for Enterprise Protection</a>
+                    </h3>
+                    <p class="card-excerpt">As cyber threats evolve, major corporations are abandoning traditional perimeter-based security for zero-trust architectures. Learn what this means for you.</p>
+                    <div class="card-meta">
+                        <span>📅 Jan 11, 2025</span>
+                        <span>👁 9.8K views</span>
+                    </div>
+                    <a href="article.html?id=5" class="read-more-btn">Read More...</a>
+                </div>
+            </article>
+
+            <!-- Article 6 -->
+            <article class="article-card">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&h=400&fit=crop" alt="Retirement Planning">
+                </div>
+                <div class="card-content">
+                    <span class="card-category">Finance</span>
+                    <h3 class="card-title">
+                        <a href="article.html?id=6">Retirement in Your 30s: The FIRE Movement Gains Mainstream Traction</a>
+                    </h3>
+                    <p class="card-excerpt">Financial Independence, Retire Early strategies are no longer just for extreme savers. Here's how millennials are reimagining retirement planning.</p>
+                    <div class="card-meta">
+                        <span>📅 Jan 10, 2025</span>
+                        <span>👁 11.4K views</span>
+                    </div>
+                    <a href="article.html?id=6" class="read-more-btn">Read More...</a>
+                </div>
+            </article>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination">
+            <a href="#" class="disabled">«</a>
+            <a href="#" class="active">1</a>
+            <a href="#">2</a>
+            <a href="#">3</a>
+            <a href="#">...</a>
+            <a href="#">10</a>
+            <a href="#">»</a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>About Insightinfo</h4>
+                <p>Your trusted source for the latest insights in Technology, Finance, AI Tools, and Health & Lifestyle. We bring you well-researched, unbiased information to help you stay informed.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="category.html?cat=technology">Technology</a></li>
+                    <li><a href="category.html?cat=finance">Finance</a></li>
+                    <li><a href="category.html?cat=ai-tools">AI Tools</a></li>
+                    <li><a href="category.html?cat=health-lifestyle">Health & Lifestyle</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 Insightinfo. All rights reserved. | <a href="#" style="color: #aaa;">Contact Us</a></p>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()">↑</button>
+
+    <script>
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            const navContainer = document.getElementById('navContainer');
+            navContainer.classList.toggle('active');
+        }
+
+        // Back to Top
+        window.addEventListener('scroll', function() {
+            const backToTop = document.getElementById('backToTop');
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
