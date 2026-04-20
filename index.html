@@ -5,10 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Insightinfo - Your trusted source for Technology, Finance, AI Tools, and Health & Lifestyle news and insights.">
     <meta name="keywords" content="technology news, finance tips, AI tools, health lifestyle, insights, articles">
-    <meta name="author" content="Insightinfo">
-    <meta property="og:title" content="Insightinfo - Latest Articles & Insights">
-    <meta property="og:description" content="Discover the latest articles on Technology, Finance, AI Tools, and Health & Lifestyle.">
-    <meta property="og:type" content="website">
     <title>Insightinfo - Latest Articles & Insights</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -39,8 +35,8 @@
                 </nav>
                 
                 <div class="search-box">
-                    <input type="text" placeholder="Search articles...">
-                    <button type="submit">🔍</button>
+                    <input type="text" placeholder="Search articles..." id="searchInput" onkeyup="searchArticles()">
+                    <button type="submit" onclick="searchArticles()">🔍</button>
                 </div>
             </div>
         </div>
@@ -51,135 +47,16 @@
         <div class="page-header">
             <h1>Latest Articles</h1>
             <p>Discover insights across Technology, Finance, AI Tools, and Health & Lifestyle</p>
+            <p class="last-updated" id="lastUpdated"></p>
         </div>
 
-        <!-- Article Grid - 2 rows x 3 columns = 6 cards -->
-        <div class="article-grid">
-            <!-- Article 1 -->
-            <article class="article-card">
-                <div class="card-image">
-                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=400&fit=crop" alt="Quantum Computing">
-                </div>
-                <div class="card-content">
-                    <span class="card-category">Technology</span>
-                    <h3 class="card-title">
-                        <a href="article.html?id=1">Quantum Computing Breakthrough: IBM Achieves 1000-Qubit Processor Milestone</a>
-                    </h3>
-                    <p class="card-excerpt">IBM's latest quantum processor marks a significant leap forward in computational capabilities, promising to revolutionize drug discovery and climate modeling.</p>
-                    <div class="card-meta">
-                        <span>📅 Jan 15, 2025</span>
-                        <span>👁 12.5K views</span>
-                    </div>
-                    <a href="article.html?id=1" class="read-more-btn">Read More...</a>
-                </div>
-            </article>
-
-            <!-- Article 2 -->
-            <article class="article-card">
-                <div class="card-image">
-                    <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=600&h=400&fit=crop" alt="Stock Market">
-                </div>
-                <div class="card-content">
-                    <span class="card-category">Finance</span>
-                    <h3 class="card-title">
-                        <a href="article.html?id=2">2025 Market Outlook: Top 5 Investment Strategies for Uncertain Times</a>
-                    </h3>
-                    <p class="card-excerpt">Expert analysts share their insights on navigating volatile markets, with a focus on diversification, AI-driven investments, and emerging market opportunities.</p>
-                    <div class="card-meta">
-                        <span>📅 Jan 14, 2025</span>
-                        <span>👁 8.3K views</span>
-                    </div>
-                    <a href="article.html?id=2" class="read-more-btn">Read More...</a>
-                </div>
-            </article>
-
-            <!-- Article 3 -->
-            <article class="article-card">
-                <div class="card-image">
-                    <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=400&fit=crop" alt="AI Tools">
-                </div>
-                <div class="card-content">
-                    <span class="card-category">AI Tools</span>
-                    <h3 class="card-title">
-                        <a href="article.html?id=3">ChatGPT-5 Released: What New Features Mean for Content Creators</a>
-                    </h3>
-                    <p class="card-excerpt">OpenAI's latest model introduces advanced reasoning capabilities and multimodal features that could transform how we create and consume digital content.</p>
-                    <div class="card-meta">
-                        <span>📅 Jan 13, 2025</span>
-                        <span>👁 25.7K views</span>
-                    </div>
-                    <a href="article.html?id=3" class="read-more-btn">Read More...</a>
-                </div>
-            </article>
-
-            <!-- Article 4 -->
-            <article class="article-card">
-                <div class="card-image">
-                    <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=600&h=400&fit=crop" alt="Healthy Food">
-                </div>
-                <div class="card-content">
-                    <span class="card-category">Health & Lifestyle</span>
-                    <h3 class="card-title">
-                        <a href="article.html?id=4">The Mediterranean Diet: Why 2025 Is the Year to Make the Switch</a>
-                    </h3>
-                    <p class="card-excerpt">New research confirms the long-term benefits of Mediterranean eating patterns for heart health, cognitive function, and longevity. Here's how to get started.</p>
-                    <div class="card-meta">
-                        <span>📅 Jan 12, 2025</span>
-                        <span>👁 15.2K views</span>
-                    </div>
-                    <a href="article.html?id=4" class="read-more-btn">Read More...</a>
-                </div>
-            </article>
-
-            <!-- Article 5 -->
-            <article class="article-card">
-                <div class="card-image">
-                    <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=600&h=400&fit=crop" alt="Cybersecurity">
-                </div>
-                <div class="card-content">
-                    <span class="card-category">Technology</span>
-                    <h3 class="card-title">
-                        <a href="article.html?id=5">Zero-Trust Security: The New Standard for Enterprise Protection</a>
-                    </h3>
-                    <p class="card-excerpt">As cyber threats evolve, major corporations are abandoning traditional perimeter-based security for zero-trust architectures. Learn what this means for you.</p>
-                    <div class="card-meta">
-                        <span>📅 Jan 11, 2025</span>
-                        <span>👁 9.8K views</span>
-                    </div>
-                    <a href="article.html?id=5" class="read-more-btn">Read More...</a>
-                </div>
-            </article>
-
-            <!-- Article 6 -->
-            <article class="article-card">
-                <div class="card-image">
-                    <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&h=400&fit=crop" alt="Retirement Planning">
-                </div>
-                <div class="card-content">
-                    <span class="card-category">Finance</span>
-                    <h3 class="card-title">
-                        <a href="article.html?id=6">Retirement in Your 30s: The FIRE Movement Gains Mainstream Traction</a>
-                    </h3>
-                    <p class="card-excerpt">Financial Independence, Retire Early strategies are no longer just for extreme savers. Here's how millennials are reimagining retirement planning.</p>
-                    <div class="card-meta">
-                        <span>📅 Jan 10, 2025</span>
-                        <span>👁 11.4K views</span>
-                    </div>
-                    <a href="article.html?id=6" class="read-more-btn">Read More...</a>
-                </div>
-            </article>
+        <!-- Article Grid - Dynamically Loaded -->
+        <div class="article-grid" id="articleGrid">
+            <div class="loading" id="loading"></div>
         </div>
 
         <!-- Pagination -->
-        <div class="pagination">
-            <a href="#" class="disabled">«</a>
-            <a href="#" class="active">1</a>
-            <a href="#">2</a>
-            <a href="#">3</a>
-            <a href="#">...</a>
-            <a href="#">10</a>
-            <a href="#">»</a>
-        </div>
+        <div class="pagination" id="pagination"></div>
     </main>
 
     <!-- Footer -->
@@ -205,12 +82,11 @@
                     <li><a href="about.html">About Us</a></li>
                     <li><a href="privacy.html">Privacy Policy</a></li>
                     <li><a href="#">Terms of Service</a></li>
-                    <li><a href="#">Cookie Policy</a></li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>© 2025 Insightinfo. All rights reserved. | <a href="#" style="color: #aaa;">Contact Us</a></p>
+            <p>© 2025 Insightinfo. All rights reserved.</p>
         </div>
     </footer>
 
@@ -218,25 +94,203 @@
     <button class="back-to-top" id="backToTop" onclick="scrollToTop()">↑</button>
 
     <script>
-        // Mobile Menu Toggle
-        function toggleMenu() {
-            const navContainer = document.getElementById('navContainer');
-            navContainer.classList.toggle('active');
+        // Configuration
+        const ARTICLES_PER_PAGE = 6;
+        let allArticles = [];
+        let currentPage = 1;
+        let filteredArticles = [];
+
+        // Category display names
+        const categoryNames = {
+            'technology': 'Technology',
+            'finance': 'Finance',
+            'ai-tools': 'AI Tools',
+            'health-lifestyle': 'Health & Lifestyle'
+        };
+
+        // Generate random view count (simulated)
+        function generateViews() {
+            const views = Math.floor(Math.random() * 25000) + 1000;
+            if (views >= 1000) {
+                return (views / 1000).toFixed(1) + 'K';
+            }
+            return views.toString();
         }
 
-        // Back to Top
-        window.addEventListener('scroll', function() {
-            const backToTop = document.getElementById('backToTop');
-            if (window.pageYOffset > 300) {
-                backToTop.classList.add('visible');
+        // Generate relative date (simulated recent dates)
+        function generateDate(index) {
+            const today = new Date();
+            const daysAgo = Math.floor(Math.random() * 30) + index;
+            const date = new Date(today);
+            date.setDate(date.getDate() - daysAgo);
+            
+            const options = { month: 'short', day: 'numeric', year: 'numeric' };
+            return date.toLocaleDateString('en-US', options);
+        }
+
+        // Generate last updated time
+        function updateLastUpdated() {
+            const now = new Date();
+            const options = { 
+                month: 'short', day: 'numeric', year: 'numeric',
+                hour: '2-digit', minute: '2-digit'
+            };
+            document.getElementById('lastUpdated').innerHTML = 
+                `<small>Last updated: ${now.toLocaleDateString('en-US', options)}</small>`;
+        }
+
+        // Create article card HTML
+        function createArticleCard(article, index) {
+            const views = generateViews();
+            const date = generateDate(index);
+            
+            return `
+                <article class="article-card">
+                    <div class="card-image">
+                        <img src="${article.image}" alt="${article.title}" loading="lazy">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-category">${categoryNames[article.category]}</span>
+                        <h3 class="card-title">
+                            <a href="article.html?id=${article.id}">${article.title}</a>
+                        </h3>
+                        <p class="card-excerpt">${article.excerpt}</p>
+                        <div class="card-meta">
+                            <span>📅 ${date}</span>
+                            <span>👁 ${views} views</span>
+                        </div>
+                        <a href="article.html?id=${article.id}" class="read-more-btn">Read More...</a>
+                    </div>
+                </article>
+            `;
+        }
+
+        // Render articles
+        function renderArticles(articles) {
+            const grid = document.getElementById('articleGrid');
+            const loading = document.getElementById('loading');
+            
+            if (loading) loading.remove();
+            
+            if (articles.length === 0) {
+                grid.innerHTML = '<p style="text-align: center; grid-column: 1/-1; padding: 3rem;">No articles found.</p>';
+                return;
+            }
+            
+            const startIndex = (currentPage - 1) * ARTICLES_PER_PAGE;
+            const endIndex = startIndex + ARTICLES_PER_PAGE;
+            const pageArticles = articles.slice(startIndex, endIndex);
+            
+            grid.innerHTML = pageArticles.map((article, i) => 
+                createArticleCard(article, startIndex + i)
+            ).join('');
+            
+            renderPagination(articles.length);
+        }
+
+        // Render pagination
+        function renderPagination(totalArticles) {
+            const totalPages = Math.ceil(totalArticles / ARTICLES_PER_PAGE);
+            const pagination = document.getElementById('pagination');
+            
+            if (totalPages <= 1) {
+                pagination.innerHTML = '';
+                return;
+            }
+            
+            let html = '';
+            
+            // Previous button
+            html += `<a href="#" class="${currentPage === 1 ? 'disabled' : ''}" 
+                      onclick="changePage(${currentPage - 1}); return false;">«</a>`;
+            
+            // Page numbers
+            for (let i = 1; i <= totalPages; i++) {
+                if (i === currentPage) {
+                    html += `<a href="#" class="active">${i}</a>`;
+                } else if (i === 1 || i === totalPages || Math.abs(i - currentPage) <= 1) {
+                    html += `<a href="#" onclick="changePage(${i}); return false;">${i}</a>`;
+                } else if (i === 2 || i === totalPages - 1) {
+                    html += `<a href="#" class="disabled">...</a>`;
+                }
+            }
+            
+            // Next button
+            html += `<a href="#" class="${currentPage === totalPages ? 'disabled' : ''}" 
+                      onclick="changePage(${currentPage + 1}); return false;">»</a>`;
+            
+            pagination.innerHTML = html;
+        }
+
+        // Change page
+        function changePage(page) {
+            const totalPages = Math.ceil(filteredArticles.length / ARTICLES_PER_PAGE);
+            if (page < 1 || page > totalPages) return;
+            
+            currentPage = page;
+            renderArticles(filteredArticles);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Search articles
+        function searchArticles() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            
+            if (query === '') {
+                filteredArticles = [...allArticles];
             } else {
-                backToTop.classList.remove('visible');
+                filteredArticles = allArticles.filter(article => 
+                    article.title.toLowerCase().includes(query) ||
+                    article.excerpt.toLowerCase().includes(query) ||
+                    article.category.toLowerCase().includes(query)
+                );
+            }
+            
+            currentPage = 1;
+            renderArticles(filteredArticles);
+        }
+
+        // Mobile menu toggle
+        function toggleMenu() {
+            document.getElementById('navContainer').classList.toggle('active');
+        }
+
+        // Back to top
+        window.addEventListener('scroll', function() {
+            const btn = document.getElementById('backToTop');
+            if (window.pageYOffset > 300) {
+                btn.classList.add('visible');
+            } else {
+                btn.classList.remove('visible');
             }
         });
 
         function scrollToTop() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+
+        // Load articles from JSON
+        async function loadArticles() {
+            try {
+                const response = await fetch('articles.json');
+                const data = await response.json();
+                allArticles = data.articles;
+                filteredArticles = [...allArticles];
+                
+                // Sort by a "freshness" score (randomized for demo)
+                filteredArticles.sort(() => Math.random() - 0.5);
+                
+                renderArticles(filteredArticles);
+                updateLastUpdated();
+            } catch (error) {
+                console.error('Error loading articles:', error);
+                document.getElementById('articleGrid').innerHTML = 
+                    '<p style="text-align: center; grid-column: 1/-1; padding: 3rem; color: #999;">Unable to load articles. Please try again later.</p>';
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', loadArticles);
     </script>
 </body>
 </html>
