@@ -35,8 +35,8 @@
                 </nav>
                 
                 <div class="search-box">
-                    <input type="text" placeholder="Search articles..." id="searchInput" onkeyup="searchArticles()">
-                    <button type="submit" onclick="searchArticles()">🔍</button>
+                    <input type="text" placeholder="Search articles..." id="searchInput">
+                    <button type="button" onclick="handleSearch()">🔍</button>
                 </div>
             </div>
         </div>
@@ -50,7 +50,7 @@
             <p class="last-updated" id="lastUpdated"></p>
         </div>
 
-        <!-- Article Grid - Dynamically Loaded -->
+        <!-- Article Grid -->
         <div class="article-grid" id="articleGrid">
             <div class="loading" id="loading"></div>
         </div>
@@ -90,17 +90,14 @@
         </div>
     </footer>
 
-    <!-- Back to Top Button -->
     <button class="back-to-top" id="backToTop" onclick="scrollToTop()">↑</button>
 
     <script>
-        // Configuration
         const ARTICLES_PER_PAGE = 6;
         let allArticles = [];
         let currentPage = 1;
         let filteredArticles = [];
 
-        // Category display names
         const categoryNames = {
             'technology': 'Technology',
             'finance': 'Finance',
@@ -108,69 +105,58 @@
             'health-lifestyle': 'Health & Lifestyle'
         };
 
-        // Generate random view count (simulated)
         function generateViews() {
             const views = Math.floor(Math.random() * 25000) + 1000;
-            if (views >= 1000) {
-                return (views / 1000).toFixed(1) + 'K';
-            }
-            return views.toString();
+            return views >= 1000 ? (views / 1000).toFixed(1) + 'K' : views.toString();
         }
 
-        // Generate relative date (simulated recent dates)
         function generateDate(index) {
             const today = new Date();
             const daysAgo = Math.floor(Math.random() * 30) + index;
             const date = new Date(today);
             date.setDate(date.getDate() - daysAgo);
-            
-            const options = { month: 'short', day: 'numeric', year: 'numeric' };
-            return date.toLocaleDateString('en-US', options);
+            return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
         }
 
-        // Generate last updated time
         function updateLastUpdated() {
             const now = new Date();
-            const options = { 
-                month: 'short', day: 'numeric', year: 'numeric',
-                hour: '2-digit', minute: '2-digit'
-            };
-            document.getElementById('lastUpdated').innerHTML = 
-                `<small>Last updated: ${now.toLocaleDateString('en-US', options)}</small>`;
+            const options = { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' };
+            const el = document.getElementById('lastUpdated');
+            if (el) {
+                el.innerHTML = '<small>Last updated: ' + now.toLocaleDateString('en-US', options) + '</small>';
+            }
         }
 
-        // Create article card HTML
         function createArticleCard(article, index) {
             const views = generateViews();
             const date = generateDate(index);
             
-            return `
-                <article class="article-card">
-                    <div class="card-image">
-                        <img src="${article.image}" alt="${article.title}" loading="lazy">
-                    </div>
-                    <div class="card-content">
-                        <span class="card-category">${categoryNames[article.category]}</span>
-                        <h3 class="card-title">
-                            <a href="article.html?id=${article.id}">${article.title}</a>
-                        </h3>
-                        <p class="card-excerpt">${article.excerpt}</p>
-                        <div class="card-meta">
-                            <span>📅 ${date}</span>
-                            <span>👁 ${views} views</span>
-                        </div>
-                        <a href="article.html?id=${article.id}" class="read-more-btn">Read More...</a>
-                    </div>
-                </article>
-            `;
+            return '<article class="article-card">' +
+                '<div class="card-image">' +
+                '<img src="' + article.image + '" alt="' + article.title + '" loading="lazy">' +
+                '</div>' +
+                '<div class="card-content">' +
+                '<span class="card-category">' + categoryNames[article.category] + '</span>' +
+                '<h3 class="card-title">' +
+                '<a href="article.html?id=' + article.id + '">' + article.title + '</a>' +
+                '</h3>' +
+                '<p class="card-excerpt">' + article.excerpt + '</p>' +
+                '<div class="card-meta">' +
+                '<span>📅 ' + date + '</span>' +
+                '<span>👁 ' + views + ' views</span>' +
+                '</div>' +
+                '<a href="article.html?id=' + article.id + '" class="read-more-btn">Read More...</a>' +
+                '</div>' +
+                '</article>';
         }
 
-        // Render articles
         function renderArticles(articles) {
             const grid = document.getElementById('articleGrid');
             const loading = document.getElementById('loading');
             
             if (loading) loading.remove();
+            
+            if (!grid) return;
             
             if (articles.length === 0) {
                 grid.innerHTML = '<p style="text-align: center; grid-column: 1/-1; padding: 3rem;">No articles found.</p>';
@@ -181,17 +167,20 @@
             const endIndex = startIndex + ARTICLES_PER_PAGE;
             const pageArticles = articles.slice(startIndex, endIndex);
             
-            grid.innerHTML = pageArticles.map((article, i) => 
-                createArticleCard(article, startIndex + i)
-            ).join('');
+            let html = '';
+            for (let i = 0; i < pageArticles.length; i++) {
+                html += createArticleCard(pageArticles[i], startIndex + i);
+            }
+            grid.innerHTML = html;
             
             renderPagination(articles.length);
         }
 
-        // Render pagination
         function renderPagination(totalArticles) {
             const totalPages = Math.ceil(totalArticles / ARTICLES_PER_PAGE);
             const pagination = document.getElementById('pagination');
+            
+            if (!pagination) return;
             
             if (totalPages <= 1) {
                 pagination.innerHTML = '';
@@ -199,30 +188,23 @@
             }
             
             let html = '';
+            html += '<a href="#" class="' + (currentPage === 1 ? 'disabled' : '') + '" onclick="changePage(' + (currentPage - 1) + '); return false;">«</a>';
             
-            // Previous button
-            html += `<a href="#" class="${currentPage === 1 ? 'disabled' : ''}" 
-                      onclick="changePage(${currentPage - 1}); return false;">«</a>`;
-            
-            // Page numbers
             for (let i = 1; i <= totalPages; i++) {
                 if (i === currentPage) {
-                    html += `<a href="#" class="active">${i}</a>`;
+                    html += '<a href="#" class="active">' + i + '</a>';
                 } else if (i === 1 || i === totalPages || Math.abs(i - currentPage) <= 1) {
-                    html += `<a href="#" onclick="changePage(${i}); return false;">${i}</a>`;
+                    html += '<a href="#" onclick="changePage(' + i + '); return false;">' + i + '</a>';
                 } else if (i === 2 || i === totalPages - 1) {
-                    html += `<a href="#" class="disabled">...</a>`;
+                    html += '<a href="#" class="disabled">...</a>';
                 }
             }
             
-            // Next button
-            html += `<a href="#" class="${currentPage === totalPages ? 'disabled' : ''}" 
-                      onclick="changePage(${currentPage + 1}); return false;">»</a>`;
+            html += '<a href="#" class="' + (currentPage === totalPages ? 'disabled' : '') + '" onclick="changePage(' + (currentPage + 1) + '); return false;">»</a>';
             
             pagination.innerHTML = html;
         }
 
-        // Change page
         function changePage(page) {
             const totalPages = Math.ceil(filteredArticles.length / ARTICLES_PER_PAGE);
             if (page < 1 || page > totalPages) return;
@@ -232,36 +214,51 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Search articles
-        function searchArticles() {
-            const query = document.getElementById('searchInput').value.toLowerCase();
+        function handleSearch() {
+            const input = document.getElementById('searchInput');
+            if (!input) return;
+            
+            const query = input.value.toLowerCase().trim();
             
             if (query === '') {
-                filteredArticles = [...allArticles];
+                filteredArticles = allArticles.slice();
             } else {
-                filteredArticles = allArticles.filter(article => 
-                    article.title.toLowerCase().includes(query) ||
-                    article.excerpt.toLowerCase().includes(query) ||
-                    article.category.toLowerCase().includes(query)
-                );
+                filteredArticles = allArticles.filter(function(article) {
+                    return article.title.toLowerCase().indexOf(query) !== -1 ||
+                           article.excerpt.toLowerCase().indexOf(query) !== -1 ||
+                           article.category.toLowerCase().indexOf(query) !== -1;
+                });
             }
             
             currentPage = 1;
             renderArticles(filteredArticles);
         }
 
-        // Mobile menu toggle
+        // 回车键搜索
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                searchInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        handleSearch();
+                    }
+                });
+            }
+        });
+
         function toggleMenu() {
-            document.getElementById('navContainer').classList.toggle('active');
+            const nav = document.getElementById('navContainer');
+            if (nav) nav.classList.toggle('active');
         }
 
-        // Back to top
         window.addEventListener('scroll', function() {
             const btn = document.getElementById('backToTop');
-            if (window.pageYOffset > 300) {
-                btn.classList.add('visible');
-            } else {
-                btn.classList.remove('visible');
+            if (btn) {
+                if (window.pageYOffset > 300) {
+                    btn.classList.add('visible');
+                } else {
+                    btn.classList.remove('visible');
+                }
             }
         });
 
@@ -269,27 +266,27 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Load articles from JSON
         async function loadArticles() {
             try {
                 const response = await fetch('articles.json');
                 const data = await response.json();
                 allArticles = data.articles;
-                filteredArticles = [...allArticles];
+                filteredArticles = allArticles.slice();
                 
-                // Sort by a "freshness" score (randomized for demo)
-                filteredArticles.sort(() => Math.random() - 0.5);
+                // 随机排序
+                filteredArticles.sort(function() { return Math.random() - 0.5; });
                 
                 renderArticles(filteredArticles);
                 updateLastUpdated();
             } catch (error) {
                 console.error('Error loading articles:', error);
-                document.getElementById('articleGrid').innerHTML = 
-                    '<p style="text-align: center; grid-column: 1/-1; padding: 3rem; color: #999;">Unable to load articles. Please try again later.</p>';
+                const grid = document.getElementById('articleGrid');
+                if (grid) {
+                    grid.innerHTML = '<p style="text-align: center; grid-column: 1/-1; padding: 3rem; color: #999;">Unable to load articles. Please try again later.</p>';
+                }
             }
         }
 
-        // Initialize
         document.addEventListener('DOMContentLoaded', loadArticles);
     </script>
 </body>
