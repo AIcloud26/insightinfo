@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Read the full article on Insightinfo - Your trusted source for Technology, Finance, AI Tools, and Health & Lifestyle insights.">
+    <meta name="description" content="Read the full article on Insightinfo">
     <title>Article - Insightinfo</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -15,6 +15,13 @@
                 <div class="logo-icon">I</div>
                 Insight<span>info</span>
             </a>
+            
+            <div class="menu-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            
             <div class="nav-container" id="navContainer">
                 <nav>
                     <ul class="nav">
@@ -25,6 +32,7 @@
                         <li><a href="category.html?cat=health-lifestyle">Health & Lifestyle</a></li>
                     </ul>
                 </nav>
+                
                 <div class="search-box">
                     <input type="text" placeholder="Search articles...">
                     <button type="submit">🔍</button>
@@ -35,59 +43,230 @@
 
     <!-- Main Content -->
     <main class="container">
-        <article class="article-detail">
-            <div class="article-hero">
-                <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&h=600&fit=crop" alt="Quantum Computing">
+        <article class="article-detail" id="articleDetail">
+            <div class="loading" id="loading"></div>
+        </article>
+
+        <!-- Related Articles -->
+        <section class="mb-4" style="margin-top: 3rem;" id="relatedSection" style="display: none;">
+            <h2 class="mb-2">Related Articles</h2>
+            <div class="article-grid" id="relatedGrid"></div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>About Insightinfo</h4>
+                <p>Your trusted source for the latest insights in Technology, Finance, AI Tools, and Health & Lifestyle.</p>
             </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="category.html?cat=technology">Technology</a></li>
+                    <li><a href="category.html?cat=finance">Finance</a></li>
+                    <li><a href="category.html?cat=ai-tools">AI Tools</a></li>
+                    <li><a href="category.html?cat=health-lifestyle">Health & Lifestyle</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 Insightinfo. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()">↑</button>
+
+    <script>
+        const categoryNames = {
+            'technology': 'Technology',
+            'finance': 'Finance',
+            'ai-tools': 'AI Tools',
+            'health-lifestyle': 'Health & Lifestyle'
+        };
+
+        // Generate view count
+        function generateViews() {
+            const views = Math.floor(Math.random() * 25000) + 5000;
+            return views.toLocaleString();
+        }
+
+        // Generate date
+        function generateDate() {
+            const today = new Date();
+            const daysAgo = Math.floor(Math.random() * 30);
+            const date = new Date(today);
+            date.setDate(date.getDate() - daysAgo);
+            return date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+        }
+
+        // Generate article content (placeholder)
+        function generateContent(article) {
+            return `
+                <p>In this comprehensive guide, we explore everything you need to know about ${article.title.toLowerCase()}.</p>
+                
+                <h2>Introduction</h2>
+                <p>The landscape of ${categoryNames[article.category].toLowerCase()} is rapidly evolving, and understanding the key concepts has never been more important. This article dives deep into the subject matter, providing you with actionable insights and expert analysis.</p>
+                
+                <h2>Key Points</h2>
+                <ul>
+                    <li><strong>Understanding the Basics:</strong> We'll start with foundational concepts that everyone should know.</li>
+                    <li><strong>Current Trends:</strong> Learn about the latest developments shaping the industry.</li>
+                    <li><strong>Practical Applications:</strong> Discover how to apply these insights in real-world scenarios.</li>
+                    <li><strong>Future Outlook:</strong> Get a glimpse of what's coming next in this space.</li>
+                </ul>
+                
+                <h2>Why This Matters</h2>
+                <p>${article.excerpt}</p>
+                
+                <blockquote>"The key to success in ${categoryNames[article.category].toLowerCase()} is staying informed and adaptable. Those who embrace change will thrive."</blockquote>
+                
+                <h2>Actionable Takeaways</h2>
+                <ol>
+                    <li>Stay updated with the latest trends and developments</li>
+                    <li>Apply these insights to your own projects or investments</li>
+                    <li>Share your knowledge with others in your network</li>
+                    <li>Continue learning through our recommended resources</li>
+                </ol>
+                
+                <h2>Conclusion</h2>
+                <p>We hope this article has provided valuable insights into ${article.title.toLowerCase()}. The world of ${categoryNames[article.category].toLowerCase()} continues to evolve, and staying informed is the key to success.</p>
+                <p>What are your thoughts on this topic? Share your experiences in the comments below!</p>
+            `;
+        }
+
+        // Render article
+        function renderArticle(article) {
+            const container = document.getElementById('articleDetail');
+            const loading = document.getElementById('loading');
+            if (loading) loading.remove();
             
-            <div class="article-body">
-                <header class="article-header">
-                    <span class="card-category">Technology</span>
-                    <h1>Quantum Computing Breakthrough: IBM Achieves 1000-Qubit Processor Milestone</h1>
-                    <div class="article-meta">
-                        <span>📅 January 15, 2025</span>
-                        <span>✍️ Sarah Chen</span>
-                        <span>👁 12,547 views</span>
-                        <span>⏱️ 8 min read</span>
+            const views = generateViews();
+            const date = generateDate();
+            
+            container.innerHTML = `
+                <div class="article-hero">
+                    <img src="${article.image.replace('w=600&h=400', 'w=1200&h=600')}" alt="${article.title}">
+                </div>
+                
+                <div class="article-body">
+                    <header class="article-header">
+                        <span class="card-category">${categoryNames[article.category]}</span>
+                        <h1>${article.title}</h1>
+                        <div class="article-meta">
+                            <span>📅 ${date}</span>
+                            <span>✍️ ${article.author}</span>
+                            <span>👁 ${views} views</span>
+                            <span>⏱️ ${article.readTime}</span>
+                        </div>
+                    </header>
+
+                    <div class="article-content">
+                        ${generateContent(article)}
                     </div>
-                </header>
-
-                <div class="article-content">
-                    <p>In a landmark announcement that could reshape the future of computing, IBM has unveiled its latest quantum processor, featuring over 1,000 qubits...</p>
-                    
-                    <h2>What This Means for the Industry</h2>
-                    <ul>
-                        <li><strong>Drug Discovery:</strong> Simulating molecular interactions at unprecedented speeds</li>
-                        <li><strong>Climate Modeling:</strong> More accurate predictions of weather patterns</li>
-                        <li><strong>Financial Services:</strong> Optimizing portfolios with previously impossible calculations</li>
-                    </ul>
-
-                    <blockquote>"This is not just an incremental improvement—it's a paradigm shift."</blockquote>
-
-                    <h2>Conclusion</h2>
-                    <p>IBM's 1000-qubit processor marks a pivotal moment in the history of computing.</p>
 
                     <div class="article-tags">
-                        <a href="#" class="tag">Quantum Computing</a>
-                        <a href="#" class="tag">IBM</a>
-                        <a href="#" class="tag">Technology</a>
+                        <a href="category.html?cat=${article.category}" class="tag">${categoryNames[article.category]}</a>
+                        <a href="#" class="tag">Trending</a>
+                        <a href="#" class="tag">2025</a>
                     </div>
 
                     <div class="share-section">
                         <h4>Share this article:</h4>
                         <div class="share-buttons">
-                            <a href="#" class="share-btn twitter">Twitter</a>
-                            <a href="#" class="share-btn facebook">Facebook</a>
-                            <a href="#" class="share-btn linkedin">LinkedIn</a>
+                            <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent(article.title)}&url=${encodeURIComponent(window.location.href)}" 
+                               class="share-btn twitter" target="_blank">Twitter</a>
+                            <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}" 
+                               class="share-btn facebook" target="_blank">Facebook</a>
+                            <a href="https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(window.location.href)}&title=${encodeURIComponent(article.title)}" 
+                               class="share-btn linkedin" target="_blank">LinkedIn</a>
                         </div>
                     </div>
                 </div>
-            </div>
-        </article>
-    </main>
+            `;
+            
+            document.title = article.title + ' - Insightinfo';
+        }
 
-    <footer class="footer">
-        <!-- Footer content -->
-    </footer>
+        // Render related articles
+        function renderRelated(currentArticle, allArticles) {
+            const related = allArticles
+                .filter(a => a.category === currentArticle.category && a.id !== currentArticle.id)
+                .slice(0, 3);
+            
+            if (related.length === 0) return;
+            
+            document.getElementById('relatedSection').style.display = 'block';
+            const grid = document.getElementById('relatedGrid');
+            
+            grid.innerHTML = related.map((article, i) => `
+                <article class="article-card">
+                    <div class="card-image">
+                        <img src="${article.image}" alt="${article.title}" loading="lazy">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-category">${categoryNames[article.category]}</span>
+                        <h3 class="card-title">
+                            <a href="article.html?id=${article.id}">${article.title}</a>
+                        </h3>
+                        <p class="card-excerpt">${article.excerpt}</p>
+                        <div class="card-meta">
+                            <span>📅 ${generateDate()}</span>
+                            <span>👁 ${Math.floor(Math.random() * 15 + 5)}K views</span>
+                        </div>
+                        <a href="article.html?id=${article.id}" class="read-more-btn">Read More...</a>
+                    </div>
+                </article>
+            `).join('');
+        }
+
+        // Mobile menu
+        function toggleMenu() {
+            document.getElementById('navContainer').classList.toggle('active');
+        }
+
+        // Back to top
+        window.addEventListener('scroll', function() {
+            const btn = document.getElementById('backToTop');
+            btn.classList.toggle('visible', window.pageYOffset > 300);
+        });
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Load article
+        async function loadArticle() {
+            try {
+                const response = await fetch('articles.json');
+                const data = await response.json();
+                const articles = data.articles;
+                
+                const urlParams = new URLSearchParams(window.location.search);
+                const articleId = parseInt(urlParams.get('id')) || 1;
+                
+                const article = articles.find(a => a.id === articleId) || articles[0];
+                
+                renderArticle(article);
+                renderRelated(article, articles);
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('articleDetail').innerHTML = 
+                    '<p style="text-align: center; padding: 3rem;">Unable to load article. <a href="index.html">Return to homepage</a></p>';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadArticle);
+    </script>
 </body>
 </html>
