@@ -34,8 +34,8 @@
                 </nav>
                 
                 <div class="search-box">
-                    <input type="text" placeholder="Search articles..." id="searchInput" onkeyup="searchArticles()">
-                    <button type="submit" onclick="searchArticles()">🔍</button>
+                    <input type="text" placeholder="Search articles..." id="searchInput">
+                    <button type="button" onclick="handleSearch()">🔍</button>
                 </div>
             </div>
         </div>
@@ -100,14 +100,12 @@
     <button class="back-to-top" id="backToTop" onclick="scrollToTop()">↑</button>
 
     <script>
-        // Configuration
         const ARTICLES_PER_PAGE = 9;
         let allArticles = [];
         let currentPage = 1;
         let currentCategory = 'all';
         let filteredArticles = [];
 
-        // Category info
         const categoryInfo = {
             'all': { title: 'All Articles', desc: 'Browse all articles across different categories' },
             'technology': { title: 'Technology', desc: 'The latest in tech innovation, digital trends, and cutting-edge research' },
@@ -123,13 +121,11 @@
             'health-lifestyle': 'Health & Lifestyle'
         };
 
-        // Generate random view count
         function generateViews() {
             const views = Math.floor(Math.random() * 25000) + 1000;
             return views >= 1000 ? (views / 1000).toFixed(1) + 'K' : views.toString();
         }
 
-        // Generate date
         function generateDate(index) {
             const today = new Date();
             const daysAgo = Math.floor(Math.random() * 30) + index;
@@ -138,34 +134,32 @@
             return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
         }
 
-        // Create article card
         function createArticleCard(article, index) {
-            return `
-                <article class="article-card">
-                    <div class="card-image">
-                        <img src="${article.image}" alt="${article.title}" loading="lazy">
-                    </div>
-                    <div class="card-content">
-                        <span class="card-category">${categoryNames[article.category]}</span>
-                        <h3 class="card-title">
-                            <a href="article.html?id=${article.id}">${article.title}</a>
-                        </h3>
-                        <p class="card-excerpt">${article.excerpt}</p>
-                        <div class="card-meta">
-                            <span>📅 ${generateDate(index)}</span>
-                            <span>👁 ${generateViews()} views</span>
-                        </div>
-                        <a href="article.html?id=${article.id}" class="read-more-btn">Read More...</a>
-                    </div>
-                </article>
-            `;
+            return '<article class="article-card">' +
+                '<div class="card-image">' +
+                '<img src="' + article.image + '" alt="' + article.title + '" loading="lazy">' +
+                '</div>' +
+                '<div class="card-content">' +
+                '<span class="card-category">' + categoryNames[article.category] + '</span>' +
+                '<h3 class="card-title">' +
+                '<a href="article.html?id=' + article.id + '">' + article.title + '</a>' +
+                '</h3>' +
+                '<p class="card-excerpt">' + article.excerpt + '</p>' +
+                '<div class="card-meta">' +
+                '<span>📅 ' + generateDate(index) + '</span>' +
+                '<span>👁 ' + generateViews() + ' views</span>' +
+                '</div>' +
+                '<a href="article.html?id=' + article.id + '" class="read-more-btn">Read More...</a>' +
+                '</div>' +
+                '</article>';
         }
 
-        // Render articles
         function renderArticles(articles) {
             const grid = document.getElementById('articleGrid');
             const loading = document.getElementById('loading');
             if (loading) loading.remove();
+            
+            if (!grid) return;
             
             if (articles.length === 0) {
                 grid.innerHTML = '<p style="text-align: center; grid-column: 1/-1; padding: 3rem;">No articles found in this category.</p>';
@@ -175,39 +169,39 @@
             const startIndex = (currentPage - 1) * ARTICLES_PER_PAGE;
             const pageArticles = articles.slice(startIndex, startIndex + ARTICLES_PER_PAGE);
             
-            grid.innerHTML = pageArticles.map((article, i) => 
-                createArticleCard(article, startIndex + i)
-            ).join('');
+            let html = '';
+            for (let i = 0; i < pageArticles.length; i++) {
+                html += createArticleCard(pageArticles[i], startIndex + i);
+            }
+            grid.innerHTML = html;
             
             renderPagination(articles.length);
         }
 
-        // Render pagination
         function renderPagination(total) {
             const totalPages = Math.ceil(total / ARTICLES_PER_PAGE);
             const pagination = document.getElementById('pagination');
+            
+            if (!pagination) return;
             
             if (totalPages <= 1) {
                 pagination.innerHTML = '';
                 return;
             }
             
-            let html = `<a href="#" class="${currentPage === 1 ? 'disabled' : ''}" 
-                          onclick="changePage(${currentPage - 1}); return false;">«</a>`;
+            let html = '<a href="#" class="' + (currentPage === 1 ? 'disabled' : '') + '" onclick="changePage(' + (currentPage - 1) + '); return false;">«</a>';
             
             for (let i = 1; i <= totalPages; i++) {
                 html += i === currentPage 
-                    ? `<a href="#" class="active">${i}</a>`
-                    : `<a href="#" onclick="changePage(${i}); return false;">${i}</a>`;
+                    ? '<a href="#" class="active">' + i + '</a>'
+                    : '<a href="#" onclick="changePage(' + i + '); return false;">' + i + '</a>';
             }
             
-            html += `<a href="#" class="${currentPage === totalPages ? 'disabled' : ''}" 
-                          onclick="changePage(${currentPage + 1}); return false;">»</a>`;
+            html += '<a href="#" class="' + (currentPage === totalPages ? 'disabled' : '') + '" onclick="changePage(' + (currentPage + 1) + '); return false;">»</a>';
             
             pagination.innerHTML = html;
         }
 
-        // Change page
         function changePage(page) {
             const totalPages = Math.ceil(filteredArticles.length / ARTICLES_PER_PAGE);
             if (page < 1 || page > totalPages) return;
@@ -216,28 +210,29 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Filter by category
         function filterCategory(category) {
             currentCategory = category;
             currentPage = 1;
             
-            // Update UI
-            document.getElementById('categoryTitle').textContent = categoryInfo[category].title;
-            document.getElementById('categoryDesc').textContent = categoryInfo[category].desc;
+            const titleEl = document.getElementById('categoryTitle');
+            const descEl = document.getElementById('categoryDesc');
+            if (titleEl) titleEl.textContent = categoryInfo[category].title;
+            if (descEl) descEl.textContent = categoryInfo[category].desc;
             
-            // Update filter buttons
-            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById('filter-' + category).classList.add('active');
+            var buttons = document.querySelectorAll('.filter-btn');
+            for (var i = 0; i < buttons.length; i++) {
+                buttons[i].classList.remove('active');
+            }
+            var activeBtn = document.getElementById('filter-' + category);
+            if (activeBtn) activeBtn.classList.add('active');
             
-            // Filter articles
             filteredArticles = category === 'all' 
-                ? [...allArticles] 
-                : allArticles.filter(a => a.category === category);
+                ? allArticles.slice() 
+                : allArticles.filter(function(a) { return a.category === category; });
             
             renderArticles(filteredArticles);
             
-            // Update URL
-            const url = new URL(window.location);
+            var url = new URL(window.location);
             if (category === 'all') {
                 url.searchParams.delete('cat');
             } else {
@@ -246,54 +241,67 @@
             history.pushState({}, '', url);
         }
 
-        // Search articles
-        function searchArticles() {
-            const query = document.getElementById('searchInput').value.toLowerCase();
+        function handleSearch() {
+            var input = document.getElementById('searchInput');
+            if (!input) return;
+            
+            var query = input.value.toLowerCase().trim();
+            
             if (!query) {
                 filteredArticles = currentCategory === 'all' 
-                    ? [...allArticles] 
-                    : allArticles.filter(a => a.category === currentCategory);
+                    ? allArticles.slice() 
+                    : allArticles.filter(function(a) { return a.category === currentCategory; });
             } else {
-                filteredArticles = allArticles.filter(a => 
-                    (currentCategory === 'all' || a.category === currentCategory) &&
-                    (a.title.toLowerCase().includes(query) || a.excerpt.toLowerCase().includes(query))
-                );
+                filteredArticles = allArticles.filter(function(a) { 
+                    return (currentCategory === 'all' || a.category === currentCategory) &&
+                           (a.title.toLowerCase().indexOf(query) !== -1 || a.excerpt.toLowerCase().indexOf(query) !== -1);
+                });
             }
             currentPage = 1;
             renderArticles(filteredArticles);
         }
 
-        // Mobile menu
+        document.addEventListener('DOMContentLoaded', function() {
+            var searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                searchInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        handleSearch();
+                    }
+                });
+            }
+        });
+
         function toggleMenu() {
-            document.getElementById('navContainer').classList.toggle('active');
+            var nav = document.getElementById('navContainer');
+            if (nav) nav.classList.toggle('active');
         }
 
-        // Back to top
         window.addEventListener('scroll', function() {
-            const btn = document.getElementById('backToTop');
-            btn.classList.toggle('visible', window.pageYOffset > 300);
+            var btn = document.getElementById('backToTop');
+            if (btn) btn.classList.toggle('visible', window.pageYOffset > 300);
         });
 
         function scrollToTop() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Load articles
         async function loadArticles() {
             try {
-                const response = await fetch('articles.json');
-                const data = await response.json();
+                var response = await fetch('articles.json');
+                var data = await response.json();
                 allArticles = data.articles;
                 
-                // Get category from URL
-                const urlParams = new URLSearchParams(window.location.search);
-                const cat = urlParams.get('cat') || 'all';
+                var urlParams = new URLSearchParams(window.location.search);
+                var cat = urlParams.get('cat') || 'all';
                 
                 filterCategory(cat);
             } catch (error) {
                 console.error('Error:', error);
-                document.getElementById('articleGrid').innerHTML = 
-                    '<p style="text-align: center; grid-column: 1/-1; padding: 3rem;">Unable to load articles.</p>';
+                var grid = document.getElementById('articleGrid');
+                if (grid) {
+                    grid.innerHTML = '<p style="text-align: center; grid-column: 1/-1; padding: 3rem;">Unable to load articles.</p>';
+                }
             }
         }
 
