@@ -124,9 +124,8 @@
 
         function generateDate(index) {
             var today = new Date();
-            var daysAgo = Math.floor(Math.random() * 30) + index;
             var date = new Date(today);
-            date.setDate(date.getDate() - daysAgo);
+            date.setDate(date.getDate() - Math.floor(index / 3));
             return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
         }
 
@@ -198,95 +197,4 @@
 
         function filterCategory(category) {
             currentCategory = category;
-            currentPage = 1;
-            
-            var titleEl = document.getElementById('categoryTitle');
-            var descEl = document.getElementById('categoryDesc');
-            if (titleEl) titleEl.textContent = categoryInfo[category].title;
-            if (descEl) descEl.textContent = categoryInfo[category].desc;
-            
-            var buttons = document.querySelectorAll('.filter-btn');
-            for (var i = 0; i < buttons.length; i++) {
-                buttons[i].classList.remove('active');
-            }
-            var activeBtn = document.getElementById('filter-' + category);
-            if (activeBtn) activeBtn.classList.add('active');
-            
-            filteredArticles = category === 'all' 
-                ? allArticles.slice() 
-                : allArticles.filter(function(a) { return a.category === category; });
-            
-            renderArticles(filteredArticles);
-            
-            var url = new URL(window.location);
-            if (category === 'all') {
-                url.searchParams.delete('cat');
-            } else {
-                url.searchParams.set('cat', category);
-            }
-            history.pushState({}, '', url);
-        }
-
-        function handleSearch() {
-            var input = document.getElementById('searchInput');
-            if (!input) return;
-            var query = input.value.toLowerCase().trim();
-            
-            if (!query) {
-                filteredArticles = currentCategory === 'all' 
-                    ? allArticles.slice() 
-                    : allArticles.filter(function(a) { return a.category === currentCategory; });
-            } else {
-                filteredArticles = allArticles.filter(function(a) { 
-                    return (currentCategory === 'all' || a.category === currentCategory) &&
-                           (a.title.toLowerCase().indexOf(query) !== -1 || a.excerpt.toLowerCase().indexOf(query) !== -1);
-                });
-            }
-            currentPage = 1;
-            renderArticles(filteredArticles);
-        }
-
-        function initSearch() {
-            var searchInput = document.getElementById('searchInput');
-            var searchBtn = document.getElementById('searchBtn');
-            if (searchInput) {
-                searchInput.addEventListener('keypress', function(e) {
-                    if (e.key === 'Enter') { e.preventDefault(); handleSearch(); }
-                });
-            }
-            if (searchBtn) {
-                searchBtn.addEventListener('click', function(e) { e.preventDefault(); handleSearch(); });
-            }
-        }
-
-        function toggleMenu() {
-            var nav = document.getElementById('navContainer');
-            if (nav) nav.classList.toggle('active');
-        }
-
-        function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
-
-        async function loadArticles() {
-            try {
-                var response = await fetch('articles.json');
-                var data = await response.json();
-                allArticles = data.articles;
-                var urlParams = new URLSearchParams(window.location.search);
-                var cat = urlParams.get('cat') || 'all';
-                filterCategory(cat);
-                initSearch();
-            } catch (error) {
-                var grid = document.getElementById('articleGrid');
-                if (grid) grid.innerHTML = '<p style="text-align: center; grid-column: 1/-1; padding: 3rem;">Unable to load articles.</p>';
-            }
-        }
-
-        window.addEventListener('scroll', function() {
-            var btn = document.getElementById('backToTop');
-            if (btn) btn.classList.toggle('visible', window.pageYOffset > 300);
-        });
-
-        document.addEventListener('DOMContentLoaded', loadArticles);
-    </script>
-</body>
-</html>
+            currentPage =
