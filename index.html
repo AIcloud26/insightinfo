@@ -4,25 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Insightinfo - Your trusted source for Technology, Finance, AI Tools, and Health & Lifestyle news and insights.">
-    <meta name="keywords" content="technology news, finance tips, AI tools, health lifestyle, insights, articles">
     <title>Insightinfo - Latest Articles & Insights</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Header -->
     <header class="header">
         <div class="header-content">
             <a href="index.html" class="logo">
                 <div class="logo-icon">I</div>
                 Insight<span>info</span>
             </a>
-            
             <div class="menu-toggle" onclick="toggleMenu()">
-                <span></span>
-                <span></span>
-                <span></span>
+                <span></span><span></span><span></span>
             </div>
-            
             <div class="nav-container" id="navContainer">
                 <nav>
                     <ul class="nav">
@@ -33,7 +27,6 @@
                         <li><a href="category.html?cat=health-lifestyle">Health & Lifestyle</a></li>
                     </ul>
                 </nav>
-                
                 <div class="search-box">
                     <input type="text" placeholder="Search articles..." id="searchInput">
                     <button type="button" id="searchBtn">🔍</button>
@@ -42,7 +35,6 @@
         </div>
     </header>
 
-    <!-- Main Content -->
     <main class="container">
         <div class="page-header">
             <h1>Latest Articles</h1>
@@ -50,27 +42,23 @@
             <p class="last-updated" id="lastUpdated"></p>
         </div>
 
-        <!-- Search Results Info -->
         <div id="searchInfo" style="display: none; margin-bottom: 1rem; padding: 0.5rem 1rem; background: #fff3cd; border-radius: 8px;">
             <span id="searchText"></span>
             <button onclick="clearSearch()" style="margin-left: 10px; background: #ff6b35; color: white; border: none; padding: 2px 10px; border-radius: 4px; cursor: pointer;">Clear</button>
         </div>
 
-        <!-- Article Grid -->
         <div class="article-grid" id="articleGrid">
             <div class="loading" id="loading"></div>
         </div>
 
-        <!-- Pagination -->
         <div class="pagination" id="pagination"></div>
     </main>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-section">
                 <h4>About Insightinfo</h4>
-                <p>Your trusted source for the latest insights in Technology, Finance, AI Tools, and Health & Lifestyle. We bring you well-researched, unbiased information to help you stay informed.</p>
+                <p>Your trusted source for the latest insights in Technology, Finance, AI Tools, and Health & Lifestyle.</p>
             </div>
             <div class="footer-section">
                 <h4>Quick Links</h4>
@@ -87,7 +75,7 @@
                 <ul>
                     <li><a href="about.html">About Us</a></li>
                     <li><a href="privacy.html">Privacy Policy</a></li>
-                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="terms.html">Terms of Service</a></li>
                 </ul>
             </div>
         </div>
@@ -99,7 +87,6 @@
     <button class="back-to-top" id="backToTop" onclick="scrollToTop()">↑</button>
 
     <script>
-        // 全局变量 - 必须在最前面定义
         var ARTICLES_PER_PAGE = 6;
         var allArticles = [];
         var currentPage = 1;
@@ -112,6 +99,14 @@
             'finance': 'Finance',
             'ai-tools': 'AI Tools',
             'health-lifestyle': 'Health & Lifestyle'
+        };
+
+        // 备用图片
+        var fallbackImages = {
+            'technology': 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=400&fit=crop',
+            'finance': 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=600&h=400&fit=crop',
+            'ai-tools': 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=400&fit=crop',
+            'health-lifestyle': 'https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=600&h=400&fit=crop'
         };
 
         function generateViews() {
@@ -139,90 +134,61 @@
         function createArticleCard(article, index) {
             var views = generateViews();
             var date = generateDate(index);
+            var fallbackImg = fallbackImages[article.category] || fallbackImages['technology'];
             
             return '<article class="article-card">' +
-                '<div class="card-image">' +
-                '<img src="' + article.image + '" alt="' + article.title + '" loading="lazy">' +
-                '</div>' +
+                '<div class="card-image"><img src="' + article.image + '" alt="' + article.title + '" loading="lazy" onerror="this.src=\'' + fallbackImg + '\'"></div>' +
                 '<div class="card-content">' +
                 '<span class="card-category">' + categoryNames[article.category] + '</span>' +
-                '<h3 class="card-title">' +
-                '<a href="article.html?id=' + article.id + '">' + article.title + '</a>' +
-                '</h3>' +
+                '<h3 class="card-title"><a href="article.html?id=' + article.id + '">' + article.title + '</a></h3>' +
                 '<p class="card-excerpt">' + article.excerpt + '</p>' +
-                '<div class="card-meta">' +
-                '<span>📅 ' + date + '</span>' +
-                '<span>👁 ' + views + ' views</span>' +
-                '</div>' +
+                '<div class="card-meta"><span>📅 ' + date + '</span><span>👁 ' + views + ' views</span></div>' +
                 '<a href="article.html?id=' + article.id + '" class="read-more-btn">Read More...</a>' +
-                '</div>' +
-                '</article>';
+                '</div></article>';
         }
 
         function renderArticles(articles) {
             var grid = document.getElementById('articleGrid');
             var loading = document.getElementById('loading');
-            
             if (loading) loading.remove();
-            
             if (!grid) return;
             
             if (articles.length === 0) {
-                if (isSearching) {
-                    grid.innerHTML = '<p style="text-align: center; grid-column: 1/-1; padding: 3rem; color: #666;">No articles found for "' + searchQuery + '". Try different keywords.</p>';
-                } else {
-                    grid.innerHTML = '<p style="text-align: center; grid-column: 1/-1; padding: 3rem;">No articles found.</p>';
-                }
+                grid.innerHTML = isSearching 
+                    ? '<p style="text-align:center;grid-column:1/-1;padding:3rem;color:#666;">No articles found for "' + searchQuery + '".</p>'
+                    : '<p style="text-align:center;grid-column:1/-1;padding:3rem;">No articles found.</p>';
                 document.getElementById('pagination').innerHTML = '';
                 return;
             }
             
             var startIndex = (currentPage - 1) * ARTICLES_PER_PAGE;
-            var endIndex = startIndex + ARTICLES_PER_PAGE;
-            var pageArticles = articles.slice(startIndex, endIndex);
-            
+            var pageArticles = articles.slice(startIndex, startIndex + ARTICLES_PER_PAGE);
             var html = '';
             for (var i = 0; i < pageArticles.length; i++) {
                 html += createArticleCard(pageArticles[i], startIndex + i);
             }
             grid.innerHTML = html;
-            
             renderPagination(articles.length);
         }
 
         function renderPagination(totalArticles) {
             var totalPages = Math.ceil(totalArticles / ARTICLES_PER_PAGE);
             var pagination = document.getElementById('pagination');
+            if (!pagination || totalPages <= 1) { if(pagination) pagination.innerHTML = ''; return; }
             
-            if (!pagination) return;
-            
-            if (totalPages <= 1) {
-                pagination.innerHTML = '';
-                return;
-            }
-            
-            var html = '';
-            html += '<a href="#" class="' + (currentPage === 1 ? 'disabled' : '') + '" onclick="changePage(' + (currentPage - 1) + '); return false;">«</a>';
-            
+            var html = '<a href="#" class="' + (currentPage === 1 ? 'disabled' : '') + '" onclick="changePage(' + (currentPage - 1) + ');return false;">«</a>';
             for (var i = 1; i <= totalPages; i++) {
-                if (i === currentPage) {
-                    html += '<a href="#" class="active">' + i + '</a>';
-                } else if (i === 1 || i === totalPages || Math.abs(i - currentPage) <= 1) {
-                    html += '<a href="#" onclick="changePage(' + i + '); return false;">' + i + '</a>';
-                } else if (i === 2 || i === totalPages - 1) {
-                    html += '<a href="#" class="disabled">...</a>';
-                }
+                html += i === currentPage 
+                    ? '<a href="#" class="active">' + i + '</a>'
+                    : '<a href="#" onclick="changePage(' + i + ');return false;">' + i + '</a>';
             }
-            
-            html += '<a href="#" class="' + (currentPage === totalPages ? 'disabled' : '') + '" onclick="changePage(' + (currentPage + 1) + '); return false;">»</a>';
-            
+            html += '<a href="#" class="' + (currentPage === totalPages ? 'disabled' : '') + '" onclick="changePage(' + (currentPage + 1) + ');return false;">»</a>';
             pagination.innerHTML = html;
         }
 
         function changePage(page) {
             var totalPages = Math.ceil(filteredArticles.length / ARTICLES_PER_PAGE);
             if (page < 1 || page > totalPages) return;
-            
             currentPage = page;
             renderArticles(filteredArticles);
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -232,48 +198,37 @@
             var input = document.getElementById('searchInput');
             var searchInfo = document.getElementById('searchInfo');
             var searchText = document.getElementById('searchText');
-            
             if (!input) return;
             
             var query = input.value.trim();
             searchQuery = query;
             
-            if (query === '') {
-                clearSearch();
-                return;
-            }
+            if (query === '') { clearSearch(); return; }
             
             isSearching = true;
             currentPage = 1;
-            
             var lowerQuery = query.toLowerCase();
-            filteredArticles = allArticles.filter(function(article) {
-                var titleMatch = article.title.toLowerCase().indexOf(lowerQuery) !== -1;
-                var excerptMatch = article.excerpt.toLowerCase().indexOf(lowerQuery) !== -1;
-                var categoryMatch = article.category.toLowerCase().indexOf(lowerQuery) !== -1;
-                return titleMatch || excerptMatch || categoryMatch;
+            filteredArticles = allArticles.filter(function(a) {
+                return a.title.toLowerCase().indexOf(lowerQuery) !== -1 ||
+                       a.excerpt.toLowerCase().indexOf(lowerQuery) !== -1 ||
+                       a.category.toLowerCase().indexOf(lowerQuery) !== -1;
             });
             
-            // 显示搜索信息
             if (searchInfo && searchText) {
                 searchInfo.style.display = 'block';
                 searchText.textContent = 'Found ' + filteredArticles.length + ' results for "' + query + '"';
             }
-            
             renderArticles(filteredArticles);
         }
 
         function clearSearch() {
             var input = document.getElementById('searchInput');
             var searchInfo = document.getElementById('searchInfo');
-            
             isSearching = false;
             searchQuery = '';
             currentPage = 1;
-            
             if (input) input.value = '';
             if (searchInfo) searchInfo.style.display = 'none';
-            
             filteredArticles = allArticles.slice();
             renderArticles(filteredArticles);
         }
@@ -283,63 +238,40 @@
             if (nav) nav.classList.toggle('active');
         }
 
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+        function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
 
-        // 初始化搜索事件
         function initSearch() {
             var searchInput = document.getElementById('searchInput');
             var searchBtn = document.getElementById('searchBtn');
-            
             if (searchInput) {
                 searchInput.addEventListener('keypress', function(e) {
-                    if (e.key === 'Enter' || e.keyCode === 13) {
-                        e.preventDefault();
-                        handleSearch();
-                    }
+                    if (e.key === 'Enter' || e.keyCode === 13) { e.preventDefault(); handleSearch(); }
                 });
             }
-            
             if (searchBtn) {
-                searchBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    handleSearch();
-                });
+                searchBtn.addEventListener('click', function(e) { e.preventDefault(); handleSearch(); });
             }
         }
 
-        // 加载文章
         async function loadArticles() {
             try {
                 var response = await fetch('articles.json');
                 var data = await response.json();
                 allArticles = data.articles || [];
                 filteredArticles = allArticles.slice();
-                
                 filteredArticles.sort(function() { return Math.random() - 0.5; });
-                
                 renderArticles(filteredArticles);
                 updateLastUpdated();
                 initSearch();
             } catch (error) {
-                console.error('Error loading articles:', error);
                 var grid = document.getElementById('articleGrid');
-                if (grid) {
-                    grid.innerHTML = '<p style="text-align: center; grid-column: 1/-1; padding: 3rem; color: #999;">Unable to load articles. Please try again later.</p>';
-                }
+                if (grid) grid.innerHTML = '<p style="text-align:center;grid-column:1/-1;padding:3rem;color:#999;">Unable to load articles.</p>';
             }
         }
 
         window.addEventListener('scroll', function() {
             var btn = document.getElementById('backToTop');
-            if (btn) {
-                if (window.pageYOffset > 300) {
-                    btn.classList.add('visible');
-                } else {
-                    btn.classList.remove('visible');
-                }
-            }
+            if (btn) btn.classList.toggle('visible', window.pageYOffset > 300);
         });
 
         document.addEventListener('DOMContentLoaded', loadArticles);
