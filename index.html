@@ -115,9 +115,8 @@
 
         function generateDate(index) {
             var today = new Date();
-            var daysAgo = Math.floor(Math.random() * 30) + index;
             var date = new Date(today);
-            date.setDate(date.getDate() - daysAgo);
+            date.setDate(date.getDate() - Math.floor(index / 3));
             return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
         }
 
