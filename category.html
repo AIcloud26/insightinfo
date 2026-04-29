@@ -8,23 +8,18 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Header -->
     <header class="header">
         <div class="header-content">
             <a href="index.html" class="logo">
                 <div class="logo-icon">I</div>
                 Insight<span>info</span>
             </a>
-            
             <div class="menu-toggle" onclick="toggleMenu()">
-                <span></span>
-                <span></span>
-                <span></span>
+                <span></span><span></span><span></span>
             </div>
-            
             <div class="nav-container" id="navContainer">
                 <nav>
-                    <ul class="nav" id="navMenu">
+                    <ul class="nav">
                         <li><a href="index.html">All</a></li>
                         <li><a href="category.html?cat=technology">Technology</a></li>
                         <li><a href="category.html?cat=finance">Finance</a></li>
@@ -32,23 +27,20 @@
                         <li><a href="category.html?cat=health-lifestyle">Health & Lifestyle</a></li>
                     </ul>
                 </nav>
-                
                 <div class="search-box">
                     <input type="text" placeholder="Search articles..." id="searchInput">
-                    <button type="button" onclick="handleSearch()">🔍</button>
+                    <button type="button" id="searchBtn">🔍</button>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- Main Content -->
     <main class="container">
         <div class="page-header">
             <h1 id="categoryTitle">All Articles</h1>
             <p id="categoryDesc">Browse all articles across different categories</p>
         </div>
 
-        <!-- Category Filter -->
         <div class="category-filter">
             <button class="filter-btn" id="filter-all" onclick="filterCategory('all')">All</button>
             <button class="filter-btn" id="filter-technology" onclick="filterCategory('technology')">Technology</button>
@@ -57,16 +49,13 @@
             <button class="filter-btn" id="filter-health-lifestyle" onclick="filterCategory('health-lifestyle')">Health & Lifestyle</button>
         </div>
 
-        <!-- Article Grid -->
         <div class="article-grid" id="articleGrid">
             <div class="loading" id="loading"></div>
         </div>
 
-        <!-- Pagination -->
         <div class="pagination" id="pagination"></div>
     </main>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-section">
@@ -88,25 +77,25 @@
                 <ul>
                     <li><a href="about.html">About Us</a></li>
                     <li><a href="privacy.html">Privacy Policy</a></li>
-                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="terms.html">Terms of Service</a></li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>© 2025 Insightinfo. All rights reserved.</p>
+            <p>© <script>document.write(new Date().getFullYear())</script> Insightinfo. All rights reserved.</p>
         </div>
     </footer>
 
     <button class="back-to-top" id="backToTop" onclick="scrollToTop()">↑</button>
 
     <script>
-        const ARTICLES_PER_PAGE = 9;
-        let allArticles = [];
-        let currentPage = 1;
-        let currentCategory = 'all';
-        let filteredArticles = [];
+        var ARTICLES_PER_PAGE = 9;
+        var allArticles = [];
+        var currentPage = 1;
+        var currentCategory = 'all';
+        var filteredArticles = [];
 
-        const categoryInfo = {
+        var categoryInfo = {
             'all': { title: 'All Articles', desc: 'Browse all articles across different categories' },
             'technology': { title: 'Technology', desc: 'The latest in tech innovation, digital trends, and cutting-edge research' },
             'finance': { title: 'Finance', desc: 'Investment strategies, market insights, and personal finance tips' },
@@ -114,30 +103,38 @@
             'health-lifestyle': { title: 'Health & Lifestyle', desc: 'Wellness tips, healthy recipes, and lifestyle improvements' }
         };
 
-        const categoryNames = {
+        var categoryNames = {
             'technology': 'Technology',
             'finance': 'Finance',
             'ai-tools': 'AI Tools',
             'health-lifestyle': 'Health & Lifestyle'
         };
 
+        var fallbackImages = {
+            'technology': 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=400&fit=crop',
+            'finance': 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=600&h=400&fit=crop',
+            'ai-tools': 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=400&fit=crop',
+            'health-lifestyle': 'https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=600&h=400&fit=crop'
+        };
+
         function generateViews() {
-            const views = Math.floor(Math.random() * 25000) + 1000;
+            var views = Math.floor(Math.random() * 25000) + 1000;
             return views >= 1000 ? (views / 1000).toFixed(1) + 'K' : views.toString();
         }
 
         function generateDate(index) {
-            const today = new Date();
-            const daysAgo = Math.floor(Math.random() * 30) + index;
-            const date = new Date(today);
+            var today = new Date();
+            var daysAgo = Math.floor(Math.random() * 30) + index;
+            var date = new Date(today);
             date.setDate(date.getDate() - daysAgo);
             return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
         }
 
         function createArticleCard(article, index) {
+            var fallbackImg = fallbackImages[article.category] || fallbackImages['technology'];
             return '<article class="article-card">' +
                 '<div class="card-image">' +
-                '<img src="' + article.image + '" alt="' + article.title + '" loading="lazy">' +
+                '<img src="' + article.image + '" alt="' + article.title + '" loading="lazy" onerror="this.src=\'' + fallbackImg + '\'">' +
                 '</div>' +
                 '<div class="card-content">' +
                 '<span class="card-category">' + categoryNames[article.category] + '</span>' +
@@ -155,10 +152,9 @@
         }
 
         function renderArticles(articles) {
-            const grid = document.getElementById('articleGrid');
-            const loading = document.getElementById('loading');
+            var grid = document.getElementById('articleGrid');
+            var loading = document.getElementById('loading');
             if (loading) loading.remove();
-            
             if (!grid) return;
             
             if (articles.length === 0) {
@@ -166,44 +162,34 @@
                 return;
             }
             
-            const startIndex = (currentPage - 1) * ARTICLES_PER_PAGE;
-            const pageArticles = articles.slice(startIndex, startIndex + ARTICLES_PER_PAGE);
-            
-            let html = '';
-            for (let i = 0; i < pageArticles.length; i++) {
+            var startIndex = (currentPage - 1) * ARTICLES_PER_PAGE;
+            var pageArticles = articles.slice(startIndex, startIndex + ARTICLES_PER_PAGE);
+            var html = '';
+            for (var i = 0; i < pageArticles.length; i++) {
                 html += createArticleCard(pageArticles[i], startIndex + i);
             }
             grid.innerHTML = html;
-            
             renderPagination(articles.length);
         }
 
         function renderPagination(total) {
-            const totalPages = Math.ceil(total / ARTICLES_PER_PAGE);
-            const pagination = document.getElementById('pagination');
-            
+            var totalPages = Math.ceil(total / ARTICLES_PER_PAGE);
+            var pagination = document.getElementById('pagination');
             if (!pagination) return;
+            if (totalPages <= 1) { pagination.innerHTML = ''; return; }
             
-            if (totalPages <= 1) {
-                pagination.innerHTML = '';
-                return;
-            }
-            
-            let html = '<a href="#" class="' + (currentPage === 1 ? 'disabled' : '') + '" onclick="changePage(' + (currentPage - 1) + '); return false;">«</a>';
-            
-            for (let i = 1; i <= totalPages; i++) {
+            var html = '<a href="#" class="' + (currentPage === 1 ? 'disabled' : '') + '" onclick="changePage(' + (currentPage - 1) + '); return false;">«</a>';
+            for (var i = 1; i <= totalPages; i++) {
                 html += i === currentPage 
                     ? '<a href="#" class="active">' + i + '</a>'
                     : '<a href="#" onclick="changePage(' + i + '); return false;">' + i + '</a>';
             }
-            
             html += '<a href="#" class="' + (currentPage === totalPages ? 'disabled' : '') + '" onclick="changePage(' + (currentPage + 1) + '); return false;">»</a>';
-            
             pagination.innerHTML = html;
         }
 
         function changePage(page) {
-            const totalPages = Math.ceil(filteredArticles.length / ARTICLES_PER_PAGE);
+            var totalPages = Math.ceil(filteredArticles.length / ARTICLES_PER_PAGE);
             if (page < 1 || page > totalPages) return;
             currentPage = page;
             renderArticles(filteredArticles);
@@ -214,8 +200,8 @@
             currentCategory = category;
             currentPage = 1;
             
-            const titleEl = document.getElementById('categoryTitle');
-            const descEl = document.getElementById('categoryDesc');
+            var titleEl = document.getElementById('categoryTitle');
+            var descEl = document.getElementById('categoryDesc');
             if (titleEl) titleEl.textContent = categoryInfo[category].title;
             if (descEl) descEl.textContent = categoryInfo[category].desc;
             
@@ -244,7 +230,6 @@
         function handleSearch() {
             var input = document.getElementById('searchInput');
             if (!input) return;
-            
             var query = input.value.toLowerCase().trim();
             
             if (!query) {
@@ -261,49 +246,45 @@
             renderArticles(filteredArticles);
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
+        function initSearch() {
             var searchInput = document.getElementById('searchInput');
+            var searchBtn = document.getElementById('searchBtn');
             if (searchInput) {
                 searchInput.addEventListener('keypress', function(e) {
-                    if (e.key === 'Enter') {
-                        handleSearch();
-                    }
+                    if (e.key === 'Enter') { e.preventDefault(); handleSearch(); }
                 });
             }
-        });
+            if (searchBtn) {
+                searchBtn.addEventListener('click', function(e) { e.preventDefault(); handleSearch(); });
+            }
+        }
 
         function toggleMenu() {
             var nav = document.getElementById('navContainer');
             if (nav) nav.classList.toggle('active');
         }
 
-        window.addEventListener('scroll', function() {
-            var btn = document.getElementById('backToTop');
-            if (btn) btn.classList.toggle('visible', window.pageYOffset > 300);
-        });
-
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+        function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
 
         async function loadArticles() {
             try {
                 var response = await fetch('articles.json');
                 var data = await response.json();
                 allArticles = data.articles;
-                
                 var urlParams = new URLSearchParams(window.location.search);
                 var cat = urlParams.get('cat') || 'all';
-                
                 filterCategory(cat);
+                initSearch();
             } catch (error) {
-                console.error('Error:', error);
                 var grid = document.getElementById('articleGrid');
-                if (grid) {
-                    grid.innerHTML = '<p style="text-align: center; grid-column: 1/-1; padding: 3rem;">Unable to load articles.</p>';
-                }
+                if (grid) grid.innerHTML = '<p style="text-align: center; grid-column: 1/-1; padding: 3rem;">Unable to load articles.</p>';
             }
         }
+
+        window.addEventListener('scroll', function() {
+            var btn = document.getElementById('backToTop');
+            if (btn) btn.classList.toggle('visible', window.pageYOffset > 300);
+        });
 
         document.addEventListener('DOMContentLoaded', loadArticles);
     </script>
