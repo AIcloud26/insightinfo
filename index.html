@@ -258,7 +258,7 @@
                 var data = await response.json();
                 allArticles = data.articles || [];
                 filteredArticles = allArticles.slice();
-                filteredArticles.sort(function() { return Math.random() - 0.5; });
+                filteredArticles.sort(function(a, b) { return b.id - a.id; });
                 renderArticles(filteredArticles);
                 updateLastUpdated();
                 initSearch();
