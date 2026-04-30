@@ -6,6 +6,7 @@
     <meta name="description" content="Privacy Policy - How Insightinfo collects, uses, and protects your personal information.">
     <title>Privacy Policy - Insightinfo</title>
     <link rel="stylesheet" href="style.css">
+    <script src="config-loader.js"></script>
 </head>
 <body>
     <header class="header">
@@ -38,8 +39,6 @@
     <main class="container">
         <div class="static-content">
             <h1>Privacy Policy</h1>
-            <p><strong>Last Updated:</strong> <script>document.write(new Date().getFullYear())</script></p>
-
             <p class="lead">Your privacy matters. Here's what we collect, how we use it, and how you can control your data. We've made this policy as clear as possible—because you shouldn't need a PhD to understand what happens to your information.</p>
 
             <h2>The Short Version</h2>
@@ -140,7 +139,7 @@
             <p>We aim to respond within 30 days.</p>
 
             <p style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #eee; color: #888; font-size: 0.9rem;">
-                <em>This Privacy Policy applies to Insightinfo.com and was last updated in April <script>document.write(new Date().getFullYear())</script>. For our terms of use, see our <a href="terms.html">Terms of Service</a>.</em>
+                <em>This Privacy Policy applies to Insightinfo.com and was last updated in <script>document.write(new Date().getFullYear())</script>. For our terms of use, see our <a href="terms.html">Terms of Service</a>.</em>
             </p>
         </div>
     </main>
@@ -186,6 +185,10 @@
         window.addEventListener('scroll', function() {
             var btn = document.getElementById('backToTop');
             if (btn) btn.classList.toggle('visible', window.pageYOffset > 300);
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSiteConfig();
         });
     </script>
 </body>
