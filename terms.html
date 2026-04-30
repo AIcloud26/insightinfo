@@ -6,6 +6,7 @@
     <meta name="description" content="Terms of Service - Insightinfo's terms and conditions for using our website and services.">
     <title>Terms of Service - Insightinfo</title>
     <link rel="stylesheet" href="style.css">
+    <script src="config-loader.js"></script>
 </head>
 <body>
     <header class="header">
@@ -38,8 +39,6 @@
     <main class="container">
         <div class="static-content">
             <h1>Terms of Service</h1>
-            <p><strong>Last Updated:</strong> <script>document.write(new Date().getFullYear())</script></p>
-
             <p class="lead">By using Insightinfo, you agree to these terms. We've kept them readable—because legal documents shouldn't require a law degree to understand.</p>
 
             <h2>1. Acceptance of Terms</h2>
@@ -107,7 +106,7 @@
             </ul>
 
             <p style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #eee; color: #888; font-size: 0.9rem;">
-                <em>These Terms of Service were last updated in April <script>document.write(new Date().getFullYear())</script>. We recommend checking back periodically for any changes.</em>
+                <em>These Terms of Service were last updated in <script>document.write(new Date().getFullYear())</script>. We recommend checking back periodically for any changes.</em>
             </p>
         </div>
     </main>
@@ -153,6 +152,10 @@
         window.addEventListener('scroll', function() {
             var btn = document.getElementById('backToTop');
             if (btn) btn.classList.toggle('visible', window.pageYOffset > 300);
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSiteConfig();
         });
     </script>
 </body>
