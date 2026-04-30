@@ -42,14 +42,6 @@
             <p id="categoryDesc">Browse all articles across different categories</p>
         </div>
 
-        <div class="category-filter" id="categoryFilter">
-            <button class="filter-btn" id="filter-all" onclick="filterCategory('all')">All</button>
-            <button class="filter-btn" id="filter-technology" onclick="filterCategory('technology')">Technology</button>
-            <button class="filter-btn" id="filter-finance" onclick="filterCategory('finance')">Finance</button>
-            <button class="filter-btn" id="filter-ai-tools" onclick="filterCategory('ai-tools')">AI Tools</button>
-            <button class="filter-btn" id="filter-health-lifestyle" onclick="filterCategory('health-lifestyle')">Health & Lifestyle</button>
-        </div>
-
         <div class="article-grid" id="articleGrid">
             <div class="loading" id="loading"></div>
         </div>
@@ -131,25 +123,6 @@
                 names = { 'technology': 'Technology', 'finance': 'Finance', 'ai-tools': 'AI Tools', 'health-lifestyle': 'Health & Lifestyle' };
             }
             return names;
-        }
-
-        function buildFilterButtons(config) {
-            var filterContainer = document.getElementById('categoryFilter');
-            if (!filterContainer) return;
-            
-            var html = '<button class="filter-btn active" id="filter-all" onclick="filterCategory(\'all\')">All</button>';
-            if (config && config.categories) {
-                for (var i = 0; i < config.categories.length; i++) {
-                    var cat = config.categories[i];
-                    html += '<button class="filter-btn" id="filter-' + cat.id + '" onclick="filterCategory(\'' + cat.id + '\')">' + cat.name + '</button>';
-                }
-            } else {
-                html += '<button class="filter-btn" id="filter-technology" onclick="filterCategory(\'technology\')">Technology</button>' +
-                        '<button class="filter-btn" id="filter-finance" onclick="filterCategory(\'finance\')">Finance</button>' +
-                        '<button class="filter-btn" id="filter-ai-tools" onclick="filterCategory(\'ai-tools\')">AI Tools</button>' +
-                        '<button class="filter-btn" id="filter-health-lifestyle" onclick="filterCategory(\'health-lifestyle\')">Health & Lifestyle</button>';
-            }
-            filterContainer.innerHTML = html;
         }
 
         function getFallbackImage(category) {
@@ -245,13 +218,6 @@
             if (titleEl) titleEl.textContent = catInfo.title;
             if (descEl) descEl.textContent = catInfo.desc;
             
-            var buttons = document.querySelectorAll('.filter-btn');
-            for (var i = 0; i < buttons.length; i++) {
-                buttons[i].classList.remove('active');
-            }
-            var activeBtn = document.getElementById('filter-' + category);
-            if (activeBtn) activeBtn.classList.add('active');
-            
             filteredArticles = category === 'all' 
                 ? allArticles.slice() 
                 : allArticles.filter(function(a) { return a.category === category; });
@@ -314,7 +280,6 @@
                     if (config) {
                         categoryInfo = buildCategoryInfo(config);
                         categoryNames = buildCategoryNames(config);
-                        buildFilterButtons(config);
                     } else {
                         categoryNames = { 'technology': 'Technology', 'finance': 'Finance', 'ai-tools': 'AI Tools', 'health-lifestyle': 'Health & Lifestyle' };
                     }
