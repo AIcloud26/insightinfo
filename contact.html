@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contact Insightinfo - Get in touch with our team for questions, tips, partnerships, or feedback.">
+    <title>Contact Us - Insightinfo</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="config-loader.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">I</div>
+                Insight<span>info</span>
+            </a>
+            <div class="menu-toggle" onclick="toggleMenu()">
+                <span></span><span></span><span></span>
+            </div>
+            <div class="nav-container" id="navContainer">
+                <nav>
+                    <ul class="nav">
+                        <li><a href="index.html">All</a></li>
+                        <li><a href="category.html?cat=technology">Technology</a></li>
+                        <li><a href="category.html?cat=finance">Finance</a></li>
+                        <li><a href="category.html?cat=ai-tools">AI Tools</a></li>
+                        <li><a href="category.html?cat=health-lifestyle">Health & Lifestyle</a></li>
+                    </ul>
+                </nav>
+                <div class="search-box">
+                    <input type="text" placeholder="Search articles..." id="searchInput">
+                    <button type="button" id="searchBtn">🔍</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="static-content">
+            <h1>Contact Us</h1>
+            <p class="lead">Have a question, story tip, or partnership proposal? We'd love to hear from you. Our team typically responds within 24-48 hours.</p>
+
+            <h2>Get in Touch</h2>
+
+            <div class="values-grid">
+                <div class="value-item">
+                    <h3>📧 General Inquiries</h3>
+                    <p>For questions about our content, site features, or anything else.</p>
+                    <p><strong>hello@insightinfo.com</strong></p>
+                </div>
+                <div class="value-item">
+                    <h3>💡 Tips & Story Ideas</h3>
+                    <p>Got a scoop or a topic you think we should cover?</p>
+                    <p><strong>tips@insightinfo.com</strong></p>
+                </div>
+                <div class="value-item">
+                    <h3>🤝 Partnerships</h3>
+                    <p>Advertising, sponsored content, and business collaborations.</p>
+                    <p><strong>partners@insightinfo.com</strong></p>
+                </div>
+                <div class="value-item">
+                    <h3>⚖️ Legal & Privacy</h3>
+                    <p>DMCA notices, privacy concerns, or legal matters.</p>
+                    <p><strong>legal@insightinfo.com</strong></p>
+                </div>
+            </div>
+
+            <h2>Send Us a Message</h2>
+            <form id="contactForm" onsubmit="handleSubmit(event)" style="max-width: 600px;">
+                <div style="margin-bottom: 1rem;">
+                    <label for="name" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Name *</label>
+                    <input type="text" id="name" name="name" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; box-sizing: border-box;">
+                </div>
+                <div style="margin-bottom: 1rem;">
+                    <label for="email" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Email *</label>
+                    <input type="email" id="email" name="email" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; box-sizing: border-box;">
+                </div>
+                <div style="margin-bottom: 1rem;">
+                    <label for="subject" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Subject *</label>
+                    <select id="subject" name="subject" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; box-sizing: border-box; background: white;">
+                        <option value="">Select a topic</option>
+                        <option value="general">General Inquiry</option>
+                        <option value="tip">Story Tip / Idea</option>
+                        <option value="partnership">Partnership Opportunity</option>
+                        <option value="feedback">Content Feedback</option>
+                        <option value="legal">Legal / Privacy</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div style="margin-bottom: 1.5rem;">
+                    <label for="message" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Message *</label>
+                    <textarea id="message" name="message" rows="6" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; box-sizing: border-box; resize: vertical;"></textarea>
+                </div>
+                <button type="submit" style="background: var(--accent-color, #ff6b35); color: white; border: none; padding: 0.875rem 2.5rem; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: opacity 0.2s;">Send Message</button>
+                <p id="formStatus" style="margin-top: 1rem; display: none;"></p>
+            </form>
+
+            <h2 style="margin-top: 3rem;">Frequently Asked Questions</h2>
+            <div style="margin-bottom: 1.5rem;">
+                <h3>Do you accept guest contributions?</h3>
+                <p>We occasionally feature guest writers with unique expertise. Send your pitch with a brief outline to <strong>tips@insightinfo.com</strong> and our editorial team will review it.</p>
+            </div>
+            <div style="margin-bottom: 1.5rem;">
+                <h3>How can I report an error in an article?</h3>
+                <p>Accuracy matters to us. If you spot a factual error, email <strong>hello@insightinfo.com</strong> with the article link and a description of the issue. We'll investigate and correct promptly.</p>
+            </div>
+            <div style="margin-bottom: 1.5rem;">
+                <h3>Can I republish your content?</h3>
+                <p>Short excerpts with proper attribution and a link back are fine. Full republication requires written permission — see our <a href="terms.html">Terms of Service</a> for details.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>About Insightinfo</h4>
+                <p>Your trusted source for the latest insights in Technology, Finance, AI Tools, and Health & Lifestyle.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="category.html?cat=technology">Technology</a></li>
+                    <li><a href="category.html?cat=finance">Finance</a></li>
+                    <li><a href="category.html?cat=ai-tools">AI Tools</a></li>
+                    <li><a href="category.html?cat=health-lifestyle">Health & Lifestyle</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© <script>document.write(new Date().getFullYear())</script> Insightinfo. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()">↑</button>
+
+    <script>
+        function toggleMenu() {
+            var nav = document.getElementById('navContainer');
+            if (nav) nav.classList.toggle('active');
+        }
+        function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+        window.addEventListener('scroll', function() {
+            var btn = document.getElementById('backToTop');
+            if (btn) btn.classList.toggle('visible', window.pageYOffset > 300);
+        });
+
+        function handleSubmit(e) {
+            e.preventDefault();
+            var status = document.getElementById('formStatus');
+            status.style.display = 'block';
+            status.style.color = '#155724';
+            status.style.background = '#d4edda';
+            status.style.padding = '0.75rem 1rem';
+            status.style.borderRadius = '8px';
+            status.textContent = '✓ Message received! Thank you for reaching out. We\'ll get back to you within 24-48 hours.';
+            document.getElementById('contactForm').reset();
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSiteConfig(function(config) {
+                if (config) {
+                    var h1 = document.querySelector('.static-content h1');
+                    if (h1) h1.textContent = 'Contact ' + config.siteName;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
