@@ -6,6 +6,7 @@
     <meta name="description" content="About Insightinfo - Your trusted source for Technology, Finance, AI Tools, and Health & Lifestyle insights.">
     <title>About Us - Insightinfo</title>
     <link rel="stylesheet" href="style.css">
+    <script src="config-loader.js"></script>
 </head>
 <body>
     <header class="header">
@@ -42,7 +43,7 @@
             <p class="lead">Your daily dose of insights across Technology, Finance, AI Tools, and Health & Lifestyle. We cut through the noise to bring you what matters.</p>
 
             <h2>Who We Are</h2>
-            <p>Insightinfo is a digital publication dedicated to making complex topics accessible and actionable. Founded in 2025, we've grown from a small blog into a trusted resource for millions of readers worldwide who want to stay informed without drowning in jargon.</p>
+            <p>Insightinfo is a digital publication dedicated to making complex topics accessible and actionable. Founded in <script>document.write(new Date().getFullYear())</script>, we've grown from a small blog into a trusted resource for millions of readers worldwide who want to stay informed without drowning in jargon.</p>
 
             <h2>What We Believe</h2>
             <div class="values-grid">
@@ -141,6 +142,17 @@
         window.addEventListener('scroll', function() {
             var btn = document.getElementById('backToTop');
             if (btn) btn.classList.toggle('visible', window.pageYOffset > 300);
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSiteConfig(function(config) {
+                if (config) {
+                    var h1 = document.querySelector('.static-content h1');
+                    if (h1) h1.textContent = 'About ' + config.siteName;
+                    var lead = document.querySelector('.static-content .lead');
+                    if (lead && config.tagline) lead.textContent = config.tagline;
+                }
+            });
         });
     </script>
 </body>
