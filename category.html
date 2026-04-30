@@ -6,6 +6,7 @@
     <meta name="description" content="Browse articles by category - Technology, Finance, AI Tools, and Health & Lifestyle on Insightinfo.">
     <title>Category - Insightinfo</title>
     <link rel="stylesheet" href="style.css">
+    <script src="config-loader.js"></script>
 </head>
 <body>
     <header class="header">
@@ -41,7 +42,7 @@
             <p id="categoryDesc">Browse all articles across different categories</p>
         </div>
 
-        <div class="category-filter">
+        <div class="category-filter" id="categoryFilter">
             <button class="filter-btn" id="filter-all" onclick="filterCategory('all')">All</button>
             <button class="filter-btn" id="filter-technology" onclick="filterCategory('technology')">Technology</button>
             <button class="filter-btn" id="filter-finance" onclick="filterCategory('finance')">Finance</button>
@@ -95,27 +96,65 @@
         var currentCategory = 'all';
         var filteredArticles = [];
 
+        var defaultFallback = 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=400&fit=crop';
+
         var categoryInfo = {
-            'all': { title: 'All Articles', desc: 'Browse all articles across different categories' },
-            'technology': { title: 'Technology', desc: 'The latest in tech innovation, digital trends, and cutting-edge research' },
-            'finance': { title: 'Finance', desc: 'Investment strategies, market insights, and personal finance tips' },
-            'ai-tools': { title: 'AI Tools', desc: 'Discover the latest artificial intelligence tools and how to use them' },
-            'health-lifestyle': { title: 'Health & Lifestyle', desc: 'Wellness tips, healthy recipes, and lifestyle improvements' }
+            'all': { title: 'All Articles', desc: 'Browse all articles across different categories' }
         };
 
-        var categoryNames = {
-            'technology': 'Technology',
-            'finance': 'Finance',
-            'ai-tools': 'AI Tools',
-            'health-lifestyle': 'Health & Lifestyle'
-        };
-
+        var categoryNames = {};
         var fallbackImages = {
             'technology': 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=400&fit=crop',
             'finance': 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=600&h=400&fit=crop',
             'ai-tools': 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=400&fit=crop',
             'health-lifestyle': 'https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=600&h=400&fit=crop'
         };
+
+        function buildCategoryInfo(config) {
+            var info = { 'all': { title: 'All Articles', desc: 'Browse all articles across different categories' } };
+            if (config && config.categories) {
+                for (var i = 0; i < config.categories.length; i++) {
+                    var cat = config.categories[i];
+                    info[cat.id] = { title: cat.name, desc: cat.desc || cat.name };
+                }
+            }
+            return info;
+        }
+
+        function buildCategoryNames(config) {
+            var names = {};
+            if (config && config.categories) {
+                for (var i = 0; i < config.categories.length; i++) {
+                    names[config.categories[i].id] = config.categories[i].name;
+                }
+            } else {
+                names = { 'technology': 'Technology', 'finance': 'Finance', 'ai-tools': 'AI Tools', 'health-lifestyle': 'Health & Lifestyle' };
+            }
+            return names;
+        }
+
+        function buildFilterButtons(config) {
+            var filterContainer = document.getElementById('categoryFilter');
+            if (!filterContainer) return;
+            
+            var html = '<button class="filter-btn active" id="filter-all" onclick="filterCategory(\'all\')">All</button>';
+            if (config && config.categories) {
+                for (var i = 0; i < config.categories.length; i++) {
+                    var cat = config.categories[i];
+                    html += '<button class="filter-btn" id="filter-' + cat.id + '" onclick="filterCategory(\'' + cat.id + '\')">' + cat.name + '</button>';
+                }
+            } else {
+                html += '<button class="filter-btn" id="filter-technology" onclick="filterCategory(\'technology\')">Technology</button>' +
+                        '<button class="filter-btn" id="filter-finance" onclick="filterCategory(\'finance\')">Finance</button>' +
+                        '<button class="filter-btn" id="filter-ai-tools" onclick="filterCategory(\'ai-tools\')">AI Tools</button>' +
+                        '<button class="filter-btn" id="filter-health-lifestyle" onclick="filterCategory(\'health-lifestyle\')">Health & Lifestyle</button>';
+            }
+            filterContainer.innerHTML = html;
+        }
+
+        function getFallbackImage(category) {
+            return fallbackImages[category] || defaultFallback;
+        }
 
         function generateViews() {
             var views = Math.floor(Math.random() * 25000) + 1000;
@@ -130,13 +169,14 @@
         }
 
         function createArticleCard(article, index) {
-            var fallbackImg = fallbackImages[article.category] || fallbackImages['technology'];
+            var fallbackImg = getFallbackImage(article.category);
+            var catName = categoryNames[article.category] || article.category;
             return '<article class="article-card">' +
                 '<div class="card-image">' +
                 '<img src="' + article.image + '" alt="' + article.title + '" loading="lazy" onerror="this.src=\'' + fallbackImg + '\'">' +
                 '</div>' +
                 '<div class="card-content">' +
-                '<span class="card-category">' + categoryNames[article.category] + '</span>' +
+                '<span class="card-category">' + catName + '</span>' +
                 '<h3 class="card-title">' +
                 '<a href="article.html?id=' + article.id + '">' + article.title + '</a>' +
                 '</h3>' +
@@ -201,8 +241,9 @@
             
             var titleEl = document.getElementById('categoryTitle');
             var descEl = document.getElementById('categoryDesc');
-            if (titleEl) titleEl.textContent = categoryInfo[category].title;
-            if (descEl) descEl.textContent = categoryInfo[category].desc;
+            var catInfo = categoryInfo[category] || { title: category, desc: '' };
+            if (titleEl) titleEl.textContent = catInfo.title;
+            if (descEl) descEl.textContent = catInfo.desc;
             
             var buttons = document.querySelectorAll('.filter-btn');
             for (var i = 0; i < buttons.length; i++) {
@@ -238,11 +279,11 @@
                     : allArticles.filter(function(a) { return a.category === currentCategory; });
             } else {
                 filteredArticles = allArticles.filter(function(a) { 
+                    var catName = categoryNames[a.category] || a.category;
                     return (currentCategory === 'all' || a.category === currentCategory) &&
-                           (a.title.toLowerCase().indexOf(query) !== -1 || a.excerpt.toLowerCase().indexOf(query) !== -1);
+                           (a.title.toLowerCase().indexOf(query) !== -1 || a.excerpt.toLowerCase().indexOf(query) !== -1 || catName.toLowerCase().indexOf(query) !== -1);
                 });
             }
-            filteredArticles.sort(function(a, b) { return b.id - a.id; });
             currentPage = 1;
             renderArticles(filteredArticles);
         }
@@ -268,6 +309,19 @@
         function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
 
         async function loadArticles() {
+            await new Promise(function(resolve) {
+                loadSiteConfig(function(config) {
+                    if (config) {
+                        categoryInfo = buildCategoryInfo(config);
+                        categoryNames = buildCategoryNames(config);
+                        buildFilterButtons(config);
+                    } else {
+                        categoryNames = { 'technology': 'Technology', 'finance': 'Finance', 'ai-tools': 'AI Tools', 'health-lifestyle': 'Health & Lifestyle' };
+                    }
+                    resolve();
+                });
+            });
+
             try {
                 var response = await fetch('articles-list.json');
                 var data = await response.json();
