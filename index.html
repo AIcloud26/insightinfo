@@ -39,8 +39,7 @@
     <main class="container">
         <div class="page-header">
             <h1>Latest Articles</h1>
-            <p>Discover insights across Technology, Finance, AI Tools, and Health & Lifestyle</p>
-            <p class="last-updated" id="lastUpdated"></p>
+            <p>Curated intelligence at the intersection of technology, finance, AI innovation, and modern wellness — delivered with clarity and depth.</p>
         </div>
 
         <div id="searchInfo" style="display: none; margin-bottom: 1rem; padding: 0.5rem 1rem; background: #fff3cd; border-radius: 8px;">
@@ -131,15 +130,6 @@
             var date = new Date(today);
             date.setDate(date.getDate() - Math.floor(index / 3));
             return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-        }
-
-        function updateLastUpdated() {
-            var now = new Date();
-            var options = { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' };
-            var el = document.getElementById('lastUpdated');
-            if (el) {
-                el.innerHTML = '<small>Last updated: ' + now.toLocaleDateString('en-US', options) + '</small>';
-            }
         }
 
         function createArticleCard(article, index) {
@@ -286,7 +276,6 @@
                 filteredArticles = allArticles.slice();
                 filteredArticles.sort(function(a, b) { return b.id - a.id; });
                 renderArticles(filteredArticles);
-                updateLastUpdated();
                 initSearch();
             } catch (error) {
                 var grid = document.getElementById('articleGrid');
