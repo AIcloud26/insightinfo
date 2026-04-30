@@ -253,7 +253,7 @@
 
         async function loadArticles() {
             try {
-                var response = await fetch('articles.json');
+                var response = await fetch('articles-list.json');
                 var data = await response.json();
                 allArticles = data.articles || [];
                 filteredArticles = allArticles.slice();
