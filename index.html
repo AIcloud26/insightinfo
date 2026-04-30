@@ -6,6 +6,7 @@
     <meta name="description" content="Insightinfo - Your trusted source for Technology, Finance, AI Tools, and Health & Lifestyle news and insights.">
     <title>Insightinfo - Latest Articles & Insights</title>
     <link rel="stylesheet" href="style.css">
+    <script src="config-loader.js"></script>
 </head>
 <body>
     <header class="header">
@@ -94,12 +95,8 @@
         var isSearching = false;
         var searchQuery = '';
 
-        var categoryNames = {
-            'technology': 'Technology',
-            'finance': 'Finance',
-            'ai-tools': 'AI Tools',
-            'health-lifestyle': 'Health & Lifestyle'
-        };
+        var categoryNames = {};
+        var defaultFallback = 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=400&fit=crop';
 
         var fallbackImages = {
             'technology': 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=400&fit=crop',
@@ -107,6 +104,22 @@
             'ai-tools': 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=400&fit=crop',
             'health-lifestyle': 'https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=600&h=400&fit=crop'
         };
+
+        function buildCategoryNames(config) {
+            var names = {};
+            if (config && config.categories) {
+                for (var i = 0; i < config.categories.length; i++) {
+                    names[config.categories[i].id] = config.categories[i].name;
+                }
+            } else {
+                names = { 'technology': 'Technology', 'finance': 'Finance', 'ai-tools': 'AI Tools', 'health-lifestyle': 'Health & Lifestyle' };
+            }
+            return names;
+        }
+
+        function getFallbackImage(category) {
+            return fallbackImages[category] || defaultFallback;
+        }
 
         function generateViews() {
             var views = Math.floor(Math.random() * 25000) + 1000;
@@ -132,12 +145,13 @@
         function createArticleCard(article, index) {
             var views = generateViews();
             var date = generateDate(index);
-            var fallbackImg = fallbackImages[article.category] || fallbackImages['technology'];
+            var fallbackImg = getFallbackImage(article.category);
+            var catName = categoryNames[article.category] || article.category;
             
             return '<article class="article-card">' +
                 '<div class="card-image"><img src="' + article.image + '" alt="' + article.title + '" loading="lazy" onerror="this.src=\'' + fallbackImg + '\'"></div>' +
                 '<div class="card-content">' +
-                '<span class="card-category">' + categoryNames[article.category] + '</span>' +
+                '<span class="card-category">' + catName + '</span>' +
                 '<h3 class="card-title"><a href="article.html?id=' + article.id + '">' + article.title + '</a></h3>' +
                 '<p class="card-excerpt">' + article.excerpt + '</p>' +
                 '<div class="card-meta"><span>📅 ' + date + '</span><span>👁 ' + views + ' views</span></div>' +
@@ -207,9 +221,11 @@
             currentPage = 1;
             var lowerQuery = query.toLowerCase();
             filteredArticles = allArticles.filter(function(a) {
+                var catName = categoryNames[a.category] || a.category;
                 return a.title.toLowerCase().indexOf(lowerQuery) !== -1 ||
                        a.excerpt.toLowerCase().indexOf(lowerQuery) !== -1 ||
-                       a.category.toLowerCase().indexOf(lowerQuery) !== -1;
+                       a.category.toLowerCase().indexOf(lowerQuery) !== -1 ||
+                       catName.toLowerCase().indexOf(lowerQuery) !== -1;
             });
             
             if (searchInfo && searchText) {
@@ -252,6 +268,17 @@
         }
 
         async function loadArticles() {
+            await new Promise(function(resolve) {
+                loadSiteConfig(function(config) {
+                    if (config) {
+                        categoryNames = buildCategoryNames(config);
+                    } else {
+                        categoryNames = { 'technology': 'Technology', 'finance': 'Finance', 'ai-tools': 'AI Tools', 'health-lifestyle': 'Health & Lifestyle' };
+                    }
+                    resolve();
+                });
+            });
+
             try {
                 var response = await fetch('articles-list.json');
                 var data = await response.json();
