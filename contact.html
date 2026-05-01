@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Contact Insightinfo - Get in touch with our team for questions, tips, partnerships, or feedback.">
+    <meta name="description" content="Contact Insightinfo - Send us a message and we'll get back to you within 24-48 hours.">
     <title>Contact Us - Insightinfo</title>
     <link rel="stylesheet" href="style.css">
     <script src="config-loader.js"></script>
@@ -39,35 +39,9 @@
     <main class="container">
         <div class="static-content">
             <h1>Contact Us</h1>
-            <p class="lead">Have a question, story tip, or partnership proposal? We'd love to hear from you. Our team typically responds within 24-48 hours.</p>
+            <p class="lead">Have a question or feedback? Fill out the form below and our team will respond within 24-48 hours.</p>
 
-            <h2>Get in Touch</h2>
-
-            <div class="values-grid">
-                <div class="value-item">
-                    <h3>📧 General Inquiries</h3>
-                    <p>For questions about our content, site features, or anything else.</p>
-                    <p><strong>hello@insightinfo.com</strong></p>
-                </div>
-                <div class="value-item">
-                    <h3>💡 Tips & Story Ideas</h3>
-                    <p>Got a scoop or a topic you think we should cover?</p>
-                    <p><strong>tips@insightinfo.com</strong></p>
-                </div>
-                <div class="value-item">
-                    <h3>🤝 Partnerships</h3>
-                    <p>Advertising, sponsored content, and business collaborations.</p>
-                    <p><strong>partners@insightinfo.com</strong></p>
-                </div>
-                <div class="value-item">
-                    <h3>⚖️ Legal & Privacy</h3>
-                    <p>DMCA notices, privacy concerns, or legal matters.</p>
-                    <p><strong>legal@insightinfo.com</strong></p>
-                </div>
-            </div>
-
-            <h2>Send Us a Message</h2>
-            <form id="contactForm" onsubmit="handleSubmit(event)" style="max-width: 600px;">
+            <form id="contactForm" style="max-width: 600px; margin-top: 2rem;">
                 <div style="margin-bottom: 1rem;">
                     <label for="name" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Name *</label>
                     <input type="text" id="name" name="name" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; box-sizing: border-box;">
@@ -81,10 +55,9 @@
                     <select id="subject" name="subject" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; box-sizing: border-box; background: white;">
                         <option value="">Select a topic</option>
                         <option value="general">General Inquiry</option>
-                        <option value="tip">Story Tip / Idea</option>
-                        <option value="partnership">Partnership Opportunity</option>
-                        <option value="feedback">Content Feedback</option>
-                        <option value="legal">Legal / Privacy</option>
+                        <option value="tip">Story Tip</option>
+                        <option value="partnership">Partnership</option>
+                        <option value="feedback">Feedback</option>
                         <option value="other">Other</option>
                     </select>
                 </div>
@@ -92,23 +65,9 @@
                     <label for="message" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Message *</label>
                     <textarea id="message" name="message" rows="6" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; box-sizing: border-box; resize: vertical;"></textarea>
                 </div>
-                <button type="submit" style="background: var(--accent-color, #ff6b35); color: white; border: none; padding: 0.875rem 2.5rem; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: opacity 0.2s;">Send Message</button>
+                <button type="submit" id="submitBtn" style="background: var(--accent-color, #ff6b35); color: white; border: none; padding: 0.875rem 2.5rem; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer;">Send Message</button>
                 <p id="formStatus" style="margin-top: 1rem; display: none;"></p>
             </form>
-
-            <h2 style="margin-top: 3rem;">Frequently Asked Questions</h2>
-            <div style="margin-bottom: 1.5rem;">
-                <h3>Do you accept guest contributions?</h3>
-                <p>We occasionally feature guest writers with unique expertise. Send your pitch with a brief outline to <strong>tips@insightinfo.com</strong> and our editorial team will review it.</p>
-            </div>
-            <div style="margin-bottom: 1.5rem;">
-                <h3>How can I report an error in an article?</h3>
-                <p>Accuracy matters to us. If you spot a factual error, email <strong>hello@insightinfo.com</strong> with the article link and a description of the issue. We'll investigate and correct promptly.</p>
-            </div>
-            <div style="margin-bottom: 1.5rem;">
-                <h3>Can I republish your content?</h3>
-                <p>Short excerpts with proper attribution and a link back are fine. Full republication requires written permission — see our <a href="terms.html">Terms of Service</a> for details.</p>
-            </div>
         </div>
     </main>
 
@@ -156,17 +115,31 @@
             if (btn) btn.classList.toggle('visible', window.pageYOffset > 300);
         });
 
-        function handleSubmit(e) {
+        var contactForm = document.getElementById('contactForm');
+        contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
+            var name = document.getElementById('name').value.trim();
+            var email = document.getElementById('email').value.trim();
+            var subject = document.getElementById('subject').value;
+            var message = document.getElementById('message').value.trim();
+
+            if (!name || !email || !subject || !message) return;
+
+            var mailSubject = '[Contact] ' + subject + ' - ' + name;
+            var mailBody = 'Name: ' + name + '\nEmail: ' + email + '\nSubject: ' + subject + '\n\n' + message;
+            var mailtoUrl = 'mailto:support@insightinfo.com?subject=' + encodeURIComponent(mailSubject) + '&body=' + encodeURIComponent(mailBody);
+
+            window.location.href = mailtoUrl;
+
             var status = document.getElementById('formStatus');
             status.style.display = 'block';
             status.style.color = '#155724';
             status.style.background = '#d4edda';
             status.style.padding = '0.75rem 1rem';
             status.style.borderRadius = '8px';
-            status.textContent = '✓ Message received! Thank you for reaching out. We\'ll get back to you within 24-48 hours.';
-            document.getElementById('contactForm').reset();
-        }
+            status.textContent = '✓ Your email client has been opened. If it didn\'t open, send your message to support@insightinfo.com';
+            contactForm.reset();
+        });
 
         document.addEventListener('DOMContentLoaded', function() {
             loadSiteConfig(function(config) {
