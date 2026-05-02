@@ -52,21 +52,13 @@
                 </div>
                 <div style="margin-bottom: 1rem;">
                     <label for="subject" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Subject *</label>
-                    <select id="subject" name="subject" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; box-sizing: border-box; background: white;">
-                        <option value="">Select a topic</option>
-                        <option value="general">General Inquiry</option>
-                        <option value="tip">Story Tip</option>
-                        <option value="partnership">Partnership</option>
-                        <option value="feedback">Feedback</option>
-                        <option value="other">Other</option>
-                    </select>
+                    <input type="text" id="subject" name="subject" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; box-sizing: border-box;">
                 </div>
                 <div style="margin-bottom: 1.5rem;">
                     <label for="message" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Message *</label>
                     <textarea id="message" name="message" rows="6" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; box-sizing: border-box; resize: vertical;"></textarea>
                 </div>
-                <button type="submit" id="submitBtn" style="background: var(--accent-color, #ff6b35); color: white; border: none; padding: 0.875rem 2.5rem; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer;">Send Message</button>
-                <p id="formStatus" style="margin-top: 1rem; display: none;"></p>
+                <button type="submit" style="background: var(--accent-color); color: white; border: none; padding: 1rem 2rem; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer;">Send Message</button>
             </form>
         </div>
     </main>
@@ -74,83 +66,57 @@
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-section">
-                <h4>About Insightinfo</h4>
-                <p>Your trusted source for the latest insights in Technology, Finance, AI Tools, and Health & Lifestyle.</p>
+                <div class="logo" style="margin-bottom: 1rem;">
+                    <div class="logo-icon">I</div>
+                    Insight<span>info</span>
+                </div>
+                <p>Your trusted source for curated insights at the intersection of technology, finance, and modern wellness.</p>
             </div>
             <div class="footer-section">
                 <h4>Quick Links</h4>
                 <ul>
                     <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms of Service</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Categories</h4>
+                <ul>
                     <li><a href="category.html?cat=technology">Technology</a></li>
                     <li><a href="category.html?cat=finance">Finance</a></li>
                     <li><a href="category.html?cat=ai-tools">AI Tools</a></li>
                     <li><a href="category.html?cat=health-lifestyle">Health & Lifestyle</a></li>
                 </ul>
             </div>
-            <div class="footer-section">
-                <h4>Legal</h4>
-                <ul>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
-                    <li><a href="privacy.html">Privacy Policy</a></li>
-                    <li><a href="terms.html">Terms of Service</a></li>
-                </ul>
-            </div>
         </div>
         <div class="footer-bottom">
-            <p>© <script>document.write(new Date().getFullYear())</script> Insightinfo. All rights reserved.</p>
+            <p>&copy; <span id="currentYear"></span> Insightinfo. All rights reserved.</p>
         </div>
     </footer>
 
-    <button class="back-to-top" id="backToTop" onclick="scrollToTop()">↑</button>
-
     <script>
+        // 动态年份
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // 移动菜单切换
         function toggleMenu() {
-            var nav = document.getElementById('navContainer');
-            if (nav) nav.classList.toggle('active');
+            const navContainer = document.getElementById('navContainer');
+            navContainer.classList.toggle('active');
         }
-        function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
-        window.addEventListener('scroll', function() {
-            var btn = document.getElementById('backToTop');
-            if (btn) btn.classList.toggle('visible', window.pageYOffset > 300);
-        });
 
-        var contactForm = document.getElementById('contactForm');
-        contactForm.addEventListener('submit', function(e) {
+        // 联系表单提交 - 打开邮件客户端
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            var name = document.getElementById('name').value.trim();
-            var email = document.getElementById('email').value.trim();
-            var subject = document.getElementById('subject').value;
-            var message = document.getElementById('message').value.trim();
-
-            if (!name || !email || !subject || !message) return;
-
-            // Compose mailto link to support email
-            var mailSubject = '[Contact] ' + subject + ' - ' + name;
-            var mailBody = 'Name: ' + name + '\nEmail: ' + email + '\nSubject: ' + subject + '\n\n' + message;
-            var mailtoUrl = 'mailto:support@insightinfo.com?subject=' + encodeURIComponent(mailSubject) + '&body=' + encodeURIComponent(mailBody);
-
-            // Open mail client
-            window.location.href = mailtoUrl;
-
-            // Show confirmation
-            var status = document.getElementById('formStatus');
-            status.style.display = 'block';
-            status.style.color = '#155724';
-            status.style.background = '#d4edda';
-            status.style.padding = '0.75rem 1rem';
-            status.style.borderRadius = '8px';
-            status.textContent = '✓ Your email client has been opened. If it didn\'t open, send your message to support@insightinfo.com';
-            contactForm.reset();
-        });
-
-        document.addEventListener('DOMContentLoaded', function() {
-            loadSiteConfig(function(config) {
-                if (config) {
-                    var h1 = document.querySelector('.static-content h1');
-                    if (h1) h1.textContent = 'Contact ' + config.siteName;
-                }
-            });
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            
+            const mailtoLink = `mailto:support@insightinfo.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`)}`;
+            window.location.href = mailtoLink;
         });
     </script>
 </body>
