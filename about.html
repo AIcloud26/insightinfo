@@ -3,11 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="About Insightinfo - Your trusted source for Technology, Finance, AI Tools, and Health & Lifestyle insights.">
-    <title>About Us - Insightinfo</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800<link rel="stylesheet" href="style.css">display=swap" rel="stylesheet">
+    <meta name="description" content="Contact Us - Send us a message and we'll get back to you within 24-48 hours.">
+    <title>Contact Us - Insightinfo</title>
     <link rel="stylesheet" href="style.css">
     <script src="config-loader.js"></script>
 </head>
@@ -41,115 +38,86 @@
 
     <main class="container">
         <div class="static-content">
-            <h1>About Insightinfo</h1>
-            
-            <p class="lead">Your daily dose of insights across Technology, Finance, AI Tools, and Health & Lifestyle. We cut through the noise to bring you what matters.</p>
+            <h1>Contact Us</h1>
+            <p class="lead">Have a question or feedback? Fill out the form below and our team will respond within 24-48 hours.</p>
+            <p style="text-align: center; margin-bottom: 2rem; color: var(--text-medium);">You can also reach us directly at: <strong>support@insightinfo.com</strong></p>
 
-            <h2>Who We Are</h2>
-            <p>Insightinfo is a digital publication dedicated to making complex topics accessible and actionable. Founded in <script>document.write(new Date().getFullYear())</script>, we've grown from a small blog into a trusted resource for millions of readers worldwide who want to stay informed without drowning in jargon.</p>
-
-            <h2>What We Believe</h2>
-            <div class="values-grid">
-                <div class="value-item">
-                    <h3>🎯 Clarity Over Complexity</h3>
-                    <p>Technical doesn't have to mean unreadable. We translate industry jargon into language that actually makes sense.</p>
+            <form id="contactForm" style="max-width: 600px; margin: 0 auto;">
+                <div style="margin-bottom: 1rem;">
+                    <label for="name" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Name *</label>
+                    <input type="text" id="name" name="name" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; box-sizing: border-box;">
                 </div>
-                <div class="value-item">
-                    <h3>⚡ Speed Without Sacrifice</h3>
-                    <p>Breaking news delivered fast, but never at the expense of accuracy. We'd rather be second and right than first and wrong.</p>
+                <div style="margin-bottom: 1rem;">
+                    <label for="email" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Email *</label>
+                    <input type="email" id="email" name="email" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; box-sizing: border-box;">
                 </div>
-                <div class="value-item">
-                    <h3>🔍 Depth When It Matters</h3>
-                    <p>Not every story needs 3,000 words, but when it does, we go deep. Our long-form pieces give you the full picture.</p>
+                <div style="margin-bottom: 1rem;">
+                    <label for="subject" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Subject *</label>
+                    <input type="text" id="subject" name="subject" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; box-sizing: border-box;">
                 </div>
-                <div class="value-item">
-                    <h3>🤝 Independence Always</h3>
-                    <p>Our editorial decisions are driven by what's interesting and important—not by who's paying us.</p>
+                <div style="margin-bottom: 1.5rem;">
+                    <label for="message" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Message *</label>
+                    <textarea id="message" name="message" rows="6" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; box-sizing: border-box; resize: vertical;"></textarea>
                 </div>
-            </div>
-
-            <h2>Our Coverage</h2>
-            
-            <h3>🖥️ Technology</h3>
-            <p>From quantum computing to the latest gadget reviews, we cover the innovations reshaping how we live and work. Whether you're a CTO or just curious about what's next, our tech section has you covered.</p>
-            
-            <h3>💰 Finance</h3>
-            <p>Market analysis, personal finance strategies, and crypto deep-dives—without the Wall Street pretension. We help you understand money so you can make smarter decisions.</p>
-            
-            <h3>🤖 AI Tools</h3>
-            <p>The AI revolution is happening now. We review the latest tools, share practical tutorials, and explore the ethical implications of artificial intelligence in everyday life.</p>
-            
-            <h3>🌿 Health & Lifestyle</h3>
-            <p>Science-backed wellness advice that actually works. From sleep optimization to nutrition trends, we separate the fads from the fundamentals.</p>
-
-            <h2>Our Promise to You</h2>
-            <ul>
-                <li><strong>No clickbait.</strong> Our headlines deliver what they promise.</li>
-                <li><strong>No hidden agendas.</strong> Sponsored content is always clearly labeled.</li>
-                <li><strong>No paywalls.</strong> Quality information should be accessible to everyone.</li>
-                <li><strong>No compromise on accuracy.</strong> We correct our mistakes, loudly and transparently.</li>
-            </ul>
-
-            <p style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #eee; color: #666;">
-                <em>Thanks for being here. We don't take your attention for granted.</em>
-            </p>
+                <button type="submit" style="background: var(--accent-color); color: white; border: none; padding: 1rem 2rem; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; width: 100%;">Send Message</button>
+            </form>
         </div>
     </main>
 
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-section">
-                <h4>About Insightinfo</h4>
-                <p>Your trusted source for the latest insights in Technology, Finance, AI Tools, and Health & Lifestyle.</p>
+                <div class="logo" style="margin-bottom: 1rem;">
+                    <div class="logo-icon">I</div>
+                    Insight<span>info</span>
+                </div>
+                <p>Your trusted source for curated insights at the intersection of technology, finance, and modern wellness.</p>
             </div>
             <div class="footer-section">
                 <h4>Quick Links</h4>
                 <ul>
                     <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms of Service</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Categories</h4>
+                <ul>
                     <li><a href="category.html?cat=technology">Technology</a></li>
                     <li><a href="category.html?cat=finance">Finance</a></li>
                     <li><a href="category.html?cat=ai-tools">AI Tools</a></li>
                     <li><a href="category.html?cat=health-lifestyle">Health & Lifestyle</a></li>
                 </ul>
             </div>
-            <div class="footer-section">
-                <h4>Legal</h4>
-                <ul>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
-                    <li><a href="privacy.html">Privacy Policy</a></li>
-                    <li><a href="terms.html">Terms of Service</a></li>
-                </ul>
-            </div>
         </div>
         <div class="footer-bottom">
-            <p>© <script>document.write(new Date().getFullYear())</script> Insightinfo. All rights reserved.</p>
+            <p>&copy; <span id="currentYear"></span> Insightinfo. All rights reserved.</p>
         </div>
     </footer>
 
-    <button class="back-to-top" id="backToTop" onclick="scrollToTop()">↑</button>
-
     <script>
-        function toggleMenu() {
-            var nav = document.getElementById('navContainer');
-            if (nav) nav.classList.toggle('active');
-        }
-        function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
-        window.addEventListener('scroll', function() {
-            var btn = document.getElementById('backToTop');
-            if (btn) btn.classList.toggle('visible', window.pageYOffset > 300);
-        });
+        // 动态年份
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
 
-        // Load site config on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            loadSiteConfig(function(config) {
-                if (config) {
-                    var h1 = document.querySelector('.static-content h1');
-                    if (h1) h1.textContent = 'About ' + config.siteName;
-                    var lead = document.querySelector('.static-content .lead');
-                    if (lead && config.tagline) lead.textContent = config.tagline;
-                }
-            });
+        // 移动菜单切换
+        function toggleMenu() {
+            const navContainer = document.getElementById('navContainer');
+            navContainer.classList.toggle('active');
+        }
+
+        // 联系表单提交 - 打开邮件客户端
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            
+            const mailtoLink = `mailto:support@insightinfo.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`)}`;
+            window.location.href = mailtoLink;
         });
     </script>
 </body>
