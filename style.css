@@ -190,12 +190,12 @@ body {
 }
 
 .page-header .site-tagline {
-    font-size: 0.85rem;
+    font-size: 1.1rem;
     text-transform: uppercase;
-    letter-spacing: 0.25em;
+    letter-spacing: 0.2em;
     color: var(--accent-color);
-    font-weight: 600;
-    margin-bottom: 1rem;
+    font-weight: 800;
+    margin-bottom: 1.25rem;
 }
 
 .page-header .site-description {
@@ -839,8 +839,9 @@ body {
     }
     
     .page-header .site-tagline {
-        font-size: 0.75rem;
-        letter-spacing: 0.2em;
+        font-size: 0.9rem;
+        letter-spacing: 0.15em;
+        font-weight: 800;
     }
     
     .page-header .site-description {
@@ -1069,6 +1070,4 @@ body {
     
     .article-card {
         box-shadow: none;
-        break-inside: avoid;
-    }
-}
+        br
