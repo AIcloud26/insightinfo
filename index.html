@@ -38,8 +38,8 @@
 
     <main class="container">
         <div class="page-header">
-            <h1>Latest Articles</h1>
-            <p>Curated intelligence at the intersection of technology, finance, AI innovation, and modern wellness — delivered with clarity and depth.</p>
+            <h2 class="site-tagline">YOUR TRUSTED SOURCE FOR INSIGHTS</h2>
+            <p class="site-description">Expert analysis and curated intelligence at the intersection of technology, finance, AI innovation, and modern wellness. We deliver clarity, depth, and actionable perspectives to help you navigate our rapidly changing world.</p>
         </div>
 
         <div id="searchInfo" style="display: none; margin-bottom: 1rem; padding: 0.5rem 1rem; background: #fff3cd; border-radius: 8px;">
@@ -98,6 +98,7 @@
         var categoryNames = {};
         var defaultFallback = 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=400&fit=crop';
 
+        // 备用图片
         var fallbackImages = {
             'technology': 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=400&fit=crop',
             'finance': 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=600&h=400&fit=crop',
@@ -259,6 +260,7 @@
         }
 
         async function loadArticles() {
+            // Load config first
             await new Promise(function(resolve) {
                 loadSiteConfig(function(config) {
                     if (config) {
