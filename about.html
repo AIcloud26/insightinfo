@@ -87,14 +87,6 @@
                 <li><strong>No compromise on accuracy.</strong> We correct our mistakes, loudly and transparently.</li>
             </ul>
 
-            <h2>Get in Touch</h2>
-            <p>Have a tip? A story idea? Or just want to say hi? We read every email.</p>
-            <ul>
-                <li><strong>Tips & Story Ideas:</strong> tips@insightinfo.com</li>
-                <li><strong>Partnerships:</strong> partners@insightinfo.com</li>
-                <li><strong>General Questions:</strong> hello@insightinfo.com</li>
-            </ul>
-
             <p style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #eee; color: #666;">
                 <em>Thanks for being here. We don't take your attention for granted.</em>
             </p>
@@ -145,6 +137,7 @@
             if (btn) btn.classList.toggle('visible', window.pageYOffset > 300);
         });
 
+        // Load site config on page load
         document.addEventListener('DOMContentLoaded', function() {
             loadSiteConfig(function(config) {
                 if (config) {
