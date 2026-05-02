@@ -125,12 +125,15 @@
 
             if (!name || !email || !subject || !message) return;
 
+            // Compose mailto link to support email
             var mailSubject = '[Contact] ' + subject + ' - ' + name;
             var mailBody = 'Name: ' + name + '\nEmail: ' + email + '\nSubject: ' + subject + '\n\n' + message;
             var mailtoUrl = 'mailto:support@insightinfo.com?subject=' + encodeURIComponent(mailSubject) + '&body=' + encodeURIComponent(mailBody);
 
+            // Open mail client
             window.location.href = mailtoUrl;
 
+            // Show confirmation
             var status = document.getElementById('formStatus');
             status.style.display = 'block';
             status.style.color = '#155724';
