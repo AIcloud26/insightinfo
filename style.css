@@ -190,12 +190,12 @@ body {
 }
 
 .page-header .site-tagline {
-    font-size: 1.25rem;
+    font-size: 1.75rem;
     text-transform: uppercase;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.1em;
     color: var(--accent-color);
-    font-weight: 800;
-    margin-bottom: 1.25rem;
+    font-weight: 900;
+    margin-bottom: 1.5rem;
 }
 
 .page-header .site-description {
@@ -839,9 +839,9 @@ body {
     }
     
     .page-header .site-tagline {
-        font-size: 1.1rem;
-        letter-spacing: 0.12em;
-        font-weight: 800;
+        font-size: 1.4rem;
+        letter-spacing: 0.08em;
+        font-weight: 900;
     }
     
     .page-header .site-description {
