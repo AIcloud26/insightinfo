@@ -1,6 +1,30 @@
 {
   "articles": [
     {
+      "id": 75643,
+      "category": "finance",
+      "title": "Navigating Stock market analysis: A Beginner's Guide",
+      "excerpt": "How stock market analysis is shaping the future and creating new opportunities.",
+      "image": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&h=400&fit=crop",
+      "readTime": "5 min read"
+    },
+    {
+      "id": 41591,
+      "category": "technology",
+      "title": "Tech startups and innovation: A Complete Guide for Tech Enthusiasts",
+      "excerpt": "Breaking down tech startups and innovation: insights, trends, and practical applications.",
+      "image": "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=600&h=400&fit=crop",
+      "readTime": "9 min read"
+    },
+    {
+      "id": 86526,
+      "category": "finance",
+      "title": "How Real estate investment Is Changing the Financial Landscape",
+      "excerpt": "Everything you need to know about real estate investment to stay ahead of the curve.",
+      "image": "https://images.unsplash.com/photo-1579621970795-6f224c840a2e?w=600&h=400&fit=crop",
+      "readTime": "12 min read"
+    },
+    {
       "id": 83072,
       "category": "technology",
       "title": "AI and Machine Learning breakthroughs Explained: Everything You Need to Know",
@@ -375,34 +399,10 @@
       "excerpt": "Breaking down personal development: insights, trends, and practical applications.",
       "image": "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&h=400&fit=crop",
       "readTime": "10 min read"
-    },
-    {
-      "id": 60998,
-      "category": "ai-tools",
-      "title": "AI writing assistants for Business: A Practical Guide",
-      "excerpt": "Discover how ai writing assistants is revolutionizing the industry and what it means for you.",
-      "image": "https://images.unsplash.com/photo-1676299081847-824916de030a?w=600&h=400&fit=crop",
-      "readTime": "9 min read"
-    },
-    {
-      "id": 92156,
-      "category": "ai-tools",
-      "title": "How AI productivity apps Can Boost Your Productivity",
-      "excerpt": "Everything you need to know about ai productivity apps to stay ahead of the curve.",
-      "image": "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=600&h=400&fit=crop",
-      "readTime": "4 min read"
-    },
-    {
-      "id": 55606,
-      "category": "technology",
-      "title": "Why Web3 and blockchain technology Matters More Than Ever in 2025",
-      "excerpt": "Discover how web3 and blockchain technology is revolutionizing the industry and what it means for you.",
-      "image": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&h=400&fit=crop",
-      "readTime": "7 min read"
     }
   ],
   "metadata": {
-    "lastUpdated": "2026-05-21T03:34:40.429Z",
+    "lastUpdated": "2026-05-22T03:33:11.531Z",
     "totalArticles": 50,
     "newToday": 3,
     "generator": "Template"
