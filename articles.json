@@ -1,6 +1,30 @@
 {
   "articles": [
     {
+      "id": 6992,
+      "category": "technology",
+      "title": "Breaking: Web3 and blockchain technology Is Reshaping the Tech Industry",
+      "excerpt": "Everything you need to know about web3 and blockchain technology to stay ahead of the curve.",
+      "image": "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=600&h=400&fit=crop",
+      "readTime": "9 min read"
+    },
+    {
+      "id": 85637,
+      "category": "health-lifestyle",
+      "title": "Expert Tips on Nutrition and diet trends for Better Living",
+      "excerpt": "The definitive guide to understanding nutrition and diet trends in the current landscape.",
+      "image": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&h=400&fit=crop",
+      "readTime": "5 min read"
+    },
+    {
+      "id": 4190,
+      "category": "health-lifestyle",
+      "title": "Science-Backed: How Productivity hacks Improves Wellbeing",
+      "excerpt": "Get the inside scoop on productivity hacks from industry experts and thought leaders.",
+      "image": "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&h=400&fit=crop",
+      "readTime": "6 min read"
+    },
+    {
       "id": 75643,
       "category": "finance",
       "title": "Navigating Stock market analysis: A Beginner's Guide",
@@ -375,34 +399,10 @@
       "excerpt": "How cryptocurrency and defi trends is shaping the future and creating new opportunities.",
       "image": "https://images.unsplash.com/photo-1553729459-efe14ef6055d?w=600&h=400&fit=crop",
       "readTime": "11 min read"
-    },
-    {
-      "id": 72605,
-      "category": "finance",
-      "title": "Retirement planning: What Investors Need to Know",
-      "excerpt": "Expert analysis on the latest retirement planning trends and their impact on everyday life.",
-      "image": "https://images.unsplash.com/photo-1553729459-efe14ef6055d?w=600&h=400&fit=crop",
-      "readTime": "7 min read"
-    },
-    {
-      "id": 21977,
-      "category": "technology",
-      "title": "Top 5 Trends in Cybersecurity trends and threats for 2025",
-      "excerpt": "A comprehensive look at cybersecurity trends and threats and why it matters in today's world.",
-      "image": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&h=400&fit=crop",
-      "readTime": "11 min read"
-    },
-    {
-      "id": 71378,
-      "category": "health-lifestyle",
-      "title": "Personal development Myths Debunked: What Really Works",
-      "excerpt": "Breaking down personal development: insights, trends, and practical applications.",
-      "image": "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&h=400&fit=crop",
-      "readTime": "10 min read"
     }
   ],
   "metadata": {
-    "lastUpdated": "2026-05-22T03:33:11.531Z",
+    "lastUpdated": "2026-05-23T02:51:18.981Z",
     "totalArticles": 50,
     "newToday": 3,
     "generator": "Template"
