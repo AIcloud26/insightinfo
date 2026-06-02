@@ -1,6 +1,30 @@
 {
   "articles": [
     {
+      "id": 8845,
+      "category": "health-lifestyle",
+      "title": "Expert Tips on Healthy aging for Better Living",
+      "excerpt": "Discover how healthy aging is revolutionizing the industry and what it means for you.",
+      "image": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=600&h=400&fit=crop",
+      "readTime": "9 min read"
+    },
+    {
+      "id": 83363,
+      "category": "health-lifestyle",
+      "title": "Why Work-life balance Should Be Part of Your Routine",
+      "excerpt": "A comprehensive look at work-life balance and why it matters in today's world.",
+      "image": "https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=600&h=400&fit=crop",
+      "readTime": "7 min read"
+    },
+    {
+      "id": 60742,
+      "category": "technology",
+      "title": "Edge computing: A Complete Guide for Tech Enthusiasts",
+      "excerpt": "Get the inside scoop on edge computing from industry experts and thought leaders.",
+      "image": "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=600&h=400&fit=crop",
+      "readTime": "3 min read"
+    },
+    {
       "id": 36935,
       "category": "finance",
       "title": "Smart Money: Understanding Fintech innovations in 2025",
@@ -375,34 +399,10 @@
       "excerpt": "How ai chatbots is shaping the future and creating new opportunities.",
       "image": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=400&fit=crop",
       "readTime": "11 min read"
-    },
-    {
-      "id": 72581,
-      "category": "technology",
-      "title": "The Future of AI and Machine Learning breakthroughs: What to Expect in 2025",
-      "excerpt": "How ai and machine learning breakthroughs is shaping the future and creating new opportunities.",
-      "image": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&h=400&fit=crop",
-      "readTime": "11 min read"
-    },
-    {
-      "id": 21458,
-      "category": "health-lifestyle",
-      "title": "The Ultimate Guide to Productivity hacks for Beginners",
-      "excerpt": "A comprehensive look at productivity hacks and why it matters in today's world.",
-      "image": "https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=600&h=400&fit=crop",
-      "readTime": "9 min read"
-    },
-    {
-      "id": 37663,
-      "category": "technology",
-      "title": "Edge computing Explained: Everything You Need to Know",
-      "excerpt": "The definitive guide to understanding edge computing in the current landscape.",
-      "image": "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=600&h=400&fit=crop",
-      "readTime": "5 min read"
     }
   ],
   "metadata": {
-    "lastUpdated": "2026-06-01T03:56:25.543Z",
+    "lastUpdated": "2026-06-02T03:51:38.696Z",
     "totalArticles": 50,
     "newToday": 3,
     "generator": "Template"
