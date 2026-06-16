@@ -1,6 +1,30 @@
 {
   "articles": [
     {
+      "id": 18923,
+      "category": "health-lifestyle",
+      "title": "The Ultimate Guide to Wellness technology for Beginners",
+      "excerpt": "How wellness technology is shaping the future and creating new opportunities.",
+      "image": "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=600&h=400&fit=crop",
+      "readTime": "8 min read"
+    },
+    {
+      "id": 78377,
+      "category": "health-lifestyle",
+      "title": "Why Sleep optimization Should Be Part of Your Routine",
+      "excerpt": "Discover how sleep optimization is revolutionizing the industry and what it means for you.",
+      "image": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=600&h=400&fit=crop",
+      "readTime": "10 min read"
+    },
+    {
+      "id": 25279,
+      "category": "health-lifestyle",
+      "title": "The Complete Personal development Handbook",
+      "excerpt": "Breaking down personal development: insights, trends, and practical applications.",
+      "image": "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&h=400&fit=crop",
+      "readTime": "8 min read"
+    },
+    {
       "id": 3971,
       "category": "finance",
       "title": "Market Watch: Fintech innovations Trends to Watch",
@@ -375,34 +399,10 @@
       "excerpt": "Expert analysis on the latest machine learning platforms trends and their impact on everyday life.",
       "image": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=400&fit=crop",
       "readTime": "3 min read"
-    },
-    {
-      "id": 65136,
-      "category": "technology",
-      "title": "Breaking: 5G and 6G networks Is Reshaping the Tech Industry",
-      "excerpt": "Discover how 5g and 6g networks is revolutionizing the industry and what it means for you.",
-      "image": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&h=400&fit=crop",
-      "readTime": "3 min read"
-    },
-    {
-      "id": 44473,
-      "category": "finance",
-      "title": "The Future of Global economic outlook: Expert Predictions",
-      "excerpt": "Everything you need to know about global economic outlook to stay ahead of the curve.",
-      "image": "https://images.unsplash.com/photo-1553729459-efe14ef6055d?w=600&h=400&fit=crop",
-      "readTime": "10 min read"
-    },
-    {
-      "id": 52719,
-      "category": "finance",
-      "title": "Market Watch: Retirement planning Trends to Watch",
-      "excerpt": "The definitive guide to understanding retirement planning in the current landscape.",
-      "image": "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=600&h=400&fit=crop",
-      "readTime": "9 min read"
     }
   ],
   "metadata": {
-    "lastUpdated": "2026-06-15T04:09:25.476Z",
+    "lastUpdated": "2026-06-16T03:58:43.345Z",
     "totalArticles": 50,
     "newToday": 3,
     "generator": "Template"
