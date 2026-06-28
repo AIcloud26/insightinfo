@@ -1,6 +1,30 @@
 {
   "articles": [
     {
+      "id": 4856,
+      "category": "health-lifestyle",
+      "title": "Meditation practices Myths Debunked: What Really Works",
+      "excerpt": "Discover how meditation practices is revolutionizing the industry and what it means for you.",
+      "image": "https://images.unsplash.com/photo-1512438248247-f0f2a5a8b7f0?w=600&h=400&fit=crop",
+      "readTime": "12 min read"
+    },
+    {
+      "id": 39707,
+      "category": "ai-tools",
+      "title": "How AI chatbots Can Boost Your Productivity",
+      "excerpt": "Discover how ai chatbots is revolutionizing the industry and what it means for you.",
+      "image": "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=600&h=400&fit=crop",
+      "readTime": "6 min read"
+    },
+    {
+      "id": 90809,
+      "category": "ai-tools",
+      "title": "Voice and speech AI Explained: A Complete Beginner's Guide",
+      "excerpt": "Expert analysis on the latest voice and speech ai trends and their impact on everyday life.",
+      "image": "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=600&h=400&fit=crop",
+      "readTime": "12 min read"
+    },
+    {
       "id": 48391,
       "category": "health-lifestyle",
       "title": "The Complete Work-life balance Handbook",
@@ -375,34 +399,10 @@
       "excerpt": "Expert analysis on the latest budget and savings trends and their impact on everyday life.",
       "image": "https://images.unsplash.com/photo-1553729459-efe14ef6055d?w=600&h=400&fit=crop",
       "readTime": "9 min read"
-    },
-    {
-      "id": 27494,
-      "category": "finance",
-      "title": "Wealth Building: The Role of Stock market analysis",
-      "excerpt": "Discover how stock market analysis is revolutionizing the industry and what it means for you.",
-      "image": "https://images.unsplash.com/photo-1579621970795-6f224c840a2e?w=600&h=400&fit=crop",
-      "readTime": "8 min read"
-    },
-    {
-      "id": 9052,
-      "category": "finance",
-      "title": "How Retirement planning Is Changing the Financial Landscape",
-      "excerpt": "Discover how retirement planning is revolutionizing the industry and what it means for you.",
-      "image": "https://images.unsplash.com/photo-1553729459-efe14ef6055d?w=600&h=400&fit=crop",
-      "readTime": "8 min read"
-    },
-    {
-      "id": 30839,
-      "category": "technology",
-      "title": "Top 5 Trends in Web3 and blockchain technology for 2025",
-      "excerpt": "Get the inside scoop on web3 and blockchain technology from industry experts and thought leaders.",
-      "image": "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=600&h=400&fit=crop",
-      "readTime": "7 min read"
     }
   ],
   "metadata": {
-    "lastUpdated": "2026-06-27T02:56:35.650Z",
+    "lastUpdated": "2026-06-28T03:39:53.006Z",
     "totalArticles": 50,
     "newToday": 3,
     "generator": "Template"
