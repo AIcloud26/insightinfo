@@ -1131,3 +1131,54 @@ body {
     #id-banner { min-height: 60px; }
     #id-rectangle { min-height: 100px; }
 }
+/* ===== Logo（放大到合适尺寸） ===== */
+.logo-img {
+    width: 120px;
+    height: auto;
+    border-radius: 8px;
+    object-fit: contain;
+}
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+/* ===== Ad Containers：未填充时完全隐藏 ===== */
+.adsense-slot {
+    width: 100%;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    overflow: hidden;
+}
+/* 只有当 ins 标签被注入后才显示 */
+.adsense-slot:not(:empty) {
+    margin: 1.5rem 0;
+    padding: 0.5rem;
+}
+#id-banner {
+    max-width: 728px;
+    margin: 0 auto 2rem;
+}
+#id-banner:not(:empty) {
+    min-height: 90px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+#id-rectangle:not(:empty) {
+    min-height: 250px;
+}
+#id-fluid:not(:empty) {
+    min-height: 120px;
+}
+#id-auto:not(:empty) {
+    min-height: 100px;
+    margin: 2rem 0;
+}
+@media (max-width: 768px) {
+    .logo-img { width: 80px; }
+    #id-banner:not(:empty) { min-height: 60px; }
+    #id-rectangle:not(:empty) { min-height: 100px; }
+}
