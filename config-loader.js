@@ -67,7 +67,7 @@ function loadSiteConfig(callback) {
 }
 
 // ==========================================
-// AdSense Manager — inject ads, hide unfilled
+// AdSense Manager
 // ==========================================
 function loadAdSense(config) {
   if (!config || !config.adsense || !config.adsense.enabled) return;
@@ -78,82 +78,58 @@ function loadAdSense(config) {
   var adSlots = pageAds[page];
   if (!adSlots || !adSlots.length) return;
 
-  // 注入 AdSense 脚本（延迟执行）
+  // Inject AdSense script
   var s = document.createElement('script');
   s.async = true;
   s.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=' + clientId;
   s.crossOrigin = 'anonymous';
   document.head.appendChild(s);
 
-  // 构建广告容器（不立即填充）
-  var containers = [];
-  for (var i = 0; i < adSlots.length; i++) {
-    var key = adSlots[i];
-    var def = slots[key];
-    if (!def) continue;
-    var anchor = document.getElementById('ad-' + key);
-    if (!anchor) continue;
-    anchor.className = 'ad-container';
-    var ins = document.createElement('ins');
-    ins.className = 'adsbygoogle';
-    ins.style.display = 'block';
-    ins.setAttribute('data-ad-client', clientId);
-    ins.setAttribute('data-ad-slot', def.id);
-    ins.setAttribute('data-ad-format', def.format || 'auto');
-    ins.setAttribute('data-full-width-responsive', 'true');
-    if (def.layoutKey) ins.setAttribute('data-ad-layout-key', def.layoutKey);
-    anchor.appendChild(ins);
-    containers.push({ el: anchor, ins: ins, isFirst: i === 0 });
-  }
-
-  // 懒加载：用 IntersectionObserver，广告滚入视口时才请求
-  if ('IntersectionObserver' in window) {
-    var observer = new IntersectionObserver(function(entries) {
-      for (var e = 0; e < entries.length; e++) {
-        if (entries[e].isIntersecting) {
-          var target = entries[e].target;
-          var item = containers.filter(function(c) { return c.el === target; })[0];
-          if (item && !item.loaded) {
-            item.loaded = true;
-            try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch(ex) {}
-          }
-          observer.unobserve(target);
-        }
-      }
-    }, { rootMargin: '200px 0px' }); // 提前 200px 开始加载
-
-    for (var i = 0; i < containers.length; i++) {
-      // 首屏广告立即加载（banner 通常在顶部）
-      if (containers[i].isFirst) {
-        try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch(ex) {}
-        containers[i].loaded = true;
-      } else {
-        observer.observe(containers[i].el);
-      }
+  // Build ad containers
+  function buildAds() {
+    for (var i = 0; i < adSlots.length; i++) {
+      var key = adSlots[i];
+      var def = slots[key];
+      if (!def) continue;
+      var anchor = document.getElementById('ad-' + key);
+      if (!anchor) continue;
+      anchor.className = 'ad-container';
+      var ins = document.createElement('ins');
+      ins.className = 'adsbygoogle';
+      ins.style.display = 'block';
+      ins.setAttribute('data-ad-client', clientId);
+      ins.setAttribute('data-ad-slot', def.id);
+      ins.setAttribute('data-ad-format', def.format || 'auto');
+      ins.setAttribute('data-full-width-responsive', 'true');
+      if (def.layoutKey) ins.setAttribute('data-ad-layout-key', def.layoutKey);
+      anchor.appendChild(ins);
     }
-  } else {
-    // 降级：不支持 Observer 就全部立即加载
     try {
       var ads = document.querySelectorAll('.adsbygoogle');
       for (var j = 0; j < ads.length; j++) { (window.adsbygoogle = window.adsbygoogle || []).push({}); }
     } catch(e) {}
+
+    setTimeout(hideUnfilledAds, 3000);
+    setTimeout(hideUnfilledAds, 8000);
   }
 
-  // 隐藏未填充广告
-  setTimeout(hideUnfilledAds, 3000);
-  setTimeout(hideUnfilledAds, 8000);
-}
-
-function hideUnfilledAds() {
-  var allIns = document.querySelectorAll('ins.adsbygoogle');
-  for (var i = 0; i < allIns.length; i++) {
-    var status = allIns[i].getAttribute('data-ad-status');
-    if (status === 'unfilled') {
-      var container = allIns[i].closest('.ad-container');
-      if (container) container.style.display = 'none';
+  function hideUnfilledAds() {
+    var allIns = document.querySelectorAll('ins.adsbygoogle');
+    for (var i = 0; i < allIns.length; i++) {
+      if (allIns[i].getAttribute('data-ad-status') === 'unfilled') {
+        var container = allIns[i].closest('.ad-container');
+        if (container) container.style.display = 'none';
+      }
     }
   }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', buildAds);
+  } else {
+    buildAds();
+  }
 }
+
 // ==========================================
 // Utilities
 // ==========================================
