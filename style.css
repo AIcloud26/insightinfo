@@ -31,13 +31,13 @@ body {
 }
 .logo { font-size: 2rem; font-weight: 700; color: var(--text-dark); text-decoration: none; display: flex; align-items: center; gap: 0.6rem; }
 .logo span { color: var(--primary-color); }
-.logo-img { width: 48px; height: 48px; border-radius: 8px; object-fit: contain; }
-.logo-text { font-size: 1.8rem; font-weight: 700; color: var(--text-dark); }
+.logo-img { width: 64px; height: 64px; border-radius: 10px; object-fit: contain; }
+.logo-text { font-size: 2.2rem; font-weight: 700; color: var(--text-dark); }
 .logo:hover .logo-text { color: var(--primary-color); }
 .logo-icon {
-    width: 42px; height: 42px; background: linear-gradient(135deg, var(--primary-color), #ff8f65);
-    border-radius: 10px; display: flex; align-items: center; justify-content: center;
-    color: white; font-weight: bold; font-size: 1.4rem;
+    width: 56px; height: 56px; background: linear-gradient(135deg, var(--primary-color), #ff8f65);
+    border-radius: 12px; display: flex; align-items: center; justify-content: center;
+    color: white; font-weight: bold; font-size: 1.6rem;
 }
 .nav-container { display: flex; align-items: center; gap: 2.5rem; flex-wrap: wrap; }
 .nav { display: flex; gap: 0.5rem; list-style: none; }
