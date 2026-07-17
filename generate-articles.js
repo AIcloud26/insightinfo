@@ -155,6 +155,20 @@ const PARAGRAPH_TEMPLATES = {
   ]
 };
 
+
+// ============================================
+// Date Generation
+// ============================================
+function generateArticleDate() {
+  // Generate dates between 2025-09-01 and today
+  var start = new Date('2025-09-01');
+  var end = new Date();
+  var diff = end.getTime() - start.getTime();
+  var randomDays = Math.floor(Math.random() * (diff / (1000 * 60 * 60 * 24)));
+  var date = new Date(start.getTime() + randomDays * (1000 * 60 * 60 * 24));
+  return date.toISOString().split('T')[0]; // Format: YYYY-MM-DD
+}
+
 // ============================================
 // 内容生成
 // ============================================
@@ -268,7 +282,8 @@ async function generateArticle(existingIds) {
     excerpt: generated.excerpt,
     content: generated.content,
     image: getImageUrl(category.id),
-    readTime: randomInt(3, 8) + ' min read'
+    readTime: randomInt(3, 8) + ' min read',
+    date: generateArticleDate()
   };
 }
 
@@ -321,7 +336,7 @@ async function main() {
   // 写入 articles-list.json（仅摘要，供首页/分类页/搜索使用）
   var listOutput = {
     articles: finalArticles.map(function(a) {
-      return { id: a.id, category: a.category, title: a.title, excerpt: a.excerpt, image: a.image, readTime: a.readTime };
+      return { id: a.id, category: a.category, title: a.title, excerpt: a.excerpt, image: a.image, readTime: a.readTime, date: a.date };
     }),
     metadata: fullOutput.metadata
   };
