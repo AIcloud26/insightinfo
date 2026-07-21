@@ -137,10 +137,42 @@ body {
 .footer-section ul li { margin-bottom: 0.6rem; }
 .footer-bottom { max-width: 1400px; margin: 2.5rem auto 0; padding-top: 2rem; border-top: 1px solid #444; text-align: center; color: #777; font-size: 0.9rem; }
 /* Pagination */
-.pagination { display: flex; justify-content: center; align-items: center; gap: 0.6rem; margin-top: 3rem; }
-.pagination a { display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; border-radius: 10px; background: var(--white); color: var(--text-medium); text-decoration: none; font-weight: 500; transition: var(--transition); box-shadow: var(--shadow); font-size: 1rem; }
-.pagination a:hover, .pagination a.active { background: var(--primary-color); color: var(--white); }
-.pagination a.disabled { opacity: 0.5; cursor: not-allowed; }
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.6rem;
+    margin-top: 3rem;
+}
+.pagination .page-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    border-radius: 10px;
+    background: var(--white);
+    color: var(--text-medium);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    cursor: pointer;
+}
+.pagination .page-btn:hover:not(.disabled):not(.active) {
+    background: rgba(255, 107, 53, 0.1);
+    color: var(--primary-color);
+    transform: translateY(-3px);
+}
+.pagination .page-btn.active {
+    background: var(--primary-color);
+    color: var(--white);
+}
+.pagination .page-btn.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
 /* Back to Top */
 .back-to-top { position: fixed; bottom: 2.5rem; right: 2.5rem; width: 55px; height: 55px; background: var(--primary-color); color: white; border: none; border-radius: 50%; cursor: pointer; font-size: 1.6rem; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-hover); transition: var(--transition); opacity: 0; visibility: hidden; z-index: 999; }
 .back-to-top.visible { opacity: 1; visibility: visible; }
